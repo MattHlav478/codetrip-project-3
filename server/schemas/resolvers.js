@@ -3,7 +3,7 @@
 
 const resolvers = {
     Query: {},
-    Mutation: {},
+    // Mutation: {},
 };
 // inside of resolvers, Query and Mutation
 // inside of each, add the specific named Q or M according to those sketched out in typeDefs
