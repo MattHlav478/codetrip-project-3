@@ -8,9 +8,10 @@ import {
     // createHttpLink, //allows us to control how the AC makes a request (like middleware for outbound network requests)
 } from "@apollo/client";
 
-import Header from "./Header";
+import Header from "./components/Header";
 import { Create, Dashboard, Home, NoMatch } from "./pages";
-import Footer from "./Footer";
+import Footer from "./components/Footer";
+import LoginForm from "./components/LoginForm";
 
 function App() {
     return (
@@ -20,7 +21,7 @@ function App() {
                 <div className="container">
                     <Routes>
                         <Route path="/" element={<Home />} />
-                        <Route path="/login" element={<Login />} />
+                        <Route path="/login" element={<LoginForm />} />
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/create" element={<Create />} />
                         <Route path="*" element={<NoMatch />} />
