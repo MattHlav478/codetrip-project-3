@@ -10,15 +10,21 @@ export default function Header() {
                 </Link>
 
                 <nav className="text-center">
+                    {/* LOGGED IN: GENU (home), dashboard, meet the team, pricing, logout */}
+                    {/* LOGGED OUT: GENU (home), meet the team, pricing, login */}
+                    {/* so need login/logout to conditionally render, and dashboard to show up ONLY when logged in */}
+                    
                     {/* {Auth.loggedIn() ? (
                         <>
-                            <Link to="/login">Me</Link>
-                            <a href="/" onClick={logout}>
-                                Logout
-                            </a>
+                            <Link to="/dashboard">Dashboard</Link>
+                        <Link to="/pricing">Pricing</Link>
+                        <Link to="/" onClick={logout}>Logout</Link>
+                        functionality to logout
                         </>
                     ) : ( */}
                     <>
+                        <Link to="/thedevelopers">The Developers</Link>
+                        {/* about us? ^^ */}
                         <Link to="/pricing">Pricing</Link>
                         <Link to="/login">Login/Signup</Link>
                         {/* <Link to="/signup"></Link> */}
