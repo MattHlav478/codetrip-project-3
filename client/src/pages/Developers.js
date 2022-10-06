@@ -21,7 +21,7 @@ export default function Developers() {
             about: "",
         },
         {
-            name: "Matt Hvalty",
+            name: "Matt Hlavaty",
             image: "tbc",
             linkedIn: "",
             about: "",

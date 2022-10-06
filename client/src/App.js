@@ -15,6 +15,7 @@ import Home from "./pages/Home";
 import NoMatch from "./pages/NoMatch";
 import Footer from "./components/Footer";
 import LoginForm from "./components/LoginForm";
+import SignupForm from "./components/SignupForm";
 import Developers from "./pages/Developers";
 
 function App() {
@@ -28,8 +29,9 @@ function App() {
                         <Route path="/login" element={<LoginForm />} />
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/create" element={<Create />} />
-                        <Route path="*" element={<NoMatch />} />
                         <Route path="/thedevelopers" element={<Developers />} />
+                        <Route path="/signup" element={<SignupForm />} />
+                        <Route path="*" element={<NoMatch />} />
                     </Routes>
                 </div>
                 <Footer />
