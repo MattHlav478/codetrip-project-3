@@ -1,12 +1,6 @@
 import "./App.css";
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import {
-    ApolloProvider, //special type of React component that we'll use to providate data to ALL of the other components
-    ApolloClient, //constructor function that will help initialize the connection to the GraphQL API server
-    // InMemoryCache, //enables AC instance to cache API response data so we can perform requests more efficiently
-    // createHttpLink, //allows us to control how the AC makes a request (like middleware for outbound network requests)
-} from "@apollo/client";
 
 import Header from "./components/Header";
 import Create from "./pages/Create";
