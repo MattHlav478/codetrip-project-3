@@ -7,11 +7,14 @@ import { Link } from "react-router-dom";
 export default function Dashboard() {
     return (
         <div>
-            <Button type="submit" variant="success">
-                <Link to="/create">Create New Project</Link>
+            <br></br>
+            <Button type="submit" variant="dark">
+                <Link className="no-decor"to="/create">Create New Project</Link>
             </Button>
+
             {/* insert name of user here */}
-            <h1>Welcome!</h1>
+
+            <h1> <br></br> Welcome Name!</h1>
 
             <h2>My Projects</h2>
         </div>

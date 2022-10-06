@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
-import { Link } from "react-router-dom";
 
 const LoginForm = () => {
     const [validated, setValidated] = useState(false);
@@ -33,8 +32,15 @@ const LoginForm = () => {
         }
     };
 
+    const handleSignupBtn = (event) => {
+        window.location.assign("/signup")
+    }
+
+
+
     return (
         <>
+        <br></br>
             <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
                 <Alert
                     dismissible
@@ -74,17 +80,24 @@ const LoginForm = () => {
                     </Form.Control.Feedback>
                 </Form.Group>
 
+                <br></br>
+
                 <Button
                     disabled={!(userFormData.email && userFormData.password)}
                     type="submit"
-                    variant="success"
+                    variant="dark"
                 >
                     Submit
                 </Button>
             </Form>
-
-            <Button>
-                <Link to="/signup"> Not a Member Yet? Sign Up Here!</Link>
+            <br></br>
+            <h4>
+                Not a member?
+            </h4>
+            <Button 
+            onClick={handleSignupBtn}
+            variant="dark">
+               Sign up
             </Button>
         </>
     );

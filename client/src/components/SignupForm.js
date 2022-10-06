@@ -35,6 +35,7 @@ const SignupForm = () => {
 
     return (
         <>
+        <br></br>
             {/* This is needed for the validation functionality above */}
             <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
                 <Form.Group>
@@ -81,6 +82,7 @@ const SignupForm = () => {
                         Password is required!
                     </Form.Control.Feedback>
                 </Form.Group>
+                <br></br>
                 <Button
                     disabled={
                         !(
@@ -90,7 +92,7 @@ const SignupForm = () => {
                         )
                     }
                     type="submit"
-                    variant="success"
+                    variant="dark"
                 >
                     Submit
                 </Button>
