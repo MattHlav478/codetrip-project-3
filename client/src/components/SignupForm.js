@@ -3,6 +3,8 @@ import { Form, Button, Alert } from "react-bootstrap";
 
 const SignupForm = () => {
     //set initial form state
+    const [validated, setValidated] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
     const [userFormData, setUserFormData] = useState({
         name: "",
         email: "",
@@ -12,25 +14,29 @@ const SignupForm = () => {
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setUserFormData({ ...userFormData, [name]: value });
+        console.log(userFormData);
     };
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
+
         console.log("submit clicked!");
-
-        setUserFormData({
-            name: "",
-            email: "",
-            password: "",
-        });
-
-        window.location.assign("/dashboard");
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            setShowAlert(true);
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+            window.location.assign("/dashboard");
+            setValidated(true);
+            setShowAlert(false);
+        }
     };
 
     return (
         <>
             {/* This is needed for the validation functionality above */}
-            <Form onSubmit={handleFormSubmit}>
+            <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
                 <Form.Group>
                     <Form.Label htmlFor="name">Name</Form.Label>
                     <Form.Control
@@ -41,6 +47,9 @@ const SignupForm = () => {
                         value={userFormData.name}
                         required
                     />
+                    <Form.Control.Feedback type="invalid">
+                        Name is required
+                    </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group>
@@ -53,6 +62,9 @@ const SignupForm = () => {
                         value={userFormData.email}
                         required
                     />
+                    <Form.Control.Feedback type="invalid">
+                        Email is required
+                    </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group>
@@ -65,6 +77,9 @@ const SignupForm = () => {
                         value={userFormData.password}
                         required
                     />
+                    <Form.Control.Feedback type="invalid">
+                        Password is required!
+                    </Form.Control.Feedback>
                 </Form.Group>
                 <Button
                     disabled={
