@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const LoginForm = () => {
     const [userFormData, setUserFormData] = useState({
@@ -20,6 +21,7 @@ const LoginForm = () => {
             email: "",
             password: "",
         });
+        window.location.assign("/dashboard");
     };
 
     return (
@@ -58,6 +60,10 @@ const LoginForm = () => {
                 </Button>
                 {/* where does this go next? should we add an onClick for the submit button, where it takes user to dashboard? */}
             </Form>
+
+            <Button>
+                <Link to="/signup"> Not a Member Yet? Sign Up Here!</Link>
+            </Button>
         </>
     );
 };
