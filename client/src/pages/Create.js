@@ -8,6 +8,8 @@ import Table from "react-bootstrap/Table";
 
 import Select from "react-select";
 
+import TableRow from "../components/TableRow";
+
 export default function Create() {
     // implement onBlur functionality here, so if someone skips the * required bits, we let them know it's BAD
     const days = [
@@ -44,6 +46,7 @@ export default function Create() {
         const key = e.target.name;
         const value = e.target.value;
         setMenuItem({ ...menuItem, [key]: value });
+        console.log(menuItem);
     }
 
     // WE ARE ADDING THAT NEW MENU ITEM TO THE FULL MENU
@@ -52,6 +55,7 @@ export default function Create() {
         // create an object with name, price, description (optional), image (optional), and category
         // validation happens here?
         setAllMenuItems([...allMenuItems, menuItem]);
+        console.log(allMenuItems);
     };
 
     return (
@@ -85,50 +89,7 @@ export default function Create() {
                     </thead>
                     <tbody>
                         {days.map((day) => (
-                            <tr>
-                                <td>{day}</td>
-                                <td>
-                                    <TimePicker
-                                        placeholder="Select Time"
-                                        use12Hours
-                                        minuteStep={15}
-                                        showSecond={false}
-                                        focusOnOpen={true}
-                                        format="hh:mm A"
-                                        onChange={(e) =>
-                                            setTime(e.format("LT"))
-                                        }
-                                    />
-                                </td>
-                                <td>
-                                    <TimePicker
-                                        placeholder="Select Time"
-                                        use12Hours
-                                        minuteStep={15}
-                                        showSecond={false}
-                                        focusOnOpen={true}
-                                        format="hh:mm A"
-                                        // disabled={} use this and check if checkbox is selected, if so, disable.
-                                        onChange={(e) =>
-                                            setTime(e.format("LT"))
-                                        }
-                                    />
-                                </td>
-                                <td>
-                                    <Form>
-                                        <div
-                                            key={`default-checkbox`}
-                                            className="mb-3"
-                                        >
-                                            <Form.Check
-                                                type="checkbox"
-                                                id={`default-checkbox`}
-                                                label={"Closed all day"}
-                                            />
-                                        </div>
-                                    </Form>
-                                </td>
-                            </tr>
+                            <TableRow day={day}/>
                         ))}
                     </tbody>
                 </Table>
@@ -144,8 +105,6 @@ export default function Create() {
 
             <h1>What's on the menu?</h1>
             <Form onSubmit={handleNewMenuItem}>
-                {/* plus button adds another form. */}
-
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Item Name*</Form.Label>
                     <Form.Control
@@ -195,6 +154,9 @@ export default function Create() {
                 <br></br>
                 <Button type="submit">Add Next Item</Button>
             </Form>
+            {allMenuItems.map((el) => (
+                <p>{el.name}</p>
+            ))}
         </div>
     );
 }
