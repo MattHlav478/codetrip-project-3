@@ -9,9 +9,13 @@ import {
 } from "@apollo/client";
 
 import Header from "./components/Header";
-import { Create, Dashboard, Home, NoMatch } from "./pages";
+import Create from "./pages/Create";
+import Dashboard from "./pages/Dashboard";
+import Home from "./pages/Home";
+import NoMatch from "./pages/NoMatch";
 import Footer from "./components/Footer";
 import LoginForm from "./components/LoginForm";
+import Developers from "./pages/Developers";
 
 function App() {
     return (
@@ -25,6 +29,7 @@ function App() {
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/create" element={<Create />} />
                         <Route path="*" element={<NoMatch />} />
+                        <Route path="/thedevelopers" element={<Developers />} />
                     </Routes>
                 </div>
                 <Footer />
