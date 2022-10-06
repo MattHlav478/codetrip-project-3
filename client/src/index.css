@@ -14,7 +14,7 @@ code {
 
 #footer {
   text-align: center;
-  position: sticky;
+  position: fixed;
   height: 4vh;
   width: 100%;
   bottom: 0;
