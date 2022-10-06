@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 const LoginForm = () => {
+    const [validated, setValidated] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
     const [userFormData, setUserFormData] = useState({
         email: "",
         password: "",
@@ -11,32 +13,50 @@ const LoginForm = () => {
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setUserFormData({ ...userFormData, [name]: value });
+        console.log(userFormData);
     };
 
-    const handleFormSubmit = (event) => {
-        console.log("submit clicked");
+    const handleFormSubmit = async (event) => {
         event.preventDefault();
-        // clear form values
-        setUserFormData({
-            email: "",
-            password: "",
-        });
-        window.location.assign("/dashboard");
+
+        console.log("submit clicked");
+
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            setShowAlert(true);
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+            window.location.assign("/dashboard");
+            setValidated(true);
+            setShowAlert(false);
+        }
     };
 
     return (
         <>
-            <Form onSubmit={handleFormSubmit}>
+            <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+                <Alert
+                    dismissible
+                    onClose={() => setShowAlert(false)}
+                    show={showAlert}
+                    variant="danger"
+                >
+                    Wrong login credentials!
+                </Alert>
                 <Form.Group>
                     <Form.Label htmlFor="email">Email</Form.Label>
                     <Form.Control
-                        type="text"
+                        type="email"
                         placeholder="Your email"
                         name="email"
                         onChange={handleInputChange}
                         value={userFormData.email}
                         required
                     />
+                    <Form.Control.Feedback type="invalid">
+                        Email is required
+                    </Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group>
@@ -49,16 +69,18 @@ const LoginForm = () => {
                         value={userFormData.password}
                         required
                     />
+                    <Form.Control.Feedback type="invalid">
+                        Password is required!
+                    </Form.Control.Feedback>
                 </Form.Group>
 
                 <Button
-                    disabled={!(userFormData.email && userFormData.Password)}
+                    disabled={!(userFormData.email && userFormData.password)}
                     type="submit"
                     variant="success"
                 >
                     Submit
                 </Button>
-                {/* where does this go next? should we add an onClick for the submit button, where it takes user to dashboard? */}
             </Form>
 
             <Button>
