@@ -95,14 +95,14 @@ export default function Create() {
                 </Table>
 
                 <Button
-                    variant="primary"
+                    variant="dark"
                     type="submit"
                     // onClick={nextPage("menu") see if there are any errors, if not, then continue on to "menu" page}
                 >
                     Next
                 </Button>
             </Form>
-
+                                        <br></br>
             <h1>What's on the menu?</h1>
             <Form onSubmit={handleNewMenuItem}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -133,11 +133,14 @@ export default function Create() {
                     />
                 </Form.Group>
                 {/* optional image uploading, waiting for firebase to happen before any coding */}
-                <Button>Upload image</Button>
+                <Button
+                variant="dark"
+                >Upload image</Button>
 
                 {/* add to a category */}
 
                 <div className="container">
+                    <br></br>
                     <div className="row">
                         <div className="col-md-3"></div>
                         <div className="col-md-6">
@@ -152,7 +155,11 @@ export default function Create() {
                 <br></br>
                 <br></br>
                 <br></br>
-                <Button type="submit">Add Next Item</Button>
+                <Button 
+                variant="dark"
+                type="submit
+                ">Add Next Item
+                </Button>
             </Form>
             {allMenuItems.map((el) => (
                 <p>{el.name}</p>
