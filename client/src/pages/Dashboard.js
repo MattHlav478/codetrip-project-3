@@ -19,4 +19,3 @@ export default function Dashboard() {
             <h2>My Projects</h2>
         </div>
     );
-}
