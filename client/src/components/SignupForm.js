@@ -34,7 +34,8 @@ const SignupForm = () => {
     // });
     // console.log("Document written with ID: ", docRef.id);
 
-    
+
+    //STORE IN FIRESTORE    
     await setDoc(doc(db, "users", userFormData.email), {
       name: userFormData.name,
       password: userFormData.password,
