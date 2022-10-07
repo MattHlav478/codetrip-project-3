@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { db } from "../services/firebaseConnection";
-import { doc, setDoc } from "firebase/firestore";
+import { addDoc, doc, setDoc } from "firebase/firestore";
+import { auth } from "../services/firebaseConnection";
+import {
+  connectAuthEmulator,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+} from "firebase/auth";
 
 const SignupForm = () => {
   //set initial form state
@@ -34,18 +40,32 @@ const SignupForm = () => {
     // });
     // console.log("Document written with ID: ", docRef.id);
 
-
-    //STORE IN FIRESTORE    
+    //STORE IN FIRESTORE
     await setDoc(doc(db, "users", userFormData.email), {
       name: userFormData.name,
       password: userFormData.password,
     });
+
+    // AUTHENTICATE USER SIGN-UP IN FIREBASE
+    try {
+      const userCredential = createUserWithEmailAndPassword(
+        auth,
+        userFormData.email,
+        userFormData.password
+      );
+      console.log(userCredential.user);
+      // await addDoc(doc(db, "users"));
+    } catch (error) {
+      console.log(error);
+    }
   };
+
+  // SIGN-UP with AUTHENTICIATION
 
   return (
     <>
       {/* This is needed for the validation functionality above */}
-      <Form onSubmit={handleFormSubmit} >
+      <Form onSubmit={handleFormSubmit}>
         <Form.Group>
           <Form.Label htmlFor="name">Name</Form.Label>
           <Form.Control
