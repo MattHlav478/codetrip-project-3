@@ -37,6 +37,11 @@ const LoginForm = () => {
     }
   };
 
+  const handleSignupBtn = (event) => {
+    window.location.assign("/signup")
+}
+
+
   return (
     <>
       <Form onSubmit={handleFormSubmit}>
