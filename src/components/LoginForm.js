@@ -70,7 +70,7 @@ const LoginForm = () => {
         </Form.Group>
 
         <Button
-          disabled={!(userFormData.email && userFormData.Password)}
+          disabled={!(userFormData.email && userFormData.password)}
           type="submit"
           variant="success"
         >
