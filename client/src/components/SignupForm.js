@@ -35,16 +35,16 @@ const SignupForm = () => {
     // console.log("Document written with ID: ", docRef.id);
 
     
-    await setDoc(doc(db, "users", userFormData.email), {
-      username: userFormData.username,
-      password: userFormData.password,
+    await setDoc(doc(db, "users", "email"), {
+      username: "timothy",
+      password: "password123",
     });
   };
 
   return (
     <>
       {/* This is needed for the validation functionality above */}
-      <Form onSubmit={handleFormSubmit}>
+      <Form onSubmit={handleFormSubmit} >
         <Form.Group>
           <Form.Label htmlFor="name">Name</Form.Label>
           <Form.Control
