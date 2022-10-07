@@ -23,7 +23,7 @@ export default function Developers() {
         {
             name: "Matt Hlavaty",
             image: "tbc",
-            linkedIn: "",
+            linkedIn: "https://www.linkedin.com/in/matthew-hlavaty-abbb082b/",
             about: "",
         },
     ];
