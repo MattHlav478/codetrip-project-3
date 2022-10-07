@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { auth } from "../services/firebaseConnection";
 import { connectAuthEmulator, signInWithEmailAndPassword } from "firebase/auth";
@@ -72,6 +72,11 @@ const LoginForm = () => {
           Submit
         </Button>
       </Form>
+      <br></br>
+      <h4>Not a member?</h4>
+      <Button onClick={handleSignupBtn} variant="dark">
+        Sign up
+      </Button>
     </>
   );
 };
