@@ -8,6 +8,8 @@ const app = express();
 
 exports.graphsql = functions.https.onRequest(app);
 
+console.log('functions say hi!')
+
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
