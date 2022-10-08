@@ -24,7 +24,7 @@ export default function Developers() {
             name: "Matt Hlavaty",
             image: "tbc",
             linkedIn: "https://www.linkedin.com/in/matthew-hlavaty-abbb082b/",
-            about: "",
+            about: "I like chocolate chip cookies a whole lot.",
         },
     ];
 

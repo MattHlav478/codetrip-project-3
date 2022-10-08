@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import storageAPI from "../services/storageAPI";
+
 import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
 import Button from "react-bootstrap/Button";
@@ -9,6 +11,7 @@ import Table from "react-bootstrap/Table";
 import Select from "react-select";
 
 import TableRow from "../components/TableRow";
+
 
 export default function Create() {
     // implement onBlur functionality here, so if someone skips the * required bits, we let them know it's BAD
@@ -57,6 +60,10 @@ export default function Create() {
         setAllMenuItems([...allMenuItems, menuItem]);
         console.log(allMenuItems);
     };
+
+    useEffect(() => {
+        storageAPI.upload()
+    }, [])
 
     return (
         <div>
