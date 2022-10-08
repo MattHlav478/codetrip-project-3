@@ -11,6 +11,8 @@ import {
 
 const SignupForm = () => {
   //set initial form state
+  const [validated, setValidated] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const [userFormData, setUserFormData] = useState({
     name: "",
     email: "",
@@ -25,45 +27,59 @@ const SignupForm = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log("submit clicked!");
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      setShowAlert(true);
+      event.preventDefault();
+      event.stopPropagation();
+      setValidated(true);
+    } else {
+      setShowAlert(false);
+      // STORE IN FIRESTORE
+      await setDoc(doc(db, "users", userFormData.email), {
+        name: userFormData.name,
+        password: userFormData.password,
+      });
 
-    setUserFormData({
-      username: "",
-      email: "",
-      password: "",
-    });
+      // AUTHENTICATE USER SIGN-UP IN FIREBASE
+      try {
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          userFormData.email,
+          userFormData.password
+        );
+        console.log(userCredential.user);
+        window.location.assign("/dashboard");
+      } catch (error) {
+        console.log(error);
+      }
 
-    // exclude third arg to automatically generate unique id (for add doc)
-    // Add a new document with a generated id.
-    // const docRef = await addDoc(collection(db, "cities"), {
-    //   name: "Tokyo",
-    //   country: "Japan",
-    // });
-    // console.log("Document written with ID: ", docRef.id);
+      //STORE IN FIRESTORE
+      // await setDoc(doc(db, "users", userFormData.email), {
+      //   name: userFormData.name,
+      //   password: userFormData.password,
+      // });
 
-    //STORE IN FIRESTORE
-    await setDoc(doc(db, "users", userFormData.email), {
-      name: userFormData.name,
-      password: userFormData.password,
-    });
-
-    // AUTHENTICATE USER SIGN-UP IN FIREBASE
-    try {
-      const userCredential = createUserWithEmailAndPassword(
-        auth,
-        userFormData.email,
-        userFormData.password
-      );
-      console.log(userCredential.user);
-      window.location.assign("/");
-    } catch (error) {
-      console.log(error);
+      // // AUTHENTICATE USER SIGN-UP IN FIREBASE
+      // try {
+      //   const userCredential = createUserWithEmailAndPassword(
+      //     auth,
+      //     userFormData.email,
+      //     userFormData.password
+      //   );
+      //   console.log(userCredential.user);
+      //   window.location.assign("/");
+      // } catch (error) {
+      //   console.log(error);
+      // }
     }
   };
 
   return (
     <>
+      <br></br>
       {/* This is needed for the validation functionality above */}
-      <Form onSubmit={handleFormSubmit}>
+      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         <Form.Group>
           <Form.Label htmlFor="name">Name</Form.Label>
           <Form.Control
@@ -74,6 +90,9 @@ const SignupForm = () => {
             value={userFormData.name}
             required
           />
+          <Form.Control.Feedback type="invalid">
+            Name is required
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group>
@@ -86,6 +105,9 @@ const SignupForm = () => {
             value={userFormData.email}
             required
           />
+          <Form.Control.Feedback type="invalid">
+            Valid email is required
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group>
@@ -98,13 +120,22 @@ const SignupForm = () => {
             value={userFormData.password}
             required
           />
+          <Form.Control.Feedback type="invalid">
+            Password is required!
+          </Form.Control.Feedback>
         </Form.Group>
+        <br></br>
         <Button
-          disabled={
-            !(userFormData.name && userFormData.email && userFormData.password)
-          }
+          // disabling the submit buttons prevents the form.feedback from working
+          // disabled={
+          //     !(
+          //         userFormData.name &&
+          //         userFormData.email &&
+          //         userFormData.password
+          //     )
+          // }
           type="submit"
-          variant="success"
+          variant="dark"
         >
           Submit
         </Button>
