@@ -22,13 +22,13 @@ export default function Dashboard() {
 
   //   getUserDoc();
 
-  getDoc(doc(db, "users", "user@yahoo.com")).then((docSnap) => {
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-    } else {
-      console.log("No such document!");
-    }
-  });
+  // getDoc(doc(db, "users", "user@yahoo.com")).then((docSnap) => {
+  //   if (docSnap.exists()) {
+  //     console.log("Document data:", docSnap.data());
+  //   } else {
+  //     console.log("No such document!");
+  //   }
+  // });
 
   return (
     <div>
