@@ -5,10 +5,10 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Table from "react-bootstrap/Table";
-
 import Select from "react-select";
-
 import TableRow from "../components/TableRow";
+import { db } from "../services/firebaseConnection";
+import { addDoc, doc, setDoc, collection, FieldValue, arrayUnion, updateDoc } from "firebase/firestore";
 
 export default function Create() {
     // implement onBlur functionality here, so if someone skips the * required bits, we let them know it's BAD
@@ -57,6 +57,51 @@ export default function Create() {
         setAllMenuItems([...allMenuItems, menuItem]);
         console.log(allMenuItems);
     };
+
+    // // RESTAURANT DATA-STRUCTURE WITH HARDCODED DATA
+    // MUST GO INSIDE AN ASYNC FUNCTION
+    // // doc(firestore database, collection, document)
+    // const user = doc(db, 'users', 'user@yahoo.com');
+    // await updateDoc(user, {
+    //   // arrayUnion updates the array value for 'restaurant'
+    //   restaurant: arrayUnion({
+    //     name: "Tacos4Dayz",
+    //     address: "123 NW Taco Lane",
+    //     phoneNumber: "132-456-5218",
+    //     hours: [
+    //       { day: "Monday", isOpen: true, open: "12PM", close: "9PM" },
+    //       { day: "Tuesday", isOpen: true, open: "12PM", close: "9PM" },
+    //       { day: "Wednesday", isOpen: true, open: "12PM", close: "9PM" },
+    //       { day: "Thursday", isOpen: true, open: "12PM", close: "9PM" },
+    //       { day: "Friday", isOpen: true, open: "12PM", close: "9PM" },
+    //       { day: "Saturday", isOpen: false},
+    //       { day: "Sunday", isOpen: false},
+    //     ],
+    //     menu: [
+    //       {
+    //         name: "tacos",
+    //         price: 5,
+    //         description: "about the food",
+    //         type: "Main",
+    //         imageURL: "storage bucket image URL reference",
+    //       },
+    //       {
+    //         name: "nachos",
+    //         price: 15,
+    //         description: "about the food",
+    //         type: "Main",
+    //         imageURL: "",
+    //       },
+    //       {
+    //         name: "burrito",
+    //         price: 10,
+    //         description: "about the food",
+    //         type: "Main",
+    //         imageURL: "",
+    //       },
+    //     ],
+    //   }),
+    // });
 
     return (
         <div>

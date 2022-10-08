@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { db } from "../services/firebaseConnection";
-import { addDoc, doc, setDoc } from "firebase/firestore";
+import { addDoc, doc, setDoc, collection, FieldValue, arrayUnion, updateDoc } from "firebase/firestore";
 import { auth } from "../services/firebaseConnection";
 import {
   connectAuthEmulator,
@@ -32,15 +32,7 @@ const SignupForm = () => {
       password: "",
     });
 
-    // exclude third arg to automatically generate unique id (for add doc)
-    // Add a new document with a generated id.
-    // const docRef = await addDoc(collection(db, "cities"), {
-    //   name: "Tokyo",
-    //   country: "Japan",
-    // });
-    // console.log("Document written with ID: ", docRef.id);
-
-    //STORE IN FIRESTORE
+    //STORE NEW USER IN FIRESTORE
     await setDoc(doc(db, "users", userFormData.email), {
       name: userFormData.name,
       password: userFormData.password,
