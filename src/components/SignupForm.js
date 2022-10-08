@@ -54,13 +54,11 @@ const SignupForm = () => {
         userFormData.password
       );
       console.log(userCredential.user);
-      // await addDoc(doc(db, "users"));
+      window.location.assign("/");
     } catch (error) {
       console.log(error);
     }
   };
-
-  // SIGN-UP with AUTHENTICIATION
 
   return (
     <>

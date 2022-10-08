@@ -31,16 +31,15 @@ const LoginForm = () => {
         userFormData.password
       );
       console.log(userCredential.user);
-      // await addDoc(doc(db, "users"));
-    } catch (error) {
+      window.location.assign("/");
+          } catch (error) {
       console.log(error);
     }
   };
 
   const handleSignupBtn = (event) => {
-    window.location.assign("/signup")
-}
-
+    window.location.assign("/signup");
+  };
 
   return (
     <>
