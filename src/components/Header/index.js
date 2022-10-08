@@ -29,7 +29,7 @@ export default function Header() {
             <Nav.Link href="/pricing">Pricing</Nav.Link>
             {isLoggedIn ? (
               <>
-                <a href="/" onClick={logout}>
+                <a href="/" className="nav-link" onClick={logout}>
                   Logout
                 </a>
               </>
