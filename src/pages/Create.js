@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import TimePicker from "rc-time-picker";
-import "rc-time-picker/assets/index.css";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Table from "react-bootstrap/Table";
+import { BasicInfo, MenuInfo, AdditionalInfo } from "./index";
 
-import Select from "react-select";
-
-import TableRow from "../components/TableRow";
+// import TimePicker from "rc-time-picker";
+// import "rc-time-picker/assets/index.css";
+// import Button from "react-bootstrap/Button";
+// import Form from "react-bootstrap/Form";
+// import Table from "react-bootstrap/Table";
+// import Select from "react-select";
+// import TableRow from "../components/TableRow";
 
 export default function Create() {
     // implement onBlur functionality here, so if someone skips the * required bits, we let them know it's BAD
@@ -33,137 +33,47 @@ export default function Create() {
 
     const [formPage, setFormPage] = useState("basic");
     const [time, setTime] = useState("");
-
     const [menuItem, setMenuItem] = useState({});
     const [allMenuItems, setAllMenuItems] = useState([]);
+    const [userChoice, setUserChoice] = useState("");
 
     const nextPage = (nextFormPage) => {
         // check to see if there are any errors--if not, then go to the next page: basic, menu, additional
     };
 
-    // WE ARE CREATING A NEW MENU ITEM
-    function handleChange(e) {
-        const key = e.target.name;
-        const value = e.target.value;
-        setMenuItem({ ...menuItem, [key]: value });
-        console.log(menuItem);
-    }
-
-    // WE ARE ADDING THAT NEW MENU ITEM TO THE FULL MENU
-    const handleNewMenuItem = (event) => {
-        event.preventDefault();
-        // create an object with name, price, description (optional), image (optional), and category
-        // validation happens here?
-        setAllMenuItems([...allMenuItems, menuItem]);
-        console.log(allMenuItems);
+    const returnPage = (formPage) => {
+        if (formPage === "basic") {
+            return (
+                <BasicInfo days={days} setFormPage={setFormPage}></BasicInfo>
+            );
+        } else if (formPage === "menu") {
+            return (
+                <MenuInfo
+                    categories={categories}
+                    menuItem={menuItem}
+                    setMenuItem={setMenuItem}
+                    allMenuItems={allMenuItems}
+                    setAllMenuItems={setAllMenuItems}
+                    userChoice={userChoice}
+                    setUserChoice={setUserChoice}
+                />
+            );
+        } else if (formPage === "additional") {
+            return <AdditionalInfo />;
+        }
     };
 
     return (
         <div>
-            <h1>Let's start with some basic info.</h1>
-            <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Restaurant Name*</Form.Label>
-                    <Form.Control type="name" placeholder="Enter name" />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Phone Number</Form.Label>
-                    <Form.Control
-                        type="phone"
-                        placeholder="Enter phone number"
-                    />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Address</Form.Label>
-                    <Form.Control type="address" placeholder="Enter address" />
-                </Form.Group>
-
-                <Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Day</th>
-                            <th>Opening</th>
-                            <th>Closing</th>
-                            <th>what to say here</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {days.map((day) => (
-                            <TableRow day={day}/>
-                        ))}
-                    </tbody>
-                </Table>
-
-                <Button
-                    variant="dark"
-                    type="submit"
-                    // onClick={nextPage("menu") see if there are any errors, if not, then continue on to "menu" page}
-                >
-                    Next
-                </Button>
-            </Form>
-                                        <br></br>
-            <h1>What's on the menu?</h1>
-            <Form onSubmit={handleNewMenuItem}>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Item Name*</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Enter item name"
-                        name="name"
-                        onChange={handleChange}
-                    />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Price*</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Enter item price"
-                        name="price"
-                        onChange={handleChange}
-                    />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                    <Form.Label>Description</Form.Label>
-                    <Form.Control
-                        type="text"
-                        placeholder="Enter description (optional)"
-                        name="description"
-                        onChange={handleChange}
-                    />
-                </Form.Group>
-                {/* optional image uploading, waiting for firebase to happen before any coding */}
-                <Button
-                variant="dark"
-                >Upload image</Button>
-
-                {/* add to a category */}
-
-                <div className="container">
-                    <br></br>
-                    <div className="row">
-                        <div className="col-md-3"></div>
-                        <div className="col-md-6">
-                            <Select options={categories} />
-                        </div>
-                        <div className="col-md-4"></div>
-                    </div>
-                </div>
-
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <Button 
-                variant="dark"
-                type="submit
-                ">Add Next Item
-                </Button>
-            </Form>
-            {allMenuItems.map((el) => (
-                <p>{el.name}</p>
-            ))}
+            {returnPage(formPage)}
+            {/* <MenuInfo
+                categories={categories}
+                menuItem={menuItem}
+                setMenuItem={setMenuItem}
+                allMenuItems={allMenuItems}
+                setAllMenuItems={setAllMenuItems}
+            />
+            <AdditionalInfo /> */}
         </div>
     );
 }
