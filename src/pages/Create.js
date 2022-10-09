@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import storageAPI from "../services/storageAPI";
+import { db } from "../services/firebaseConnection";
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
 
 import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
@@ -43,6 +45,50 @@ export default function Create() {
     // check to see if there are any errors--if not, then go to the next page: basic, menu, additional
   };
 
+  async function handleCreateBtn() {
+    const user = doc(db, "users", "tim@gmail.com");
+    await updateDoc(user, {
+      // arrayUnion updates the array value for 'restaurant'
+      restaurant: arrayUnion({
+        name: "Tacos4Dayz",
+        address: "123 NW Taco Lane",
+        phoneNumber: "132-456-5218",
+        hours: [
+          { day: "Monday", isOpen: true, open: "12PM", close: "9PM" },
+          { day: "Tuesday", isOpen: true, open: "12PM", close: "9PM" },
+          { day: "Wednesday", isOpen: true, open: "12PM", close: "9PM" },
+          { day: "Thursday", isOpen: true, open: "12PM", close: "9PM" },
+          { day: "Friday", isOpen: true, open: "12PM", close: "9PM" },
+          { day: "Saturday", isOpen: false },
+          { day: "Sunday", isOpen: false },
+        ],
+        menu: [
+          {
+            name: "tacos",
+            price: 5,
+            description: "about the food",
+            type: "Main",
+            imageURL: "storage bucket image URL reference",
+          },
+          {
+            name: "nachos",
+            price: 15,
+            description: "about the food",
+            type: "Main",
+            imageURL: "",
+          },
+          {
+            name: "burrito",
+            price: 10,
+            description: "about the food",
+            type: "Main",
+            imageURL: "",
+          },
+        ],
+      }),
+    });
+  }
+
   // WE ARE CREATING A NEW MENU ITEM
   function handleChange(e) {
     const key = e.target.name;
@@ -71,6 +117,7 @@ export default function Create() {
   return (
     <div>
       <h1>Let's start with some basic info.</h1>
+
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Restaurant Name*</Form.Label>
@@ -168,6 +215,9 @@ export default function Create() {
                 "
         >
           Add Next Item
+        </Button>{' '}
+        <Button variant="dark" type="submit" onClick={handleCreateBtn}>
+          CREATE RESTAURANT
         </Button>
       </Form>
       {allMenuItems.map((el) => (
