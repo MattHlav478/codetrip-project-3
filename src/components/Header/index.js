@@ -20,7 +20,7 @@ export default function Header() {
     <>
       <Navbar id="navbar" bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="">Genu</Navbar.Brand>
+          <Navbar.Brand href="/">Genu</Navbar.Brand>
           <Nav className="me-auto">
             {isLoggedIn ? (
               <Nav.Link href="/dashboard">Dashboard</Nav.Link>
