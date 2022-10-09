@@ -44,9 +44,6 @@ export default function Dashboard() {
           Create New Project
         </Link>
       </Button>
-
-      {/* insert name of user here */}
-
       <h1>
         {" "}
         <br></br> Welcome {projects.name}!
