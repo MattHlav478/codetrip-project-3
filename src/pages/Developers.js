@@ -1,12 +1,12 @@
 import React from "react";
-
+import Figure from "react-bootstrap/Figure";
 export default function Developers() {
     const bios = [
         {
             name: "Kayla Fischer",
             image: "to be continued",
             linkedIn: "https://www.linkedin.com/in/kayla-fischer-679200109/",
-            about: "",
+            about: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.",
         },
         {
             name: "Lillie Lovatt",
@@ -18,7 +18,7 @@ export default function Developers() {
             name: "Marlowe Crosland",
             image: "tbc",
             linkedIn: "https://www.linkedin.com/in/marlowe-crosland-338b5a235/",
-            about: "",
+            about: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu..",
         },
         {
             name: "Matt Hlavaty",
@@ -29,18 +29,25 @@ export default function Developers() {
     ];
 
     return (
-        <div>
+        <>
             <h1>Meet the codeTrip() Team</h1>
-            {bios.map((person) => (
-                <div key={person.linkedIn}>
-                    <h2>{person.name}</h2>
-                    <p>{person.about}</p>
-                    <a target="_blank" href={`${person.linkedIn}`}>
-                        LinkedIn
-                    </a>
-                    {/* image somewhere....sometime...somehow */}
-                </div>
-            ))}
-        </div>
+            <div className="developer-container">
+                {bios.map((person) => (
+                    <Figure className="developer-container">
+                        <h4>{person.name}</h4>
+                        <Figure.Image
+                        className="sizing"
+                            width={200}
+                            height={200}
+                            alt="171x180"
+                            src="holder.js/171x180"
+                        />
+                        <Figure.Caption className="sizing">
+                            {person.about}
+                        </Figure.Caption>
+                    </Figure>
+                ))}
+            </div>
+        </>
     );
 }

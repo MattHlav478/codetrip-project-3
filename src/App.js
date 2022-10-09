@@ -10,7 +10,6 @@ import NoMatch from "./pages/NoMatch";
 import Footer from "./components/Footer";
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
-import Developers from "./pages/Developers";
 import MenuItems from "./template/MenuItems";
 
 function App() {
@@ -25,7 +24,6 @@ function App() {
                         <Route path="/signup" element={<SignupForm/>}/>
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/create" element={<Create />} />
-                        <Route path="/thedevelopers" element={<Developers />} />
                         <Route path="/signup" element={<SignupForm />} />
                         <Route path="*" element={<NoMatch />} />
                     </Routes>

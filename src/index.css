@@ -27,3 +27,21 @@ code {
   text-decoration: none;
   color: white;
 }
+
+.developer-cards {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.developer-container {
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  margin: 3vw;
+}
+
+.sizing {
+  max-width: 200px;
+}

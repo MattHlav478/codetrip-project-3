@@ -25,7 +25,6 @@ export default function Header() {
             {isLoggedIn ? (
               <Nav.Link href="/dashboard">Dashboard</Nav.Link>
             ) : null}
-            <Nav.Link href="/thedevelopers">The Developers</Nav.Link>
             <Nav.Link href="/pricing">Pricing</Nav.Link>
             {isLoggedIn ? (
               <>
