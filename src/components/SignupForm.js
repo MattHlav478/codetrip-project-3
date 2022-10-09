@@ -49,7 +49,7 @@ const SignupForm = () => {
           userFormData.password
         );
         console.log(userCredential.user);
-        window.location.assign("/");
+        window.location.assign("/dashboard");
       } catch (error) {
         console.log(error);
       }
