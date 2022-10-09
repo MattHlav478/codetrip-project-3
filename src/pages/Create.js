@@ -63,12 +63,8 @@ export default function Create() {
   const [file, setFile] = useState("");
 
   const handleUploadImage = (event) => {
-    //   useEffect(() => {
-    //       storageAPI.upload({file: puppy01, name:'puppy01.jpg'})
-    //   }, [])
     console.log(event.target);
     setFile(event.target.files[0]);
-    //   storageAPI.upload({ file: event.target.files[0], name: "test" });
     storageAPI.upload(event.target.files[0]);
   };
 

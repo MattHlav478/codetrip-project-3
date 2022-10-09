@@ -9,12 +9,8 @@ export default {
     // references main storage location
     const storageRef = ref(storage, `images/${user.uid}/${file.name}`);
 
-    // const uploadTask = uploadBytes(storageRef, file).then((snapshot) => {
-    //   console.log("uploaded a blob or file");
-    //   console.log(snapshot);
-    // });
     const snapshot = await uploadBytes(storageRef, file);
-    return await getDownloadURL(snapshot.ref)
-      // .then((url) => console.log("url is", url))
+    return await getDownloadURL(snapshot.ref);
+    // .then((url) => console.log("url is", url))
   },
 };
