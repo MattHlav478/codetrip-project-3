@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { db } from "../services/firebaseConnection";
-import { addDoc, doc, setDoc } from "firebase/firestore";
+import { addDoc, doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { auth } from "../services/firebaseConnection";
 import {
   connectAuthEmulator,
@@ -53,76 +53,77 @@ const SignupForm = () => {
       } catch (error) {
         console.log(error);
       }
-    };
-
-    return (
-      <>
-        <br></br>
-        {/* This is needed for the validation functionality above */}
-        <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
-          <Form.Group>
-            <Form.Label htmlFor="name">Name</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Your name"
-              name="name"
-              onChange={handleInputChange}
-              value={userFormData.name}
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Name is required
-            </Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Label htmlFor="email">Email</Form.Label>
-            <Form.Control
-              type="email"
-              placeholder="Your email address"
-              name="email"
-              onChange={handleInputChange}
-              value={userFormData.email}
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Valid email is required
-            </Form.Control.Feedback>
-          </Form.Group>
-
-          <Form.Group>
-            <Form.Label htmlFor="password">Password</Form.Label>
-            <Form.Control
-              type="password"
-              placeholder="Your password"
-              name="password"
-              onChange={handleInputChange}
-              value={userFormData.password}
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Password is required!
-            </Form.Control.Feedback>
-          </Form.Group>
-          <br></br>
-          <Button
-            // disabling the submit buttons prevents the form.feedback from working
-            // disabled={
-            //     !(
-            //         userFormData.name &&
-            //         userFormData.email &&
-            //         userFormData.password
-            //     )
-            // }
-            type="submit"
-            variant="dark"
-          >
-            Submit
-          </Button>
-        </Form>
-      </>
-    );
+    }
   };
+
+
+  return (
+    <>
+      <br></br>
+      {/* This is needed for the validation functionality above */}
+      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+        <Form.Group>
+          <Form.Label htmlFor="name">Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Your name"
+            name="name"
+            onChange={handleInputChange}
+            value={userFormData.name}
+            required
+          />
+          <Form.Control.Feedback type="invalid">
+            Name is required
+          </Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label htmlFor="email">Email</Form.Label>
+          <Form.Control
+            type="email"
+            placeholder="Your email address"
+            name="email"
+            onChange={handleInputChange}
+            value={userFormData.email}
+            required
+          />
+          <Form.Control.Feedback type="invalid">
+            Valid email is required
+          </Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group>
+          <Form.Label htmlFor="password">Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="Your password"
+            name="password"
+            onChange={handleInputChange}
+            value={userFormData.password}
+            required
+          />
+          <Form.Control.Feedback type="invalid">
+            Password is required!
+          </Form.Control.Feedback>
+        </Form.Group>
+        <br></br>
+        <Button
+          // disabling the submit buttons prevents the form.feedback from working
+          // disabled={
+          //     !(
+          //         userFormData.name &&
+          //         userFormData.email &&
+          //         userFormData.password
+          //     )
+          // }
+          type="submit"
+          variant="dark"
+        >
+          Submit
+        </Button>
+      </Form>
+    </>
+  );
 }
 
 export default SignupForm;

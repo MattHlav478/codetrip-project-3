@@ -1,34 +1,39 @@
-import React from "react";
-import { Button } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
-import { db } from "../services/firebaseConnection";
+import { db, auth } from "../services/firebaseConnection";
+import { onAuthStateChanged } from "firebase/auth";
 
 // another level of security, make it so this is only viewed when a user is logged in--if user isn't logged in, then link to homepage, or custom page, whatever we want
 
 export default function Dashboard() {
-  //   async function getUserDoc() {
-  //     const docRef = collection(db, "users", "user@yahoo.com", "restaurant");
-  //     const docSnap = await getDocs(docRef);
+  const [projects, setProjects] = useState([]);
+  // const user = auth.currentUser;
 
-  //     if (docSnap) {
-  //         console.log("Document data:", docSnap);
-  //       } else {
-  //         // doc.data() will be undefined in this case
-  //         console.log("No such document!");
-  //       }
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      console.log("user: ", user);
+    } else {
+      console.log("no user");
+    }
+  });
 
-  //   };
+  const getUserProjects = async () => {
+    const docRef = doc(db, "users", "user@yahoo.com");
+    const docSnap = await getDoc(docRef);
 
-  //   getUserDoc();
-
-  getDoc(doc(db, "users", "user@yahoo.com")).then((docSnap) => {
     if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
+      setProjects(docSnap.data());
+      console.log(docSnap.data());
     } else {
       console.log("No such document!");
     }
-  });
+  };
+
+  useEffect(() => {
+    getUserProjects();
+  }, []);
 
   return (
     <div>
@@ -47,7 +52,28 @@ export default function Dashboard() {
       </h1>
 
       <h2>My Projects</h2>
-      <div></div>
+      <div>
+        <Card style={{ width: "18rem" }}>
+          <Card.Body>
+            <Card.Title className="card-title">Restaurant Title</Card.Title>
+            <Card.Text className="card-text">
+              Date Created: //code here
+            </Card.Text>
+            <Card.Text className="card-text">
+              Last Updated: //code here
+            </Card.Text>
+            <Button variant="dark" className="card-button">
+              View
+            </Button>{" "}
+            <Button variant="dark" className="card-button">
+              Edit
+            </Button>{" "}
+            <Button variant="dark" className="card-button">
+              Delete
+            </Button>
+          </Card.Body>
+        </Card>
+      </div>
     </div>
   );
 }
