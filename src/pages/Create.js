@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import storageAPI from "../services/storageAPI";
-import { db } from "../services/firebaseConnection";
+import { db, auth } from "../services/firebaseConnection";
 import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { onAuthStateChanged } from "firebase/auth";
 
 import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
@@ -46,46 +47,51 @@ export default function Create() {
   };
 
   async function handleCreateBtn() {
-    const user = doc(db, "users", "tim@gmail.com");
-    await updateDoc(user, {
-      // arrayUnion updates the array value for 'restaurant'
-      restaurant: arrayUnion({
-        name: "Tacos4Dayz",
-        address: "123 NW Taco Lane",
-        phoneNumber: "132-456-5218",
-        hours: [
-          { day: "Monday", isOpen: true, open: "12PM", close: "9PM" },
-          { day: "Tuesday", isOpen: true, open: "12PM", close: "9PM" },
-          { day: "Wednesday", isOpen: true, open: "12PM", close: "9PM" },
-          { day: "Thursday", isOpen: true, open: "12PM", close: "9PM" },
-          { day: "Friday", isOpen: true, open: "12PM", close: "9PM" },
-          { day: "Saturday", isOpen: false },
-          { day: "Sunday", isOpen: false },
-        ],
-        menu: [
-          {
-            name: "tacos",
-            price: 5,
-            description: "about the food",
-            type: "Main",
-            imageURL: "storage bucket image URL reference",
-          },
-          {
-            name: "nachos",
-            price: 15,
-            description: "about the food",
-            type: "Main",
-            imageURL: "",
-          },
-          {
-            name: "burrito",
-            price: 10,
-            description: "about the food",
-            type: "Main",
-            imageURL: "",
-          },
-        ],
-      }),
+    auth.onAuthStateChanged((authUser) => {
+      if (authUser) {
+        const user = auth.currentUser.email
+        const docRef = doc(db, "users", user);
+        updateDoc(docRef, {
+          // arrayUnion updates the array value for 'restaurant'
+          restaurant: arrayUnion({
+            name: "PizzaTime",
+            address: "123 NW Pizza Lane",
+            phoneNumber: "132-456-5218",
+            hours: [
+              { day: "Monday", isOpen: true, open: "12PM", close: "9PM" },
+              { day: "Tuesday", isOpen: true, open: "12PM", close: "9PM" },
+              { day: "Wednesday", isOpen: true, open: "12PM", close: "9PM" },
+              { day: "Thursday", isOpen: true, open: "12PM", close: "9PM" },
+              { day: "Friday", isOpen: true, open: "12PM", close: "9PM" },
+              { day: "Saturday", isOpen: false },
+              { day: "Sunday", isOpen: false },
+            ],
+            menu: [
+              {
+                name: "pizza",
+                price: 5,
+                description: "about the food",
+                type: "Main",
+                imageURL: "storage bucket image URL reference",
+              },
+              {
+                name: "nachos",
+                price: 15,
+                description: "about the food",
+                type: "Main",
+                imageURL: "",
+              },
+              {
+                name: "burrito",
+                price: 10,
+                description: "about the food",
+                type: "Main",
+                imageURL: "",
+              },
+            ],
+          }),
+        });
+      }
     });
   }
 
@@ -190,9 +196,7 @@ export default function Create() {
           <input type="file" accept="image/*" onChange={handleUploadImage} />
           <Button variant="dark">Upload image</Button>
         </div>
-
         {/* add to a category */}
-
         <div className="container">
           <br></br>
           <div className="row">
@@ -203,7 +207,6 @@ export default function Create() {
             <div className="col-md-4"></div>
           </div>
         </div>
-
         <br></br>
         <br></br>
         <br></br>
@@ -215,7 +218,7 @@ export default function Create() {
                 "
         >
           Add Next Item
-        </Button>{' '}
+        </Button>{" "}
         <Button variant="dark" type="submit" onClick={handleCreateBtn}>
           CREATE RESTAURANT
         </Button>

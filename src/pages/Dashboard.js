@@ -8,21 +8,6 @@ import { onAuthStateChanged } from "firebase/auth";
 // another level of security, make it so this is only viewed when a user is logged in--if user isn't logged in, then link to homepage, or custom page, whatever we want
 
 export default function Dashboard() {
-  //   async function getUserDoc() {
-  //     const docRef = collection(db, "users", "user@yahoo.com", "restaurant");
-  //     const docSnap = await getDocs(docRef);
-
-  //     if (docSnap) {
-  //         console.log("Document data:", docSnap);
-  //       } else {
-  //         // doc.data() will be undefined in this case
-  //         console.log("No such document!");
-  //       }
-
-  //   };
-
-  //   getUserDoc();
-
   const [projects, setProjects] = useState([]);
   // const user = auth.currentUser;
 
@@ -49,17 +34,6 @@ export default function Dashboard() {
   useEffect(() => {
     getUserProjects();
   }, []);
-
-  // getDoc(doc(db, "users", "user@yahoo.com")).then((docSnap) => {
-  //   if (docSnap.exists()) {
-  //     console.log("Document data:", docSnap.data());
-  //     setProjects(docSnap.data());
-  //     console.log('projects:',projects)
-  //     return docSnap.data();
-  //   } else {
-  //     console.log("No such document!");
-  //   }
-  // });
 
   return (
     <div>
