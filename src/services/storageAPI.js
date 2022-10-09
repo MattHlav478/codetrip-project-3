@@ -1,17 +1,20 @@
-import { uploadBytes, ref, getStorage } from "firebase/storage";
+import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
 import { storage, auth } from "./firebaseConnection";
 
 export default {
-  
-  upload: (file) => {
+  upload: async (file) => {
     const user = auth.currentUser;
+    console.log(user.uid);
 
     // references main storage location
-    const storageRef = ref(storage, `images/${file.name}`);
+    const storageRef = ref(storage, `images/${user.uid}/${file.name}`);
 
-    const uploadTask = uploadBytes(storageRef, file).then((snapshot) => {
-      console.log("uploaded a blob or file");
-      console.log(snapshot);
-    });
+    // const uploadTask = uploadBytes(storageRef, file).then((snapshot) => {
+    //   console.log("uploaded a blob or file");
+    //   console.log(snapshot);
+    // });
+    const snapshot = await uploadBytes(storageRef, file);
+    return await getDownloadURL(snapshot.ref)
+      // .then((url) => console.log("url is", url))
   },
-}
+};

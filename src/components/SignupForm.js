@@ -26,20 +26,6 @@ const SignupForm = () => {
     event.preventDefault();
     console.log("submit clicked!");
 
-    setUserFormData({
-      username: "",
-      email: "",
-      password: "",
-    });
-
-    // exclude third arg to automatically generate unique id (for add doc)
-    // Add a new document with a generated id.
-    // const docRef = await addDoc(collection(db, "cities"), {
-    //   name: "Tokyo",
-    //   country: "Japan",
-    // });
-    // console.log("Document written with ID: ", docRef.id);
-
     //STORE IN FIRESTORE
     await setDoc(doc(db, "users", userFormData.email), {
       name: userFormData.name,
@@ -48,7 +34,7 @@ const SignupForm = () => {
 
     // AUTHENTICATE USER SIGN-UP IN FIREBASE
     try {
-      const userCredential = createUserWithEmailAndPassword(
+      const userCredential = await createUserWithEmailAndPassword(
         auth,
         userFormData.email,
         userFormData.password
