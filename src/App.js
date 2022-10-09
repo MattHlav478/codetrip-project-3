@@ -11,6 +11,7 @@ import Footer from "./components/Footer";
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
 import Developers from "./pages/Developers";
+import MenuItems from "./template/MenuItems";
 
 function App() {
     return (
