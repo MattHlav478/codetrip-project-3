@@ -5,7 +5,6 @@ import {
   doc,
   getDoc,
   updateDoc,
-  deleteField,
   arrayRemove,
 } from "firebase/firestore";
 import { db, auth } from "../services/firebaseConnection";
@@ -21,7 +20,6 @@ export default function Dashboard() {
         const user = auth.currentUser.email;
         const docRef = doc(db, "users", user);
         const docSnap = await getDoc(docRef);
-        console.log(docSnap);
 
         if (docSnap.exists) {
           setProjects(docSnap.data());
@@ -67,12 +65,12 @@ export default function Dashboard() {
 
       <h2>My Projects</h2>
       <div>
-        {restaurant && 
-          Array.isArray(restaurant) ? restaurant.map((rest, i) => (
+        {(restaurant && restaurant.length >= 1 &&
+          Array.isArray(restaurant)) ? restaurant.map((rest, i) => (
             <Card key={i} style={{ width: "18rem" }}>
               <Card.Body>
                 <Card.Title className="card-title">{rest.name}</Card.Title>
-                <Card.Text className="card-text">Date Created: </Card.Text>
+                <Card.Text className="card-text">Date Created: {rest.createdAt}</Card.Text>
                 <Button variant="dark" className="card-button">
                   View
                 </Button>{" "}
@@ -87,7 +85,7 @@ export default function Dashboard() {
               </Card.Body>
             </Card>
           )) : (
-              <div>It's pretty empty here... Start by creating a project</div>
+              <div>It's pretty empty here... Start by creating a Genu project!</div>
           )}
       </div>
     </div>
