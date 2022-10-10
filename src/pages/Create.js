@@ -61,11 +61,11 @@ export default function Create() {
 
     async function handleCreateBtn() {
         auth
-          .onAuthStateChanged((authUser) => {
+          .onAuthStateChanged( async (authUser) => {
             if (authUser) {
               const user = auth.currentUser.email;
               const docRef = doc(db, "users", user);
-              updateDoc(docRef, {
+              await updateDoc(docRef, {
                 // arrayUnion updates the array value for 'restaurant'
                 restaurant: arrayUnion({
                   name: basicInfoData.name,
@@ -110,7 +110,7 @@ export default function Create() {
                 }),
               })
               // ISSUE: when trying to redirect, project doesn't save
-                // .then(window.location.assign("/dashboard"));
+              (window.location.assign("/dashboard"));
             }
           })
     }
