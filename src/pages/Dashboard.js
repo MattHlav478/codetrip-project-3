@@ -1,12 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {
-  doc,
-  getDoc,
-  updateDoc,
-  arrayRemove,
-} from "firebase/firestore";
+import { doc, getDoc, updateDoc, arrayRemove } from "firebase/firestore";
 import { db, auth } from "../services/firebaseConnection";
 
 // another level of security, make it so this is only viewed when a user is logged in--if user isn't logged in, then link to homepage, or custom page, whatever we want
@@ -64,13 +59,15 @@ export default function Dashboard() {
       </h1>
 
       <h2>My Projects</h2>
-      <div>
-        {(restaurant && restaurant.length >= 1 &&
-          Array.isArray(restaurant)) ? restaurant.map((rest, i) => (
-            <Card key={i} style={{ width: "18rem" }}>
-              <Card.Body>
+      <div className="project-container">
+        {restaurant && restaurant.length >= 1 && Array.isArray(restaurant) ? (
+          restaurant.map((rest, i) => (
+            <Card key={i} style={({ width: "18rem" }, { margin: "1rem" })}>
+              <Card.Body className="project-card">
                 <Card.Title className="card-title">{rest.name}</Card.Title>
-                <Card.Text className="card-text">Date Created: {rest.createdAt}</Card.Text>
+                <Card.Text className="card-text">
+                  Date Created: {rest.createdAt}
+                </Card.Text>
                 <Button variant="dark" className="card-button">
                   View
                 </Button>{" "}
@@ -84,9 +81,10 @@ export default function Dashboard() {
                 </Button>
               </Card.Body>
             </Card>
-          )) : (
-              <div>It's pretty empty here... Start by creating a Genu project!</div>
-          )}
+          ))
+        ) : (
+          <div>It's pretty empty here... Start by creating a Genu project!</div>
+        )}
       </div>
     </div>
   );
