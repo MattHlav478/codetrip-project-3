@@ -110,6 +110,7 @@ export default function Create() {
                 });
             }
         });
+      window.location.assign('/dashboard')
     }
 
     const returnPage = (formPage) => {

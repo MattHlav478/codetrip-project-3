@@ -49,6 +49,7 @@ export default function Dashboard() {
     await updateDoc(docRef, {
       restaurant: arrayRemove(restaurant[restaurantKey]),
     });
+    window.location.assign("/dashboard");
   }
 
   return (
@@ -66,12 +67,12 @@ export default function Dashboard() {
 
       <h2>My Projects</h2>
       <div>
-        {restaurant &&
-          restaurant.map((rest, i) => (
+        {restaurant && 
+          Array.isArray(restaurant) ? restaurant.map((rest, i) => (
             <Card key={i} style={{ width: "18rem" }}>
               <Card.Body>
                 <Card.Title className="card-title">{rest.name}</Card.Title>
-                <Card.Text className="card-text">Date Created:{}</Card.Text>
+                <Card.Text className="card-text">Date Created: </Card.Text>
                 <Button variant="dark" className="card-button">
                   View
                 </Button>{" "}
@@ -85,7 +86,9 @@ export default function Dashboard() {
                 </Button>
               </Card.Body>
             </Card>
-          ))}
+          )) : (
+              <div>It's pretty empty here... Start by creating a project</div>
+          )}
       </div>
     </div>
   );

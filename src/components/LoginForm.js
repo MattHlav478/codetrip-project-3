@@ -31,19 +31,22 @@ const LoginForm = () => {
       event.stopPropagation();
       setValidated(true);
     } else {
-          // AUTHENTICATE USER SIGN-UP IN FIREBASE
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        userFormData.email,
-        userFormData.password
-      );
-      console.log(userCredential.user);
-      window.location.assign("/");
-    } catch (error) {
-      console.log(error);
-    }
-      window.location.assign("/dashboard");
+      // AUTHENTICATE USER SIGN-UP IN FIREBASE
+      try {
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          userFormData.email,
+          userFormData.password
+        );
+        console.log(userCredential);
+        if (!userCredential) {
+          window.location.assign("/");
+        } else if (userCredential) {
+          window.location.assign("/dashboard");
+        }
+      } catch (error) {
+        console.log(error);
+      }
       setShowAlert(false);
     }
   };
