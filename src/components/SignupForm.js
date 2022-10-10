@@ -59,7 +59,6 @@ const SignupForm = () => {
 
   return (
     <>
-      <br></br>
       {/* This is needed for the validation functionality above */}
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         <Form.Group>

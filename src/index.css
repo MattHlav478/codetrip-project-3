@@ -54,3 +54,7 @@ code {
 .sizing {
   max-width: 200px;
 }
+
+#navbar {
+  margin-bottom: 3vh;
+}
