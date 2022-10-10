@@ -30,9 +30,11 @@ export default function MenuInfo({
     };
 
     const handleUploadImage = (event) => {
-        console.log(event.target);
+        const key = event.target.name;
         setFile(event.target.files[0]);
-        storageAPI.upload(event.target.files[0]);
+        storageAPI
+          .upload(event.target.files[0])
+          .then((imageUrl) => setMenuItem({ ...menuItem, [key]: imageUrl }));
     };
 
     const handleMenuInfoFormSubmit = (event) => {
@@ -96,6 +98,7 @@ export default function MenuInfo({
                 <input
                     type="file"
                     accept="image/*"
+                    name="imageURL"
                     onChange={handleUploadImage}
                 />
                 <Button variant="dark">Upload image</Button>

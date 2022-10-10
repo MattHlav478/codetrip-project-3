@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
+import {
+  doc,
+  getDoc,
+  updateDoc,
+  arrayRemove,
+} from "firebase/firestore";
 import { db, auth } from "../services/firebaseConnection";
-import { onAuthStateChanged } from "firebase/auth";
 
 // another level of security, make it so this is only viewed when a user is logged in--if user isn't logged in, then link to homepage, or custom page, whatever we want
 
@@ -19,12 +23,12 @@ export default function Dashboard() {
 
         if (docSnap.exists) {
           setProjects(docSnap.data());
-          console.log(projects);
+          console.log("projects: ", projects);
         } else {
           console.log("No such document!");
         }
       } else {
-        window.location.assign('/login');
+        window.location.assign("/login");
       }
     });
   }
@@ -33,7 +37,18 @@ export default function Dashboard() {
     getUserProjects();
   }, []);
 
-  const { restaurant } = projects
+  const { restaurant } = projects;
+
+  async function handleDeleteBtn(event) {
+    const user = auth.currentUser.email;
+    const docRef = doc(db, `users`, user);
+    const restaurantKey = event.target.getAttribute("data-key");
+
+    await updateDoc(docRef, {
+      restaurant: arrayRemove(restaurant[restaurantKey]),
+    });
+    window.location.assign("/dashboard");
+  }
 
   return (
     <div>
@@ -50,26 +65,28 @@ export default function Dashboard() {
 
       <h2>My Projects</h2>
       <div>
-        {restaurant &&
-          restaurant.map(rest => (
-            <Card key={rest.name} style={{ width: "18rem" }}>
+        {(restaurant && restaurant.length >= 1 &&
+          Array.isArray(restaurant)) ? restaurant.map((rest, i) => (
+            <Card key={i} style={{ width: "18rem" }}>
               <Card.Body>
                 <Card.Title className="card-title">{rest.name}</Card.Title>
-                <Card.Text className="card-text">
-                  Date Created: //code here
-                </Card.Text>
-                <Card.Text className="card-text">
-                  Last Updated: //code here
-                </Card.Text>
+                <Card.Text className="card-text">Date Created: {rest.createdAt}</Card.Text>
                 <Button variant="dark" className="card-button">
                   View
                 </Button>{" "}
-                <Button variant="dark" className="card-button">
+                <Button
+                  data-key={i}
+                  variant="dark"
+                  className="card-button"
+                  onClick={handleDeleteBtn}
+                >
                   Delete
                 </Button>
               </Card.Body>
             </Card>
-          ))}
+          )) : (
+              <div>It's pretty empty here... Start by creating a Genu project!</div>
+          )}
       </div>
     </div>
   );
