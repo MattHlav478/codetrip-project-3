@@ -39,8 +39,25 @@ export default function Create() {
   const [formPage, setFormPage] = useState("basic");
   const [time, setTime] = useState("");
 
-  const [menuItem, setMenuItem] = useState({});
+  const [menuItem, setMenuItem] = useState({
+    name: "",
+    price: null,
+    description: "",
+    type: null,
+    imageURL: "",
+  });
   const [allMenuItems, setAllMenuItems] = useState([]);
+
+  const [basicInfoData, setBasicInfoData] = useState({
+    name: "",
+    address: "",
+    phoneNumber: "",
+  });
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setBasicInfoData({ ...basicInfoData, [name]: value });
+  };
 
   const nextPage = (nextFormPage) => {
     // check to see if there are any errors--if not, then go to the next page: basic, menu, additional
@@ -49,14 +66,14 @@ export default function Create() {
   async function handleCreateBtn() {
     auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        const user = auth.currentUser.email
+        const user = auth.currentUser.email;
         const docRef = doc(db, "users", user);
         updateDoc(docRef, {
           // arrayUnion updates the array value for 'restaurant'
           restaurant: arrayUnion({
-            name: "PizzaTime",
-            address: "123 NW Pizza Lane",
-            phoneNumber: "132-456-5218",
+            name: basicInfoData.name,
+            address: basicInfoData.address,
+            phoneNumber: basicInfoData.phoneNumber,
             hours: [
               { day: "Monday", isOpen: true, open: "12PM", close: "9PM" },
               { day: "Tuesday", isOpen: true, open: "12PM", close: "9PM" },
@@ -66,29 +83,7 @@ export default function Create() {
               { day: "Saturday", isOpen: false },
               { day: "Sunday", isOpen: false },
             ],
-            menu: [
-              {
-                name: "pizza",
-                price: 5,
-                description: "about the food",
-                type: "Main",
-                imageURL: "storage bucket image URL reference",
-              },
-              {
-                name: "nachos",
-                price: 15,
-                description: "about the food",
-                type: "Main",
-                imageURL: "",
-              },
-              {
-                name: "burrito",
-                price: 10,
-                description: "about the food",
-                type: "Main",
-                imageURL: "",
-              },
-            ],
+            menu: allMenuItems,
           }),
         });
       }
@@ -127,15 +122,30 @@ export default function Create() {
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Restaurant Name*</Form.Label>
-          <Form.Control type="name" placeholder="Enter name" />
+          <Form.Control
+            onChange={handleInputChange}
+            name="name"
+            type="name"
+            placeholder="Enter name"
+          />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Phone Number</Form.Label>
-          <Form.Control type="phone" placeholder="Enter phone number" />
+          <Form.Control
+            onChange={handleInputChange}
+            name="phoneNumber"
+            type="phone"
+            placeholder="Enter phone number"
+          />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Address</Form.Label>
-          <Form.Control type="address" placeholder="Enter address" />
+          <Form.Control
+            onChange={handleInputChange}
+            name="address"
+            type="address"
+            placeholder="Enter address"
+          />
         </Form.Group>
 
         <Table striped bordered hover>
