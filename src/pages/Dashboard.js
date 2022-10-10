@@ -24,7 +24,7 @@ export default function Dashboard() {
           console.log("No such document!");
         }
       } else {
-        console.log("no user");
+        window.location.assign('/login');
       }
     });
   }
