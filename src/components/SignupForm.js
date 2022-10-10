@@ -4,9 +4,9 @@ import { db } from "../services/firebaseConnection";
 import { addDoc, doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { auth } from "../services/firebaseConnection";
 import {
-  connectAuthEmulator,
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
+    connectAuthEmulator,
+    createUserWithEmailAndPassword,
+    onAuthStateChanged,
 } from "firebase/auth";
 
 const SignupForm = () => {
