@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import storageAPI from "../services/storageAPI";
 import { db, auth } from "../services/firebaseConnection";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
+import { doc, updateDoc, arrayUnion, Timestamp, FieldValue } from "firebase/firestore";
 
 import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
@@ -10,6 +9,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BasicInfo, MenuInfo, AdditionalInfo } from "./index";
+import { FirebaseError } from "firebase/app";
 
 // import TimePicker from "rc-time-picker";
 // import "rc-time-picker/assets/index.css";
@@ -104,7 +104,8 @@ export default function Create() {
                             { day: "Saturday", isOpen: false },
                             { day: "Sunday", isOpen: false },
                         ],
-                        menu: allMenuItems,
+                      menu: allMenuItems,
+                      createdAt: Timestamp.now(), 
                     }),
                 });
             }
