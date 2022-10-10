@@ -37,10 +37,6 @@ export default function Create() {
     const [allMenuItems, setAllMenuItems] = useState([]);
     const [userChoice, setUserChoice] = useState("");
 
-    const nextPage = (nextFormPage) => {
-        // check to see if there are any errors--if not, then go to the next page: basic, menu, additional
-    };
-
     const returnPage = (formPage) => {
         if (formPage === "basic") {
             return (

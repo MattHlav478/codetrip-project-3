@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Select from "react-select";
@@ -15,6 +15,7 @@ export default function MenuInfo({
     function handleChange(e) {
         const key = e.target.name;
         const value = e.target.value;
+
         setMenuItem({ ...menuItem, [key]: value });
         console.log(menuItem);
     }
@@ -27,6 +28,9 @@ export default function MenuInfo({
         setAllMenuItems([...allMenuItems, menuItem]);
         console.log(allMenuItems);
     };
+
+    const [userChoice, setUserChoice] = useState("");
+    // gets user's choice for category
 
     return (
         <div>
@@ -68,8 +72,7 @@ export default function MenuInfo({
                         <div className="col-md-6">
                             <Select
                                 options={categories}
-                                // (choice) => setUserChoice(choice)
-                                onChange={handleChange}
+                                onChange={(choice) => setUserChoice(choice)}
                             />
                         </div>
                         <div className="col-md-4"></div>
