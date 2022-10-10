@@ -43,7 +43,7 @@ export default function Create() {
     name: "",
     price: null,
     description: "",
-    type: "",
+    type: null,
     imageURL: "",
   });
   const [allMenuItems, setAllMenuItems] = useState([]);
@@ -68,24 +68,24 @@ export default function Create() {
       if (authUser) {
         const user = auth.currentUser.email;
         const docRef = doc(db, "users", user);
-        // updateDoc(docRef, {
-        //   // arrayUnion updates the array value for 'restaurant'
-        //   restaurant: arrayUnion({
-        //     name: basicInfoData.name,
-        //     address: basicInfoData.address,
-        //     phoneNumber: basicInfoData.phoneNumber,
-        //     hours: [
-        //       { day: "Monday", isOpen: true, open: "12PM", close: "9PM" },
-        //       { day: "Tuesday", isOpen: true, open: "12PM", close: "9PM" },
-        //       { day: "Wednesday", isOpen: true, open: "12PM", close: "9PM" },
-        //       { day: "Thursday", isOpen: true, open: "12PM", close: "9PM" },
-        //       { day: "Friday", isOpen: true, open: "12PM", close: "9PM" },
-        //       { day: "Saturday", isOpen: false },
-        //       { day: "Sunday", isOpen: false },
-        //     ],
-        //     menu: allMenuItems,
-        //   }),
-        // });
+        updateDoc(docRef, {
+          // arrayUnion updates the array value for 'restaurant'
+          restaurant: arrayUnion({
+            name: basicInfoData.name,
+            address: basicInfoData.address,
+            phoneNumber: basicInfoData.phoneNumber,
+            hours: [
+              { day: "Monday", isOpen: true, open: "12PM", close: "9PM" },
+              { day: "Tuesday", isOpen: true, open: "12PM", close: "9PM" },
+              { day: "Wednesday", isOpen: true, open: "12PM", close: "9PM" },
+              { day: "Thursday", isOpen: true, open: "12PM", close: "9PM" },
+              { day: "Friday", isOpen: true, open: "12PM", close: "9PM" },
+              { day: "Saturday", isOpen: false },
+              { day: "Sunday", isOpen: false },
+            ],
+            menu: allMenuItems,
+          }),
+        });
       }
     });
   }
