@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import storageAPI from "../services/storageAPI";
 import { db, auth } from "../services/firebaseConnection";
-import { doc, updateDoc, arrayUnion } from "firebase/firestore";
-import { onAuthStateChanged } from "firebase/auth";
+import { doc, updateDoc, arrayUnion, Timestamp, FieldValue } from "firebase/firestore";
 
 import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
@@ -10,6 +9,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BasicInfo, MenuInfo, AdditionalInfo } from "./index";
+import { FirebaseError } from "firebase/app";
 
 // import TimePicker from "rc-time-picker";
 // import "rc-time-picker/assets/index.css";
@@ -60,55 +60,59 @@ export default function Create() {
     const [file, setFile] = useState("");
 
     async function handleCreateBtn() {
-        auth.onAuthStateChanged((authUser) => {
+        auth
+          .onAuthStateChanged((authUser) => {
             if (authUser) {
-                const user = auth.currentUser.email;
-                const docRef = doc(db, "users", user);
-                updateDoc(docRef, {
-                    // arrayUnion updates the array value for 'restaurant'
-                    restaurant: arrayUnion({
-                        name: basicInfoData.name,
-                        address: basicInfoData.address,
-                        phoneNumber: basicInfoData.phoneNumber,
-                        hours: [
-                            {
-                                day: "Monday",
-                                isOpen: true,
-                                open: "12PM",
-                                close: "9PM",
-                            },
-                            {
-                                day: "Tuesday",
-                                isOpen: true,
-                                open: "12PM",
-                                close: "9PM",
-                            },
-                            {
-                                day: "Wednesday",
-                                isOpen: true,
-                                open: "12PM",
-                                close: "9PM",
-                            },
-                            {
-                                day: "Thursday",
-                                isOpen: true,
-                                open: "12PM",
-                                close: "9PM",
-                            },
-                            {
-                                day: "Friday",
-                                isOpen: true,
-                                open: "12PM",
-                                close: "9PM",
-                            },
-                            { day: "Saturday", isOpen: false },
-                            { day: "Sunday", isOpen: false },
-                        ],
-                        menu: allMenuItems,
-                    }),
-                });
+              const user = auth.currentUser.email;
+              const docRef = doc(db, "users", user);
+              updateDoc(docRef, {
+                // arrayUnion updates the array value for 'restaurant'
+                restaurant: arrayUnion({
+                  name: basicInfoData.name,
+                  address: basicInfoData.address,
+                  phoneNumber: basicInfoData.phoneNumber,
+                  hours: [
+                    {
+                      day: "Monday",
+                      isOpen: true,
+                      open: "12PM",
+                      close: "9PM",
+                    },
+                    {
+                      day: "Tuesday",
+                      isOpen: true,
+                      open: "12PM",
+                      close: "9PM",
+                    },
+                    {
+                      day: "Wednesday",
+                      isOpen: true,
+                      open: "12PM",
+                      close: "9PM",
+                    },
+                    {
+                      day: "Thursday",
+                      isOpen: true,
+                      open: "12PM",
+                      close: "9PM",
+                    },
+                    {
+                      day: "Friday",
+                      isOpen: true,
+                      open: "12PM",
+                      close: "9PM",
+                    },
+                    { day: "Saturday", isOpen: false },
+                    { day: "Sunday", isOpen: false },
+                  ],
+                  menu: allMenuItems,
+                  createdAt: Timestamp.now().toDate().toDateString(),
+                }),
+              })
+              // ISSUE: when trying to redirect, project doesn't save
+                // .then(window.location.assign("/dashboard"));
             }
-        });
+          })
     }
 
     const returnPage = (formPage) => {
@@ -147,7 +151,7 @@ export default function Create() {
                 variant="dark"
                 type="submit"
                 onClick={handleCreateBtn}
-            ></Button>
+            >Create Restaurant</Button>
             {/* <MenuInfo
                 categories={categories}
                 menuItem={menuItem}
