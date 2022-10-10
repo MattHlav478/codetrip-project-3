@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import TableRow from "../components/TableRow";
 import Form from "react-bootstrap/Form";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
+import storageAPI from "../services/storageAPI";
 
 export default function BasicInfo({
     days,
     setFormPage,
     basicInfoData,
     setBasicInfoData,
+    file,
+    setFile,
 }) {
     const handleBasicInfoFormSubmit = (event) => {
         // validate that everything is correct inside the form. Every day needs an opening and closing time, OR else it isClosed is true
@@ -21,6 +24,17 @@ export default function BasicInfo({
         setBasicInfoData({ ...basicInfoData, [name]: value });
         console.log(basicInfoData);
     };
+
+    const handleUploadImage = (event) => {
+        console.log(event.target);
+        setFile(event.target.files[0]);
+        storageAPI.upload(event.target.files[0]);
+    };
+
+    const [openTime, setOpenTime] = useState("");
+    const [closeTime, setCloseTime] = useState("");
+    // const [isClosed, setIsClosed] = useState(false);
+    const [hours, setHours] = useState([]);
 
     return (
         <div>
@@ -65,19 +79,50 @@ export default function BasicInfo({
                     </thead>
                     <tbody>
                         {days.map((day) => (
-                            <TableRow day={day} />
+                            <TableRow
+                                day={day}
+                                setOpenTime={setOpenTime}
+                                setCloseTime={setCloseTime}
+                                // isClosed={isClosed}
+                                // setIsClosed={setIsClosed}
+                                hours={hours}
+                                setHours={setHours}
+                                openTime={openTime}
+                                closeTime={closeTime}
+                            />
                         ))}
                     </tbody>
                 </Table>
 
-                <Button
-                    variant="dark"
-                    type="submit"
-                    // onClick={nextPage("menu") see if there are any errors, if not, then continue on to "menu" page}
-                    onClick={handleBasicInfoFormSubmit}
-                >
-                    Next
-                </Button>
+                <h3>Include a photo!</h3>
+                <p>
+                    Choose a photo that will appear on your homepage. If you
+                    have a logo, now's the time to show it off! Consider using
+                    the following dimensions:{" "}
+                </p>
+
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleUploadImage}
+                />
+                <Button variant="dark">Upload image</Button>
+
+                <br></br>
+                <br></br>
+                <br></br>
+
+                <div className="d-grid gap-2">
+                    {" "}
+                    <Button
+                        variant="dark"
+                        type="submit"
+                        size="lg"
+                        onClick={handleBasicInfoFormSubmit}
+                    >
+                        Next
+                    </Button>
+                </div>
             </Form>
             <br></br>
         </div>

@@ -113,15 +113,19 @@ export default function Create() {
 
     const returnPage = (formPage) => {
         if (formPage === "basic") {
+            console.log("basic info");
             return (
                 <BasicInfo
                     days={days}
                     setFormPage={setFormPage}
                     basicInfoData={basicInfoData}
                     setBasicInfoData={setBasicInfoData}
+                    file={file}
+                    setFile={setFile}
                 ></BasicInfo>
             );
         } else if (formPage === "menu") {
+            console.log("menu info");
             return (
                 <MenuInfo
                     categories={categories}
@@ -133,9 +137,11 @@ export default function Create() {
                     setUserChoice={setUserChoice}
                     file={file}
                     setFile={setFile}
+                    setFormPage={setFormPage}
                 />
             );
         } else if (formPage === "additional") {
+            console.log("additional info");
             return <AdditionalInfo />;
         }
     };

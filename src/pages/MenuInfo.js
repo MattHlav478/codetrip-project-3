@@ -13,22 +13,20 @@ export default function MenuInfo({
     setAllMenuItems,
     file,
     setFile,
+    setFormPage,
 }) {
     // WE ARE CREATING A NEW MENU ITEM
     function handleChange(e) {
         const key = e.target.name;
         const value = e.target.value;
         setMenuItem({ ...menuItem, [key]: value });
-        console.log(menuItem);
     }
 
     // WE ARE ADDING THAT NEW MENU ITEM TO THE FULL MENU
     const handleNewMenuItem = (event) => {
         event.preventDefault();
-        // create an object with name, price, description (optional), image (optional), and category
         // validation happens here?
         setAllMenuItems([...allMenuItems, menuItem]);
-        console.log(allMenuItems);
     };
 
     const handleUploadImage = (event) => {
@@ -37,8 +35,9 @@ export default function MenuInfo({
         storageAPI.upload(event.target.files[0]);
     };
 
-    const [userChoice, setUserChoice] = useState("");
-    // gets user's choice for category
+    const handleMenuInfoFormSubmit = (event) => {
+        setFormPage("additional");
+    };
 
     return (
         <div>
@@ -79,8 +78,14 @@ export default function MenuInfo({
                         <div className="col-md-3"></div>
                         <div className="col-md-6">
                             <Select
+                                name="type"
                                 options={categories}
-                                onChange={(choice) => setUserChoice(choice)}
+                                onChange={(choice) =>
+                                    setMenuItem({
+                                        ...menuItem,
+                                        [`type`]: choice.label,
+                                    })
+                                }
                             />
                         </div>
                         <div className="col-md-4"></div>
@@ -115,12 +120,12 @@ export default function MenuInfo({
                     </tr>
                 </thead>
                 <tbody>
-                    {allMenuItems.map((el) => (
-                        <tr>
+                    {allMenuItems.map((el, i) => (
+                        <tr key={i}>
                             <td>{el.name}</td>
                             <td>{el.price}</td>
                             <td>{el.description}</td>
-                            {/* <td>{el.}</td> for category*/}
+                            <td>{el.type}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -128,6 +133,19 @@ export default function MenuInfo({
 
             <br></br>
             <br></br>
+
+            <div className="d-grid gap-2">
+                {" "}
+                <Button
+                    variant="dark"
+                    // type="submit"
+                    size="lg"
+                    // onClick={setFormPage("additional")} causing it to go immediatley to additional info.
+                    onClick={handleMenuInfoFormSubmit}
+                >
+                    Next
+                </Button>
+            </div>
         </div>
     );
 }
