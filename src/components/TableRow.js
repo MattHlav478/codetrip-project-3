@@ -16,12 +16,17 @@ export default function TableRow({ day }) {
     // bundle all info - isClosed, open, close hours - into setStoreHours prop passed from Create
     // and that would, at the end of all of this, have 7 objects inside its array
 
+    const handleTime = (event) => {
+        setTime(event.format("LT"));
+    };
+
     return (
         <>
             <tr>
                 <td>{day}</td>
                 <td>
                     <TimePicker
+                        className={`${day}-opening`}
                         placeholder="Select Time"
                         use12Hours
                         minuteStep={15}
@@ -29,11 +34,12 @@ export default function TableRow({ day }) {
                         focusOnOpen={true}
                         format="hh:mm A"
                         disabled={isClosed}
-                        onChange={(e) => setTime(e.format("LT"))}
+                        onChange={handleTime}
                     />
                 </td>
                 <td>
                     <TimePicker
+                        className={`${day}-closing`}
                         placeholder="Select Time"
                         use12Hours
                         minuteStep={15}
@@ -42,7 +48,6 @@ export default function TableRow({ day }) {
                         disabled={isClosed}
                         format="hh:mm A"
                         // disabled={} use this and check if checkbox is selected, if so, disable.
-
                         onChange={(e) => setTime(e.format("LT"))}
                     />
                 </td>
