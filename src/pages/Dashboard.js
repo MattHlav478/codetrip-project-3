@@ -14,13 +14,12 @@ export default function Dashboard() {
     auth.onAuthStateChanged(async (authUser) => {
       if (authUser) {
         const user = auth.currentUser.email;
-        console.log("user: ", user);
         const docRef = doc(db, "users", user);
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists) {
           setProjects(docSnap.data());
-          console.log(projects.name);
+          console.log(projects);
         } else {
           console.log("No such document!");
         }
@@ -53,7 +52,7 @@ export default function Dashboard() {
       <div>
         {restaurant &&
           restaurant.map(rest => (
-            <Card style={{ width: "18rem" }}>
+            <Card key={rest.name} style={{ width: "18rem" }}>
               <Card.Body>
                 <Card.Title className="card-title">{rest.name}</Card.Title>
                 <Card.Text className="card-text">
