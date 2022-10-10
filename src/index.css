@@ -42,7 +42,7 @@ code {
   max-height: 200px;
 }
 
-.developer-container {
+.developer-container, .project-container {
   justify-content: center;
   text-align: center;
   display: flex;

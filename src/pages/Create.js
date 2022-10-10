@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import storageAPI from "../services/storageAPI";
 import { db, auth } from "../services/firebaseConnection";
-import { doc, updateDoc, arrayUnion, Timestamp, FieldValue } from "firebase/firestore";
+import {
+    doc,
+    updateDoc,
+    arrayUnion,
+    Timestamp,
+    FieldValue,
+} from "firebase/firestore";
 
 import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
@@ -44,6 +50,7 @@ export default function Create() {
         name: "",
         address: "",
         phoneNumber: "",
+        imageURL: "",
     });
 
     const [formPage, setFormPage] = useState("basic");
@@ -61,11 +68,11 @@ export default function Create() {
 
     async function handleCreateBtn() {
         auth
-          .onAuthStateChanged((authUser) => {
+          .onAuthStateChanged( async (authUser) => {
             if (authUser) {
               const user = auth.currentUser.email;
               const docRef = doc(db, "users", user);
-              updateDoc(docRef, {
+              await updateDoc(docRef, {
                 // arrayUnion updates the array value for 'restaurant'
                 restaurant: arrayUnion({
                   name: basicInfoData.name,
@@ -110,22 +117,26 @@ export default function Create() {
                 }),
               })
               // ISSUE: when trying to redirect, project doesn't save
-                // .then(window.location.assign("/dashboard"));
+              (window.location.assign("/dashboard"));
             }
-          })
+        });
     }
 
     const returnPage = (formPage) => {
         if (formPage === "basic") {
+            console.log("basic info");
             return (
                 <BasicInfo
                     days={days}
                     setFormPage={setFormPage}
                     basicInfoData={basicInfoData}
                     setBasicInfoData={setBasicInfoData}
+                    file={file}
+                    setFile={setFile}
                 ></BasicInfo>
             );
         } else if (formPage === "menu") {
+            console.log("menu info");
             return (
                 <MenuInfo
                     categories={categories}
@@ -137,9 +148,11 @@ export default function Create() {
                     setUserChoice={setUserChoice}
                     file={file}
                     setFile={setFile}
+                    setFormPage={setFormPage}
                 />
             );
         } else if (formPage === "additional") {
+            console.log("additional info");
             return <AdditionalInfo />;
         }
     };
@@ -147,11 +160,9 @@ export default function Create() {
     return (
         <div>
             {returnPage(formPage)}
-            <Button
-                variant="dark"
-                type="submit"
-                onClick={handleCreateBtn}
-            >Create Restaurant</Button>
+            <Button variant="dark" type="submit" onClick={handleCreateBtn}>
+                Create Restaurant
+            </Button>
             {/* <MenuInfo
                 categories={categories}
                 menuItem={menuItem}
