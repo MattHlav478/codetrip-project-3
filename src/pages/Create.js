@@ -105,7 +105,7 @@ export default function Create() {
                             { day: "Sunday", isOpen: false },
                         ],
                       menu: allMenuItems,
-                      createdAt: Timestamp.now(), 
+                      createdAt: Timestamp.now().toDate().toDateString(), 
                     }),
                 });
             }
@@ -148,7 +148,7 @@ export default function Create() {
                 variant="dark"
                 type="submit"
                 onClick={handleCreateBtn}
-            ></Button>
+            >Create Restaurant</Button>
             {/* <MenuInfo
                 categories={categories}
                 menuItem={menuItem}
