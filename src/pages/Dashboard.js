@@ -16,10 +16,11 @@ export default function Dashboard() {
         const user = auth.currentUser.email;
         const docRef = doc(db, "users", user);
         const docSnap = await getDoc(docRef);
+        console.log(docSnap);
 
         if (docSnap.exists) {
           setProjects(docSnap.data());
-          console.log(projects);
+          console.log("projects: ", projects);
         } else {
           console.log("No such document!");
         }
