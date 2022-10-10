@@ -1,9 +1,12 @@
 import React from "react";
-import Developers from "../pages/Developers";
+import AboutCarousel from "../components/Carousel.js/AboutCarousel";
+import Developers from "../components/MeetDevelopers.js/Developers"
 
 export default function Home() {
     return (
         <>
+        <AboutCarousel></AboutCarousel>
+        <Developers></Developers>
             <h1>About Genu</h1>
             <p>
                 You're not alone. You're a small business, with just a few
@@ -23,7 +26,6 @@ export default function Home() {
                 business too.
             </p>
             <p>Sound good? Sign up today and see what we can do for you!</p>
-            <Developers></Developers>
         </>
     );
 }
