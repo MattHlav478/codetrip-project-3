@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import storageAPI from "../services/storageAPI";
 import { db, auth } from "../services/firebaseConnection";
-import { doc, updateDoc, arrayUnion, Timestamp, FieldValue } from "firebase/firestore";
+import {
+    doc,
+    updateDoc,
+    arrayUnion,
+    Timestamp,
+    FieldValue,
+} from "firebase/firestore";
 
 import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
@@ -44,6 +50,7 @@ export default function Create() {
         name: "",
         address: "",
         phoneNumber: "",
+        imageURL: "",
     });
 
     const [formPage, setFormPage] = useState("basic");
@@ -60,59 +67,58 @@ export default function Create() {
     const [file, setFile] = useState("");
 
     async function handleCreateBtn() {
-        auth
-          .onAuthStateChanged((authUser) => {
+        auth.onAuthStateChanged((authUser) => {
             if (authUser) {
-              const user = auth.currentUser.email;
-              const docRef = doc(db, "users", user);
-              updateDoc(docRef, {
-                // arrayUnion updates the array value for 'restaurant'
-                restaurant: arrayUnion({
-                  name: basicInfoData.name,
-                  address: basicInfoData.address,
-                  phoneNumber: basicInfoData.phoneNumber,
-                  hours: [
-                    {
-                      day: "Monday",
-                      isOpen: true,
-                      open: "12PM",
-                      close: "9PM",
-                    },
-                    {
-                      day: "Tuesday",
-                      isOpen: true,
-                      open: "12PM",
-                      close: "9PM",
-                    },
-                    {
-                      day: "Wednesday",
-                      isOpen: true,
-                      open: "12PM",
-                      close: "9PM",
-                    },
-                    {
-                      day: "Thursday",
-                      isOpen: true,
-                      open: "12PM",
-                      close: "9PM",
-                    },
-                    {
-                      day: "Friday",
-                      isOpen: true,
-                      open: "12PM",
-                      close: "9PM",
-                    },
-                    { day: "Saturday", isOpen: false },
-                    { day: "Sunday", isOpen: false },
-                  ],
-                  menu: allMenuItems,
-                  createdAt: Timestamp.now().toDate().toDateString(),
-                }),
-              })
-              // ISSUE: when trying to redirect, project doesn't save
+                const user = auth.currentUser.email;
+                const docRef = doc(db, "users", user);
+                updateDoc(docRef, {
+                    // arrayUnion updates the array value for 'restaurant'
+                    restaurant: arrayUnion({
+                        name: basicInfoData.name,
+                        address: basicInfoData.address,
+                        phoneNumber: basicInfoData.phoneNumber,
+                        hours: [
+                            {
+                                day: "Monday",
+                                isOpen: true,
+                                open: "12PM",
+                                close: "9PM",
+                            },
+                            {
+                                day: "Tuesday",
+                                isOpen: true,
+                                open: "12PM",
+                                close: "9PM",
+                            },
+                            {
+                                day: "Wednesday",
+                                isOpen: true,
+                                open: "12PM",
+                                close: "9PM",
+                            },
+                            {
+                                day: "Thursday",
+                                isOpen: true,
+                                open: "12PM",
+                                close: "9PM",
+                            },
+                            {
+                                day: "Friday",
+                                isOpen: true,
+                                open: "12PM",
+                                close: "9PM",
+                            },
+                            { day: "Saturday", isOpen: false },
+                            { day: "Sunday", isOpen: false },
+                        ],
+                        menu: allMenuItems,
+                        createdAt: Timestamp.now().toDate().toDateString(),
+                    }),
+                });
+                // ISSUE: when trying to redirect, project doesn't save
                 // .then(window.location.assign("/dashboard"));
             }
-          })
+        });
     }
 
     const returnPage = (formPage) => {
@@ -153,11 +159,9 @@ export default function Create() {
     return (
         <div>
             {returnPage(formPage)}
-            <Button
-                variant="dark"
-                type="submit"
-                onClick={handleCreateBtn}
-            >Create Restaurant</Button>
+            <Button variant="dark" type="submit" onClick={handleCreateBtn}>
+                Create Restaurant
+            </Button>
             {/* <MenuInfo
                 categories={categories}
                 menuItem={menuItem}

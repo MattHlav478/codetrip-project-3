@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
-import Form from "react-bootstrap/Form";
+// import Form from "react-bootstrap/Form";
 
 export default function TableRow({
     day,
@@ -13,6 +13,9 @@ export default function TableRow({
     // setIsClosed,
     hours,
     setHours,
+    infoSubmit,
+    i,
+    arrayHours,
 }) {
     const [isOpen, setIsOpen] = useState(true); //because default is that the store is open
 
@@ -41,7 +44,11 @@ export default function TableRow({
     //     console.log(time);
     // };
 
-    console.log(hour);
+    // if (infoSubmit) {
+    //     setHours([...hours, hour]);
+    // }
+
+    console.log(arrayHours);
 
     return (
         <>
@@ -61,6 +68,22 @@ export default function TableRow({
                         onChange={(e) => {
                             setOpenTime(e.format("LT"));
                             setHour({ ...hour, [`open`]: openTime });
+                            // setHours([...hours,{ hour}]);
+                            // setHours([
+                            //     ...hours[key],
+                            //     {
+                            //         [`day`]: day,
+                            //         [`open`]: openTime,
+                            //         [`close`]: closeTime,
+                            //         [`isOpen`]: isOpen,
+                            //     },
+                            // ]);
+                            // arrayHours[i] = {
+                            //     [`day`]: day,
+                            //     [`open`]: openTime,
+                            //     [`close`]: closeTime,
+                            //     [`isOpen`]: isOpen,
+                            // };
                         }}
                         // { ...menuItem, [key]: value }
                     />
@@ -81,21 +104,29 @@ export default function TableRow({
                         onChange={(e) => {
                             setCloseTime(e.format("LT"));
                             setHour({ ...hour, [`close`]: closeTime });
+                            // setHours([...hours, hour]);
+                            // setHours([
+                            //     ...hours[key],
+
+                            // ]);
+                            // console.log("key", i);
+                            // arrayHours[i] = {
+                            //     [`day`]: day,
+                            //     [`open`]: openTime,
+                            //     [`close`]: closeTime,
+                            //     [`isOpen`]: isOpen,
+                            // };
                         }}
                     />
                 </td>
                 <td>
-                    <Form>
-                        <div key={"default-checkbox"} className="mb-3">
-                            <Form.Check
-                                name="isOpen"
-                                type="checkbox"
-                                id={"default-checkbox"}
-                                label={"Closed all day"}
-                                onChange={handleCheckbox}
-                            />
-                        </div>
-                    </Form>
+                    <input
+                        id="isOpenCheck"
+                        type="checkbox"
+                        name="isOpen"
+                        onChange={handleCheckbox}
+                    />
+                    Closed All Day
                 </td>
             </tr>
         </>
