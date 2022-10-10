@@ -10,24 +10,45 @@ export default function BasicInfo({ days, setFormPage }) {
         // once that is true, then
         setFormPage("menu");
     };
+
+    const [basicInfoData, setBasicInfoData] = useState({
+        name: "",
+        address: "",
+        phoneNumber: "",
+    });
+
+    const handleInputChange = (event) => {
+        const { name, value } = event.target;
+        setBasicInfoData({ ...basicInfoData, [name]: value });
+    };
+
     return (
         <div>
             <h1>Let's start with some basic info.</h1>
             <Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Restaurant Name*</Form.Label>
-                    <Form.Control type="name" placeholder="Enter name" />
+                    <Form.Control
+                        type="name"
+                        placeholder="Enter name"
+                        onChange={handleInputChange}
+                    />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Phone Number</Form.Label>
                     <Form.Control
+                        onChange={handleInputChange}
                         type="phone"
                         placeholder="Enter phone number"
                     />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Address</Form.Label>
-                    <Form.Control type="address" placeholder="Enter address" />
+                    <Form.Control
+                        type="address"
+                        placeholder="Enter address"
+                        onChange={handleInputChange}
+                    />
                 </Form.Group>
 
                 <Table striped bordered hover>

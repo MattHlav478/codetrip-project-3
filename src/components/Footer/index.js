@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function Footer() {
-    return <div id="footer">codeTrip() 2022</div>;
+    return <div className="footer" >codeTrip() 2022</div>;
 }

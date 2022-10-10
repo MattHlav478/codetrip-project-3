@@ -1,27 +1,56 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
 body {
+  position:relative;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
+  }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
-#footer {
-  text-align: center;
-  position: fixed;
-  height: 4vh;
+#navbar {
+  position: sticky;
+  top:0;
   width: 100%;
-  bottom: 0;
+  z-index: 1000000;
+}
+
+.footer {
+  text-align: center;
+  position:fixed;
+  bottom: 0; 
+  height: 4vh;
+  margin-top: 5vh;
+  width: 100%;
   background-color:rgba(205, 193, 63, 0.445);
 }
 
 .no-decor {
   text-decoration: none;
   color: white;
+}
+
+.developer-cards {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.developer-container {
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  margin: 3vw;
+}
+
+.sizing {
+  max-width: 200px;
 }

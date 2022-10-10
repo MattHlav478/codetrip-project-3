@@ -15,7 +15,6 @@ export default function MenuInfo({
     function handleChange(e) {
         const key = e.target.name;
         const value = e.target.value;
-
         setMenuItem({ ...menuItem, [key]: value });
         console.log(menuItem);
     }
@@ -27,6 +26,12 @@ export default function MenuInfo({
         // validation happens here?
         setAllMenuItems([...allMenuItems, menuItem]);
         console.log(allMenuItems);
+    };
+
+    const handleUploadImage = (event) => {
+        console.log(event.target);
+        setFile(event.target.files[0]);
+        storageAPI.upload(event.target.files[0]);
     };
 
     const [userChoice, setUserChoice] = useState("");
@@ -80,6 +85,11 @@ export default function MenuInfo({
                 </div>
 
                 {/* optional image uploading, waiting for firebase to happen before any coding */}
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleUploadImage}
+                />
                 <Button variant="dark">Upload image</Button>
 
                 <br></br>
@@ -87,7 +97,7 @@ export default function MenuInfo({
                 <div className="d-grid gap-2">
                     {" "}
                     <Button variant="dark" type="submit" size="lg">
-                        Add Next Item
+                        Confirm Item
                     </Button>
                 </div>
             </Form>
@@ -107,6 +117,7 @@ export default function MenuInfo({
                             <td>{el.name}</td>
                             <td>{el.price}</td>
                             <td>{el.description}</td>
+                            {/* <td>{el.}</td> for category*/}
                         </tr>
                     ))}
                 </tbody>

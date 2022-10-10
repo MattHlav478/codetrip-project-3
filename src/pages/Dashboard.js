@@ -1,34 +1,39 @@
-import React from "react";
-import { Button } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { collection, getDocs, doc, getDoc } from "firebase/firestore";
-import { db } from "../services/firebaseConnection";
+import { db, auth } from "../services/firebaseConnection";
+import { onAuthStateChanged } from "firebase/auth";
 
 // another level of security, make it so this is only viewed when a user is logged in--if user isn't logged in, then link to homepage, or custom page, whatever we want
 
 export default function Dashboard() {
-  //   async function getUserDoc() {
-  //     const docRef = collection(db, "users", "user@yahoo.com", "restaurant");
-  //     const docSnap = await getDocs(docRef);
+  const [projects, setProjects] = useState([]);
 
-  //     if (docSnap) {
-  //         console.log("Document data:", docSnap);
-  //       } else {
-  //         // doc.data() will be undefined in this case
-  //         console.log("No such document!");
-  //       }
+  function getUserProjects() {
+    auth.onAuthStateChanged(async (authUser) => {
+      if (authUser) {
+        const user = auth.currentUser.email;
+        const docRef = doc(db, "users", user);
+        const docSnap = await getDoc(docRef);
 
-  //   };
+        if (docSnap.exists) {
+          setProjects(docSnap.data());
+          console.log(projects);
+        } else {
+          console.log("No such document!");
+        }
+      } else {
+        window.location.assign('/login');
+      }
+    });
+  }
 
-  //   getUserDoc();
+  useEffect(() => {
+    getUserProjects();
+  }, []);
 
-  getDoc(doc(db, "users", "user@yahoo.com")).then((docSnap) => {
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-    } else {
-      console.log("No such document!");
-    }
-  });
+  const { restaurant } = projects
 
   return (
     <div>
@@ -38,16 +43,34 @@ export default function Dashboard() {
           Create New Project
         </Link>
       </Button>
-
-      {/* insert name of user here */}
-
       <h1>
         {" "}
-        <br></br> Welcome Name!
+        <br></br> Welcome {projects.name}!
       </h1>
 
       <h2>My Projects</h2>
-      <div></div>
+      <div>
+        {restaurant &&
+          restaurant.map(rest => (
+            <Card key={rest.name} style={{ width: "18rem" }}>
+              <Card.Body>
+                <Card.Title className="card-title">{rest.name}</Card.Title>
+                <Card.Text className="card-text">
+                  Date Created: //code here
+                </Card.Text>
+                <Card.Text className="card-text">
+                  Last Updated: //code here
+                </Card.Text>
+                <Button variant="dark" className="card-button">
+                  View
+                </Button>{" "}
+                <Button variant="dark" className="card-button">
+                  Delete
+                </Button>
+              </Card.Body>
+            </Card>
+          ))}
+      </div>
     </div>
   );
 }

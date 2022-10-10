@@ -10,9 +10,14 @@ import NoMatch from "./pages/NoMatch";
 import Footer from "./components/Footer";
 import LoginForm from "./components/LoginForm";
 import SignupForm from "./components/SignupForm";
-import Developers from "./pages/Developers";
+import MenuItems from "./template/MenuItems";
 
 function App() {
+    // idea for conditionally rendering the header/footer out when you go to restaurant's website.
+    // if (!thoughts.length) {
+    //     return <h3>No Thoughts Yet</h3>;
+    // }
+
     return (
         <Router>
             <div className="flex-column justify-flex-start min-100-vh">
@@ -21,11 +26,23 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/login" element={<LoginForm />} />
-                        <Route path="/signup" element={<SignupForm/>}/>
+                        <Route path="/signup" element={<SignupForm />} />
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/create" element={<Create />} />
-                        <Route path="/thedevelopers" element={<Developers />} />
                         <Route path="/signup" element={<SignupForm />} />
+                        {/* 
+                        <Route path="/profile">
+                                check for /:username parameter first
+                                <Route path=":username" element={<Profile />} />
+                                if none is provided in URL path, then render Profile component w/o
+                                <Route path="" element={<Profile />} />
+                            </Route>
+
+                            <Route
+                                path="/thought/:id"
+                                element={<SingleThought />}
+                            /> */}
+
                         <Route path="*" element={<NoMatch />} />
                     </Routes>
                 </div>

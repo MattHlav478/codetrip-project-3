@@ -4,26 +4,34 @@ import { auth } from "../services/firebaseConnection";
 import { connectAuthEmulator, signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginForm = () => {
+  const [validated, setValidated] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
   const [userFormData, setUserFormData] = useState({
     email: "",
     password: "",
   });
 
+  const handleSignupBtn = (event) => {
+    window.location.assign("/signup");
+  };
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setUserFormData({ ...userFormData, [name]: value });
+    console.log(userFormData);
   };
 
   const handleFormSubmit = async (event) => {
     console.log("submit clicked");
     event.preventDefault();
-    // clear form values
-    setUserFormData({
-      email: "",
-      password: "",
-    });
-
-    // AUTHENTICATE USER SIGN-UP IN FIREBASE
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      setShowAlert(true);
+      event.preventDefault();
+      event.stopPropagation();
+      setValidated(true);
+    } else {
+          // AUTHENTICATE USER SIGN-UP IN FIREBASE
     try {
       const userCredential = await signInWithEmailAndPassword(
         auth,
@@ -32,18 +40,17 @@ const LoginForm = () => {
       );
       console.log(userCredential.user);
       window.location.assign("/");
-          } catch (error) {
+    } catch (error) {
       console.log(error);
     }
-  };
-
-  const handleSignupBtn = (event) => {
-    window.location.assign("/signup");
+      window.location.assign("/dashboard");
+      setShowAlert(false);
+    }
   };
 
   return (
     <>
-      <Form onSubmit={handleFormSubmit}>
+      <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
         <Form.Group>
           <Form.Label htmlFor="email">Email</Form.Label>
           <Form.Control
@@ -54,6 +61,9 @@ const LoginForm = () => {
             value={userFormData.email}
             required
           />
+          <Form.Control.Feedback type="invalid">
+            Email is required
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group>
@@ -66,12 +76,15 @@ const LoginForm = () => {
             value={userFormData.password}
             required
           />
+          <Form.Control.Feedback type="invalid">
+            Password is required!
+          </Form.Control.Feedback>
         </Form.Group>
 
         <Button
-          disabled={!(userFormData.email && userFormData.password)}
+          // disabled={!(userFormData.email && userFormData.password)}
           type="submit"
-          variant="success"
+          variant="dark"
         >
           Submit
         </Button>

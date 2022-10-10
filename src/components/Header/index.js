@@ -18,14 +18,13 @@ export default function Header() {
 
   return (
     <>
-      <Navbar bg="dark" variant="dark">
+      <Navbar id="navbar" bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand href="#home">Genu</Navbar.Brand>
+          <Navbar.Brand href="/">Genu</Navbar.Brand>
           <Nav className="me-auto">
             {isLoggedIn ? (
               <Nav.Link href="/dashboard">Dashboard</Nav.Link>
             ) : null}
-            <Nav.Link href="/thedevelopers">The Developers</Nav.Link>
             <Nav.Link href="/pricing">Pricing</Nav.Link>
             {isLoggedIn ? (
               <>
