@@ -17,6 +17,12 @@ const SignupForm = () => {
     name: "",
     email: "",
     password: "",
+    restaurant: {
+      name: "",
+      address: "",
+      phoneNumber: null,
+      menuItems: []
+    }
   });
 
   const handleInputChange = (event) => {
