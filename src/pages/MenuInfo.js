@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Select from "react-select";
 import Table from "react-bootstrap/Table";
+import storageAPI from "../services/storageAPI";
 
 export default function MenuInfo({
     categories,
@@ -10,6 +11,8 @@ export default function MenuInfo({
     setMenuItem,
     allMenuItems,
     setAllMenuItems,
+    file,
+    setFile,
 }) {
     // WE ARE CREATING A NEW MENU ITEM
     function handleChange(e) {

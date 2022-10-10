@@ -4,22 +4,22 @@ import Form from "react-bootstrap/Form";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 
-export default function BasicInfo({ days, setFormPage }) {
+export default function BasicInfo({
+    days,
+    setFormPage,
+    basicInfoData,
+    setBasicInfoData,
+}) {
     const handleBasicInfoFormSubmit = (event) => {
         // validate that everything is correct inside the form. Every day needs an opening and closing time, OR else it isClosed is true
         // once that is true, then
         setFormPage("menu");
     };
 
-    const [basicInfoData, setBasicInfoData] = useState({
-        name: "",
-        address: "",
-        phoneNumber: "",
-    });
-
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setBasicInfoData({ ...basicInfoData, [name]: value });
+        console.log(basicInfoData);
     };
 
     return (
@@ -29,6 +29,7 @@ export default function BasicInfo({ days, setFormPage }) {
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Restaurant Name*</Form.Label>
                     <Form.Control
+                        name="name"
                         type="name"
                         placeholder="Enter name"
                         onChange={handleInputChange}
@@ -37,6 +38,7 @@ export default function BasicInfo({ days, setFormPage }) {
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Phone Number</Form.Label>
                     <Form.Control
+                        name="phoneNumber"
                         onChange={handleInputChange}
                         type="phone"
                         placeholder="Enter phone number"
@@ -45,6 +47,7 @@ export default function BasicInfo({ days, setFormPage }) {
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Address</Form.Label>
                     <Form.Control
+                        name="address"
                         type="address"
                         placeholder="Enter address"
                         onChange={handleInputChange}
