@@ -46,7 +46,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div>
+    <div className="page-height">
       <br></br>
       <Button type="submit" variant="dark">
         <Link className="no-decor" to="/create">

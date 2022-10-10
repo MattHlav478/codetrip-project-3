@@ -23,8 +23,9 @@ code {
 }
 
 .footer {
+  display:none;
   text-align: center;
-  position:fixed;
+  position:absolute;
   bottom: 0; 
   height: 4vh;
   margin-top: 5vh;
@@ -57,4 +58,12 @@ code {
 
 #navbar {
   margin-bottom: 3vh;
+}
+
+.page-height {
+  height:200vh;
+}
+
+.divider {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }

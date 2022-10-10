@@ -158,7 +158,7 @@ export default function Create() {
     };
 
     return (
-        <div>
+        <div className="page-height">
             {returnPage(formPage)}
             <Button variant="dark" type="submit" onClick={handleCreateBtn}>
                 Create Restaurant
