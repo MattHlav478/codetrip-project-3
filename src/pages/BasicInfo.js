@@ -44,9 +44,10 @@ export default function BasicInfo({
                 ]);
             } else {
                 setErrorMessage([{ ...errorMessage, [name]: "" }]);
-                setBasicInfoData({ ...basicInfoData, [name]: value });
+                
             }
         }
+        setBasicInfoData({ ...basicInfoData, [name]: value });
         console.log(basicInfoData);
     };
 
