@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { db, auth } from "../services/firebaseConnection";
 
 // another level of security, make it so this is only viewed when a user is logged in--if user isn't logged in, then link to homepage, or custom page, whatever we want
@@ -51,18 +51,12 @@ export default function Dashboard() {
   }, []);
 
   const restaurant = projects;
-  console.log(restaurant);
-  const user = auth.currentUser;
 
-  // async function handleDeleteBtn(event) {
-  //   const docRef = doc(db, `users`, user.email);
-  //   const restaurantKey = event.target.getAttribute("data-key");
-
-  //   await updateDoc(docRef, {
-  //     restaurant: arrayRemove(restaurant[restaurantKey]),
-  //   });
-  //   window.location.assign("/dashboard");
-  // }
+  async function handleDeleteBtn(event) {
+    const restId = event.target.getAttribute('data-key')
+    await deleteDoc(doc(db, "restaurants", restId))
+    window.location.assign("/dashboard")
+  }
 
   return (
     <div className="page-height">
@@ -75,7 +69,7 @@ export default function Dashboard() {
 
       <h1>
         {" "}
-        <br></br> Welcome !
+        <br></br> Welcome!
       </h1>
 
       <h2>My Projects</h2>
@@ -98,10 +92,10 @@ export default function Dashboard() {
                   </Button>{" "}
                 </Link>
                 <Button
-                  data-key={i}
+                  data-key={rest.id}
                   variant="dark"
                   className="card-button"
-                  // onClick={handleDeleteBtn}
+                  onClick={handleDeleteBtn}
                 >
                   Delete
                 </Button>
