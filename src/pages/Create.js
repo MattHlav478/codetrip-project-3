@@ -70,6 +70,7 @@ export default function Create() {
         type: null,
         imageURL: "",
     });
+
     const [allMenuItems, setAllMenuItems] = useState([]);
     const [userChoice, setUserChoice] = useState("");
     const [file, setFile] = useState("");
@@ -121,6 +122,14 @@ export default function Create() {
                         ],
                         menu: allMenuItems,
                         createdAt: Timestamp.now().toDate().toDateString(),
+                        isAbout: additionalInfoData.isAbout,
+                        about: additionalInfoData.about,
+                        link: [
+                            additionalInfoData.linkOne,
+                            additionalInfoData.linkTwo,
+                            additionalInfoData.linkThree,
+                        ],
+                        color: additionalInfoData.color,
                     }),
                 });
                 // ISSUE: when trying to redirect, project doesn't save
@@ -133,7 +142,7 @@ export default function Create() {
         isAbout: false,
         about: "",
         linkOne: "",
-        linkeTwo: "",
+        linkTwo: "",
         linkThree: "",
         color: "",
     });
@@ -169,27 +178,37 @@ export default function Create() {
             );
         } else if (formPage === "additional") {
             console.log("additional info");
-            return <AdditionalInfo colors={colors} additionalInfoData={additionalInfoData}
-            setAdditionalInfoData={setAdditionalInfoData}/>;
+            return (
+                <>
+                    <AdditionalInfo
+                        colors={colors}
+                        additionalInfoData={additionalInfoData}
+                        setAdditionalInfoData={setAdditionalInfoData}
+                    />
+
+                    {/* we want this to conditionally render on this page, but for now, I'm leaving it below. */}
+                    {/* <Link to="/dashboard">
+                        <Button
+                            variant="dark"
+                            type="submit"
+                            onClick={handleCreateBtn}
+                        >
+                            Create Restaurant
+                        </Button>
+                    </Link> */}
+                </>
+            );
         }
     };
 
     return (
         <div>
             {returnPage(formPage)}
-
-            <Button variant="dark" type="submit" onClick={handleCreateBtn}>
-                <Link to="/dashboard">Create Restaurant </Link>
-            </Button>
-
-            {/* <MenuInfo
-                categories={categories}
-                menuItem={menuItem}
-                setMenuItem={setMenuItem}
-                allMenuItems={allMenuItems}
-                setAllMenuItems={setAllMenuItems}
-            />
-            <AdditionalInfo /> */}
+            <Link to="/dashboard">
+                <Button variant="dark" type="submit" onClick={handleCreateBtn}>
+                    Create Restaurant
+                </Button>
+            </Link>
         </div>
     );
 }
