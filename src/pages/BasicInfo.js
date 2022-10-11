@@ -13,14 +13,9 @@ export default function BasicInfo({
     file,
     setFile,
 }) {
-    const [infoSubmit, setInfoSubmit] = useState("false");
+   
     const handleBasicInfoFormSubmit = (event) => {
-        // validate that everything is correct inside the form. Every day needs an opening and closing time, OR else it isClosed is true
-        // once that is true, then
-        setInfoSubmit("true");
-        // now all hour -> hours
-        // validate hours
-
+    
         console.log("full hours", hours);
         // state here indicating infoSubmitted=true, pass as a prop into TableRow,
         // TableRow then has an if statement (if infoSubmitted) => sends all values hour, into hours
@@ -46,8 +41,42 @@ export default function BasicInfo({
     const [openTime, setOpenTime] = useState("");
     const [closeTime, setCloseTime] = useState("");
     // const [isClosed, setIsClosed] = useState(false);
-    const [hours, setHours] = useState([]);
-    const arrayHours = [{}, {}, {}, {}, {}, {}, {}];
+    // const [hours, setHours] = useState([]);
+    // const arrayHours = [{}, {}, {}, {}, {}, {}, {}];
+    const [hours, setHours] = useState([
+        {
+            day: "Monday",
+            isOpen: true,
+            open: "",
+            close: "",
+        },
+        {
+            day: "Tuesday",
+            isOpen: true,
+            open: "",
+            close: "",
+        },
+        {
+            day: "Wednesday",
+            isOpen: true,
+            open: "",
+            close: "",
+        },
+        {
+            day: "Thursday",
+            isOpen: true,
+            open: "",
+            close: "",
+        },
+        {
+            day: "Friday",
+            isOpen: true,
+            open: "",
+            close: "",
+        },
+        { day: "Saturday", isOpen: true, open: "", close: "" },
+        { day: "Sunday", isOpen: true, open: "", close: "" },
+    ]);
 
     return (
         <div>
@@ -103,8 +132,8 @@ export default function BasicInfo({
                                 setHours={setHours}
                                 openTime={openTime}
                                 closeTime={closeTime}
-                                infoSubmit={infoSubmit}
-                                arrayHours={arrayHours}
+                                // infoSubmit={infoSubmit}
+                                // arrayHours={arrayHours}
                             />
                         ))}
                     </tbody>

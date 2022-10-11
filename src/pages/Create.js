@@ -45,6 +45,14 @@ export default function Create() {
         { label: "Drinks", value: 5 },
         { label: "A la Carte", value: 6 },
     ];
+    const colors = [
+        { label: "Yellow", value: 1 },
+        { label: "Blue", value: 2 },
+        { label: "Green", value: 3 },
+        { label: "Red", value: 4 },
+        { label: "Pink", value: 5 },
+        { label: "Purple", value: 6 },
+    ];
 
     const [basicInfoData, setBasicInfoData] = useState({
         name: "",
@@ -121,6 +129,15 @@ export default function Create() {
         });
     }
 
+    const [additionalInfoData, setAdditionalInfoData] = useState({
+        isAbout: false,
+        about: "",
+        linkOne: "",
+        linkeTwo: "",
+        linkThree: "",
+        color: "",
+    });
+
     const returnPage = (formPage) => {
         if (formPage === "basic") {
             console.log("basic info");
@@ -152,7 +169,8 @@ export default function Create() {
             );
         } else if (formPage === "additional") {
             console.log("additional info");
-            return <AdditionalInfo />;
+            return <AdditionalInfo colors={colors} additionalInfoData={additionalInfoData}
+            setAdditionalInfoData={setAdditionalInfoData}/>;
         }
     };
 

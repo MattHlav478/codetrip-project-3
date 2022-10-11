@@ -13,9 +13,9 @@ export default function TableRow({
     // setIsClosed,
     hours,
     setHours,
-    infoSubmit,
-    i,
-    arrayHours,
+    // infoSubmit,
+    // i,
+    // arrayHours,
 }) {
     const [isOpen, setIsOpen] = useState(true); //because default is that the store is open
 
@@ -48,7 +48,25 @@ export default function TableRow({
     //     setHours([...hours, hour]);
     // }
 
-    console.log(arrayHours);
+    // console.log(arrayHours);
+
+    const handleChange = (event) => {
+        const newHours = hours.map((obj) => {
+            if (obj.day === day) {
+                return {
+                    ...obj,
+                    day: day,
+                    isOpen: isOpen,
+                    open: openTime,
+                    close: closeTime,
+                };
+            }
+            return obj;
+        });
+        setHours(newHours);
+
+        console.log(hours);
+    };
 
     return (
         <>
@@ -68,6 +86,7 @@ export default function TableRow({
                         onChange={(e) => {
                             setOpenTime(e.format("LT"));
                             setHour({ ...hour, [`open`]: openTime });
+                            handleChange(e);
                             // setHours([...hours,{ hour}]);
                             // setHours([
                             //     ...hours[key],

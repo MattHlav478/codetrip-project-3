@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Nav from 'react-bootstrap/Nav';
+import Nav from "react-bootstrap/Nav";
 
 import {
     MDBNavbar,
@@ -15,6 +15,10 @@ import {
 
 export default function Home() {
     const [showBasic, setShowBasic] = useState(false);
+
+    // make a call to firebase to extract specific restaurant project data
+    // based on URL parameter bar
+    // genu/project/:user-id/:restaurant-id/:restaurant-name
 
     return (
         <header>
@@ -56,20 +60,17 @@ export default function Home() {
                 </MDBBtn>
             </div>
 
-    <Nav variant="tabs" defaultActiveKey="/home">
-      <Nav.Item>
-        <Nav.Link href="/home">About Us</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="link-1">Menu</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link>Visit Us</Nav.Link>
-      </Nav.Item>
-    </Nav>
-
-
-
+            <Nav variant="tabs" defaultActiveKey="/home">
+                <Nav.Item>
+                    <Nav.Link href="/home">About Us</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link eventKey="link-1">Menu</Nav.Link>
+                </Nav.Item>
+                <Nav.Item>
+                    <Nav.Link>Visit Us</Nav.Link>
+                </Nav.Item>
+            </Nav>
 
             <br></br>
         </header>
