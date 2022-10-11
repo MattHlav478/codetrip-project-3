@@ -4,12 +4,14 @@ import { db } from "../services/firebaseConnection";
 import { addDoc, doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { auth } from "../services/firebaseConnection";
 import {
-    connectAuthEmulator,
-    createUserWithEmailAndPassword,
-    onAuthStateChanged,
+  connectAuthEmulator,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 const SignupForm = () => {
+  const alertDiv = document.getElementById("alert");
+
   //set initial form state
   const [validated, setValidated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
@@ -17,6 +19,12 @@ const SignupForm = () => {
     name: "",
     email: "",
     password: "",
+    restaurant: {
+      name: "",
+      address: "",
+      phoneNumber: null,
+      menuItems: []
+    }
   });
 
   const handleInputChange = (event) => {
@@ -51,7 +59,13 @@ const SignupForm = () => {
         console.log(userCredential.user);
         window.location.assign("/dashboard");
       } catch (error) {
-        console.log(error);
+        console.log(error.code);
+        if (error.code === "auth/email-already-in-use") {
+          alertDiv.innerHTML =
+            "Email already in use."
+        } else if (error.code === "auth/weak-password") {
+          alertDiv.innerHTML = "Password needs to be at least 6 characters"
+        }
       }
     }
   };
@@ -106,21 +120,12 @@ const SignupForm = () => {
           </Form.Control.Feedback>
         </Form.Group>
         <br></br>
-        <Button
-          // disabling the submit buttons prevents the form.feedback from working
-          // disabled={
-          //     !(
-          //         userFormData.name &&
-          //         userFormData.email &&
-          //         userFormData.password
-          //     )
-          // }
-          type="submit"
-          variant="dark"
-        >
+        <Button className="" type="submit" variant="dark">
+          <div id="liveAlertPlaceholder" className="login-alert"></div>
           Submit
         </Button>
       </Form>
+      <div id="alert"></div>
     </>
   );
 }

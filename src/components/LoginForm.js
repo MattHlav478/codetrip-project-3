@@ -4,6 +4,8 @@ import { auth } from "../services/firebaseConnection";
 import { connectAuthEmulator, signInWithEmailAndPassword } from "firebase/auth";
 
 const LoginForm = () => {
+  const alertDiv = document.getElementById('alert');
+  
   const [validated, setValidated] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [userFormData, setUserFormData] = useState({
@@ -45,9 +47,12 @@ const LoginForm = () => {
           window.location.assign("/dashboard");
         }
       } catch (error) {
-        console.log(error);
+        if (error.code === "auth/user-not-found") {
+          alertDiv.innerHTML =
+            "Email not registered";
+        }
+          
       }
-      setShowAlert(false);
     }
   };
 
@@ -83,9 +88,9 @@ const LoginForm = () => {
             Password is required!
           </Form.Control.Feedback>
         </Form.Group>
+        <div id="alert"></div>
 
         <Button
-          // disabled={!(userFormData.email && userFormData.password)}
           type="submit"
           variant="dark"
         >
