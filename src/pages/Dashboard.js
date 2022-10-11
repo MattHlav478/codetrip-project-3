@@ -33,10 +33,10 @@ export default function Dashboard() {
   }, []);
 
   const { restaurant } = projects;
+  const user = auth.currentUser;
 
   async function handleDeleteBtn(event) {
-    const user = auth.currentUser.email;
-    const docRef = doc(db, `users`, user);
+    const docRef = doc(db, `users`, user.email);
     const restaurantKey = event.target.getAttribute("data-key");
 
     await updateDoc(docRef, {
@@ -48,11 +48,12 @@ export default function Dashboard() {
   return (
     <div className="page-height">
       <br></br>
-      <Button type="submit" variant="dark">
-        <Link className="no-decor" to="/create">
+      <Link className="no-decor" to="/create">
+        <Button type="submit" variant="dark">
           Create New Project
-        </Link>
-      </Button>
+        </Button>{" "}
+      </Link>
+
       <h1>
         {" "}
         <br></br> Welcome {projects.name}!
@@ -68,9 +69,15 @@ export default function Dashboard() {
                 <Card.Text className="card-text">
                   Date Created: {rest.createdAt}
                 </Card.Text>
-                <Button variant="dark" className="card-button">
-                  View
-                </Button>{" "}
+                <Link
+                  className="no-decor"
+                  to={`/restaurant/${user.uid}/${rest.name}`}
+                  target="_blank"
+                >
+                  <Button variant="dark" className="card-button">
+                    View
+                  </Button>{" "}
+                </Link>
                 <Button
                   data-key={i}
                   variant="dark"

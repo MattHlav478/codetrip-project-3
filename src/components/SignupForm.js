@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import Alert from "react-bootstrap/Alert";
 import { db } from "../services/firebaseConnection";
-import { addDoc, doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { addDoc, doc, setDoc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
 import { auth } from "../services/firebaseConnection";
 import {
     connectAuthEmulator,
@@ -11,8 +11,6 @@ import {
 } from "firebase/auth";
 
 const SignupForm = () => {
-    const alertDiv = document.getElementById("alert");
-
     //set initial form state
     const [validated, setValidated] = useState(false);
     const [show, setShow] = useState(false);
@@ -63,12 +61,9 @@ const SignupForm = () => {
             } catch (error) {
                 console.log(error.code);
                 if (error.code === "auth/email-already-in-use") {
-                    alertDiv.innerHTML = "Email already in use.";
-                    //add one error
+                    setShow2(true)
                 } else if (error.code === "auth/weak-password") {
                   setShow(true)
-                    alertDiv.innerHTML =
-                        "Password needs to be at least 6 characters";
                 }
             }
         }
@@ -147,9 +142,9 @@ const SignupForm = () => {
                     Submit
                 </Button>
             </Form>
-            <div id="alert"></div>
         </>
     );
+
 };
 
 export default SignupForm;
