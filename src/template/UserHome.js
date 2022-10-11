@@ -1,20 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 
-import {
-    MDBNavbar,
-    MDBNavbarNav,
-    MDBNavbarItem,
-    MDBNavbarLink,
-    MDBNavbarToggler,
-    MDBContainer,
-    MDBIcon,
-    MDBBtn,
-    MDBCollapse,
-} from "mdb-react-ui-kit";
+// import {
+//     MDBNavbar,
+//     MDBNavbarNav,
+//     MDBNavbarItem,
+//     MDBNavbarLink,
+//     MDBNavbarToggler,
+//     MDBContainer,
+//     MDBIcon,
+//     MDBBtn,
+//     MDBCollapse,
+// } from "mdb-react-ui-kit";
 
-export default function Home() {
+export default function Home({projects}) {
     const [showBasic, setShowBasic] = useState(false);
+
+    const { userId: userParam } = useParams();
+    console.log(userParam)
+
+    useEffect(() => {
+        console.log("projects: ", projects)
+    },[])
 
     // make a call to firebase to extract specific restaurant project data
     // based on URL parameter bar
@@ -22,7 +30,7 @@ export default function Home() {
 
     return (
         <header>
-            <MDBNavbar expand="lg" light bgColor="white" fixed>
+            {/* <MDBNavbar expand="lg" light bgColor="white" fixed>
                 <MDBContainer fluid>
                     <MDBNavbarToggler
                         aria-controls="navbarExample01"
@@ -50,14 +58,14 @@ export default function Home() {
                         </MDBNavbarNav>
                     </MDBCollapse>
                 </MDBContainer>
-            </MDBNavbar>
+            </MDBNavbar> */}
 
             <div className="p-5 text-center bg-light">
                 <h1 className="mb-3">Restaurant Name</h1>
                 <h4 className="mb-3">323-499-5070</h4>
-                <MDBBtn tag="a" outline size="lg">
+                {/* <MDBBtn tag="a" outline size="lg">
                     Our Menu
-                </MDBBtn>
+                </MDBBtn> */}
             </div>
 
             <Nav variant="tabs" defaultActiveKey="/home">

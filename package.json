@@ -10,7 +10,6 @@
         "firebase": "^9.11.0",
         "graphql": "^16.6.0",
         "jwt-decode": "^3.1.2",
-        "mdb-react-ui-kit": "^4.2.0",
         "rc-time-picker": "^3.7.3",
         "react": "^17.0.2",
         "react-bootstrap": "^2.5.0",
