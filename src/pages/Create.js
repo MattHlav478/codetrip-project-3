@@ -142,7 +142,7 @@ export default function Create() {
         isAbout: false,
         about: "",
         linkOne: "",
-        linkeTwo: "",
+        linkTwo: "",
         linkThree: "",
         color: "",
     });
