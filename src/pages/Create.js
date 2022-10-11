@@ -179,11 +179,26 @@ export default function Create() {
         } else if (formPage === "additional") {
             console.log("additional info");
             return (
-                <AdditionalInfo
-                    colors={colors}
-                    additionalInfoData={additionalInfoData}
-                    setAdditionalInfoData={setAdditionalInfoData}
-                />
+                <>
+                    <AdditionalInfo
+                        colors={colors}
+                        additionalInfoData={additionalInfoData}
+                        setAdditionalInfoData={setAdditionalInfoData}
+                    />
+                    {/* // needs to be rendered here IN PRODUCTION but leaving it
+                    below for ease of creating projects. //{" "}
+                    <Link to={"/dashboard"}>
+                        //{" "}
+                        <Button
+                            variant="dark"
+                            type="submit"
+                            onClick={handleCreateBtn}
+                        >
+                            // Create Restaurant //{" "}
+                        </Button>
+                        //{" "}
+                    </Link> */}
+                </>
             );
         }
     };
@@ -197,15 +212,6 @@ export default function Create() {
                     Create Restaurant
                 </Button>
             </Link>
-
-            {/* <MenuInfo
-                categories={categories}
-                menuItem={menuItem}
-                setMenuItem={setMenuItem}
-                allMenuItems={allMenuItems}
-                setAllMenuItems={setAllMenuItems}
-            />
-            <AdditionalInfo /> */}
         </div>
     );
 }
