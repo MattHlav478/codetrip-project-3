@@ -2,7 +2,14 @@ import React, { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 import Alert from "react-bootstrap/Alert";
 import { db } from "../services/firebaseConnection";
-import { addDoc, doc, setDoc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
+import {
+    addDoc,
+    doc,
+    setDoc,
+    updateDoc,
+    arrayUnion,
+    Timestamp,
+} from "firebase/firestore";
 import { auth } from "../services/firebaseConnection";
 import {
     connectAuthEmulator,
@@ -61,9 +68,9 @@ const SignupForm = () => {
             } catch (error) {
                 console.log(error.code);
                 if (error.code === "auth/email-already-in-use") {
-                    setShow2(true)
+                    setShow2(true);
                 } else if (error.code === "auth/weak-password") {
-                  setShow(true)
+                    setShow(true);
                 }
             }
         }
@@ -144,7 +151,6 @@ const SignupForm = () => {
             </Form>
         </>
     );
-
 };
 
 export default SignupForm;
