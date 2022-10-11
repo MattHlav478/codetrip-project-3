@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Form from "react-bootstrap/Form";
 import Select from "react-select";
 
@@ -7,20 +7,18 @@ export default function AdditionalInfo({
     additionalInfoData,
     setAdditionalInfoData,
 }) {
-    const [color, setColor] = useState("#fff");
-    // choose a color that is default ASK MARLOWE WHAT IS BEST
-
     const handleCheckbox = (event) => {
         const key = event.target.name;
         const check = event.target.checked;
-        console.log(check);
         setAdditionalInfoData({ ...additionalInfoData, [key]: check });
-        console.log(additionalInfoData);
     };
-    const handleChange = (event)=>{
-        const key=event.target.name
-        // const value 
-    }
+
+    const handleChange = (event) => {
+        const key = event.target.name;
+        const value = event.target.value;
+        setAdditionalInfoData({ ...additionalInfoData, [key]: value });
+        // console.log(additionalInfoData);
+    };
 
     return (
         <div>
@@ -44,8 +42,9 @@ export default function AdditionalInfo({
                     <textarea
                         placeholder="Tell us your story."
                         className="form-input col-12 col-md-9"
-                        // onChange={handleChange}
-                        // value={reactionBody}
+                        name="about"
+                        onChange={handleChange}
+                        value={additionalInfoData.about}
                     ></textarea>
                 )}
 
@@ -55,12 +54,23 @@ export default function AdditionalInfo({
                         etc.
                     </Form.Label>
                     <Form.Control
-                        name="phoneNumber"
-                        // onChange={handleInputChange}
-                        type="phone"
+                        name="linkOne"
+                        onChange={handleChange}
+                        type="text"
                         placeholder="Enter link"
                     />
-                    {/* add a plus button? */}
+                    <Form.Control
+                        name="linkTwo"
+                        onChange={handleChange}
+                        type="text"
+                        placeholder="Enter link"
+                    />
+                    <Form.Control
+                        name="linkThree"
+                        onChange={handleChange}
+                        type="text"
+                        placeholder="Enter link"
+                    />
                 </Form.Group>
 
                 <div className="container">
@@ -69,14 +79,14 @@ export default function AdditionalInfo({
                         <div className="col-md-3"></div>
                         <div className="col-md-6">
                             <Select
-                                name="type"
+                                name="color"
                                 options={colors}
-                                // onChange={(choice) =>
-                                //     setMenuItem({
-                                //         ...menuItem,
-                                //         [`type`]: choice.label,
-                                //     })
-                                // }
+                                onChange={(choice) =>
+                                    setAdditionalInfoData({
+                                        ...additionalInfoData,
+                                        [`color`]: choice.value,
+                                    })
+                                }
                             />
                         </div>
                         <div className="col-md-4"></div>

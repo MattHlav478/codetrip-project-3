@@ -6,7 +6,6 @@ export default function Home() {
     return (
         <section className="page-height">
             <AboutCarousel></AboutCarousel>
-            <Developers></Developers>
             <div className="divider">
                 <br></br>
                 <h1>About Genu</h1>
@@ -30,6 +29,7 @@ export default function Home() {
                 </p>
                 <p>Sound good? Sign up today and see what we can do for you!</p>
             </div>
+            <Developers></Developers>
         </section>
     );
 }
