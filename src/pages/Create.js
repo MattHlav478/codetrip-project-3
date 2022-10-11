@@ -8,6 +8,7 @@ import {
     Timestamp,
     FieldValue,
 } from "firebase/firestore";
+import { Link } from "react-router-dom";
 
 import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
@@ -121,10 +122,9 @@ export default function Create() {
                         menu: allMenuItems,
                         createdAt: Timestamp.now().toDate().toDateString(),
                     }),
-                })(
-                    // ISSUE: when trying to redirect, project doesn't save
-                    window.location.assign("/dashboard")
-                );
+                });
+                // ISSUE: when trying to redirect, project doesn't save
+                //   (window.location.assign("/dashboard"));
             }
         });
     }
@@ -177,9 +177,11 @@ export default function Create() {
     return (
         <div>
             {returnPage(formPage)}
+
             <Button variant="dark" type="submit" onClick={handleCreateBtn}>
-                Create Restaurant
+                <Link to="/dashboard">Create Restaurant </Link>
             </Button>
+
             {/* <MenuInfo
                 categories={categories}
                 menuItem={menuItem}
