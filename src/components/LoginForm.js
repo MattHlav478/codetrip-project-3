@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
+import Alert from "react-bootstrap/Alert"
 import { auth } from "../services/firebaseConnection";
 import { connectAuthEmulator, signInWithEmailAndPassword } from "firebase/auth";
 
@@ -7,11 +8,12 @@ const LoginForm = () => {
   const alertDiv = document.getElementById('alert');
   
   const [validated, setValidated] = useState(false);
-  const [showAlert, setShowAlert] = useState(false);
+  const [show, setShow] = useState(false);
   const [userFormData, setUserFormData] = useState({
     email: "",
     password: "",
   });
+
 
   const handleSignupBtn = (event) => {
     window.location.assign("/signup");
@@ -28,7 +30,6 @@ const LoginForm = () => {
     event.preventDefault();
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
-      setShowAlert(true);
       event.preventDefault();
       event.stopPropagation();
       setValidated(true);
@@ -48,8 +49,7 @@ const LoginForm = () => {
         }
       } catch (error) {
         if (error.code === "auth/user-not-found") {
-          alertDiv.innerHTML =
-            "Email not registered";
+          setShow(true)
         }
           
       }
@@ -59,6 +59,9 @@ const LoginForm = () => {
   return (
     <>
       <Form noValidate validated={validated} onSubmit={handleFormSubmit}>
+      <Alert onClose={() => setShow(false)} show={show}  dismissible>
+          Something went wrong with your credentials!
+        </Alert>
         <Form.Group>
           <Form.Label htmlFor="email">Email</Form.Label>
           <Form.Control
