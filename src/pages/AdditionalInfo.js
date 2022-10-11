@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Form from "react-bootstrap/Form";
 import Select from "react-select";
 
@@ -7,22 +7,17 @@ export default function AdditionalInfo({
     additionalInfoData,
     setAdditionalInfoData,
 }) {
-    const [color, setColor] = useState("#fff");
-    // choose a color that is default ASK MARLOWE WHAT IS BEST
-
     const handleCheckbox = (event) => {
         const key = event.target.name;
         const check = event.target.checked;
-        console.log(check);
         setAdditionalInfoData({ ...additionalInfoData, [key]: check });
-        console.log(additionalInfoData);
     };
 
     const handleChange = (event) => {
         const key = event.target.name;
         const value = event.target.value;
         setAdditionalInfoData({ ...additionalInfoData, [key]: value });
-        console.log(additionalInfoData);
+        // console.log(additionalInfoData);
     };
 
     return (
@@ -86,13 +81,11 @@ export default function AdditionalInfo({
                             <Select
                                 name="color"
                                 options={colors}
-                                onChange={
-                                    (choice) =>
-                                        setAdditionalInfoData({
-                                            ...additionalInfoData,
-                                            [`color`]: choice.value,
-                                        })
-                                    // get color value instead? # or decimal? ask Marlowe
+                                onChange={(choice) =>
+                                    setAdditionalInfoData({
+                                        ...additionalInfoData,
+                                        [`color`]: choice.value,
+                                    })
                                 }
                             />
                         </div>

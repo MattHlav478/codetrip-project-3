@@ -31,11 +31,9 @@ function App() {
                         <Route path="/create" element={<Create />} />
                         <Route path="/signup" element={<SignupForm />} />
 
-
-                        <Route path="/restaurant">
+                        {/* <Route path="/restaurant">
                             <Route path=":id" element={<Home></Home>}></Route>
-
-                        </Route>
+                        </Route> */}
                         {/* 
                         <Route path="/profile">
                                 check for /:username parameter first

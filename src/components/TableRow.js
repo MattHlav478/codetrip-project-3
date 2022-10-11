@@ -1,31 +1,11 @@
 import React, { useState } from "react";
 import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
-// import Form from "react-bootstrap/Form";
 
-export default function TableRow({
-    day,
-    // openTime,
-    // setCloseTime,
-    // closeTime,
-    // setOpenTime,
-    // isClosed,
-    // setIsClosed,
-    hours,
-    setHours,
-    // infoSubmit,
-    // i,
-    // arrayHours,
-}) {
+export default function TableRow({ day, hours, setHours }) {
     const [isOpen, setIsOpen] = useState(true); //because default is that the store is open
     const [openTime, setOpenTime] = useState("");
     const [closeTime, setCloseTime] = useState("");
-
-    const handleCheckbox = (event) => {
-        setIsOpen(!event.target.checked);
-        setHour({ ...hour, [event.target.name]: isOpen });
-    };
-
     const [hour, setHour] = useState({
         day: `${day}`,
         isOpen: isOpen,
@@ -33,28 +13,12 @@ export default function TableRow({
         close: closeTime,
     });
 
-    // bundle all info - isClosed, open, close hours - into setStoreHours prop passed from Create
-    // and that would, at the end of all of this, have 7 objects inside its array
+    const handleCheckbox = (event) => {
+        setIsOpen(!event.target.checked);
+        setHour({ ...hour, [event.target.name]: isOpen });
+    };
 
-    const handleChange = (event) => {
-        // const newHours = hours.map((obj) => {
-        //     if (obj.day === day) {
-        //         return {
-        //             ...obj,
-        //             day: day,
-        //             isOpen: isOpen,
-        //             open: openTime,
-        //             close: closeTime,
-        //         };
-        //     }
-        //     return obj;
-        // });
-        // setHours(newHours);
-        // if (event.target.name === "isOpen") {
-        //     setIsOpen(!event.target.checked);
-        //     setHour({ ...hour, [event.target.name]: isOpen });
-        // }
-
+    const handleChange = () => {
         const updateHours = { ...hours };
         updateHours[day] = { isOpen, open: openTime, close: closeTime };
         setHours(updateHours);
@@ -62,8 +26,6 @@ export default function TableRow({
         console.log(hour);
         console.log(hours);
     };
-
-    console.log(hour);
 
     return (
         <>
@@ -84,22 +46,6 @@ export default function TableRow({
                             setOpenTime(e.format("LT"));
                             setHour({ ...hour, [`open`]: openTime });
                             handleChange(e);
-                            // setHours([...hours,{ hour}]);
-                            // setHours([
-                            //     ...hours[key],
-                            //     {
-                            //         [`day`]: day,
-                            //         [`open`]: openTime,
-                            //         [`close`]: closeTime,
-                            //         [`isOpen`]: isOpen,
-                            //     },
-                            // ]);
-                            // arrayHours[i] = {
-                            //     [`day`]: day,
-                            //     [`open`]: openTime,
-                            //     [`close`]: closeTime,
-                            //     [`isOpen`]: isOpen,
-                            // };
                         }}
                     />
                 </td>
@@ -114,24 +60,10 @@ export default function TableRow({
                         disabled={!isOpen}
                         format="hh:mm A"
                         name="close"
-                        // disabled={} use this and check if checkbox is selected, if so, disable.
-                        // onChange={(e) => setCloseTime(e.format("LT"))}
                         onChange={(e) => {
                             setCloseTime(e.format("LT"));
                             setHour({ ...hour, [`close`]: closeTime });
                             handleChange(e);
-                            // setHours([...hours, hour]);
-                            // setHours([
-                            //     ...hours[key],
-
-                            // ]);
-                            // console.log("key", i);
-                            // arrayHours[i] = {
-                            //     [`day`]: day,
-                            //     [`open`]: openTime,
-                            //     [`close`]: closeTime,
-                            //     [`isOpen`]: isOpen,
-                            // };
                         }}
                     />
                 </td>
@@ -140,8 +72,10 @@ export default function TableRow({
                         id="isOpenCheck"
                         type="checkbox"
                         name="isOpen"
-                        onChange={handleCheckbox}
-                        // onChange={handleChange}
+                        onChange={(e) => {
+                            handleCheckbox(e);
+                            handleChange(e);
+                        }}
                     />
                     Closed All Day
                 </td>

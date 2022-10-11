@@ -21,12 +21,12 @@ export default function BasicInfo({
         //     phoneNumber: "",
         //     imageURL: "",
         // });
-        if (
-            basicInfoData.name &&
-            basicInfoData.address &&
-            basicInfoData.phoneNumber
-        ) {
-        }
+        // if (
+        //     basicInfoData.name &&
+        //     basicInfoData.address &&
+        //     basicInfoData.phoneNumber
+        // ) {
+        // }
 
         setFormPage("menu");
     };
@@ -44,9 +44,9 @@ export default function BasicInfo({
                 ]);
             } else {
                 setErrorMessage([{ ...errorMessage, [name]: "" }]);
+                setBasicInfoData({ ...basicInfoData, [name]: value });
             }
         }
-        setBasicInfoData({ ...basicInfoData, [name]: value });
         console.log(basicInfoData);
     };
 
@@ -56,11 +56,7 @@ export default function BasicInfo({
         storageAPI.upload(event.target.files[0]);
     };
 
-    // const [openTime, setOpenTime] = useState("");
-    // const [closeTime, setCloseTime] = useState("");
-    // const [isClosed, setIsClosed] = useState(false);
     const [hours, setHours] = useState({});
-    // const arrayHours = [{}, {}, {}, {}, {}, {}, {}];
     const [errorMessage, setErrorMessage] = useState([
         {
             phone: "",
@@ -69,14 +65,14 @@ export default function BasicInfo({
         },
     ]);
 
-    const handleHours = (event) => {
-        event.preventDefault();
-        const flat = Object.keys(hours).map((weekday) => {
+    const handleHours = () => {
+        return Object.keys(hours).map((weekday) => {
             const { isOpen, close, open } = hours[weekday];
             return { day: weekday, isOpen, close, open };
         });
-        console.log(flat);
-        return flat;
+
+        // consider adding validation for hours here? do so by const flatHours = Object.keys..., then return flat at some point.
+        // if it's NOT valid, then don't run the handleFormSubmit. But if it is, then do.
     };
 
     return (
@@ -142,16 +138,8 @@ export default function BasicInfo({
                                 day={day}
                                 i={i}
                                 key={i}
-                                // setOpenTime={setOpenTime}
-                                // setCloseTime={setCloseTime}
-                                // isClosed={isClosed}
-                                // setIsClosed={setIsClosed}
                                 hours={hours}
                                 setHours={setHours}
-                                // openTime={openTime}
-                                // closeTime={closeTime}
-                                // infoSubmit={infoSubmit}
-                                // arrayHours={arrayHours}
                             />
                         ))}
                     </tbody>
@@ -181,8 +169,10 @@ export default function BasicInfo({
                         variant="dark"
                         type="submit"
                         size="lg"
-                        onClick={handleHours}
-                        // onClick={handleBasicInfoFormSubmit}
+                        onClick={(e) => {
+                            handleHours(e);
+                            handleBasicInfoFormSubmit();
+                        }}
                     >
                         Next
                     </Button>
