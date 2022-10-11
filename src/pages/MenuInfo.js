@@ -158,7 +158,7 @@ export default function MenuInfo({
                 </Button>
                 <br></br>
                 <Alert onClose={() => setShow(false)} show={show} dismissible>
-                    Please make sure to fill in each field!
+                    Please make sure to add at least one menu item!
                 </Alert>
             </div>
         </div>
