@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import { db } from "../services/firebaseConnection";
-import { addDoc, doc, setDoc, updateDoc, arrayUnion } from "firebase/firestore";
+import { addDoc, doc, setDoc, updateDoc, arrayUnion, Timestamp } from "firebase/firestore";
 import { auth } from "../services/firebaseConnection";
 import {
   connectAuthEmulator,
@@ -23,8 +23,8 @@ const SignupForm = () => {
       name: "",
       address: "",
       phoneNumber: null,
-      menuItems: []
-    }
+      menuItems: [],
+    },
   });
 
   const handleInputChange = (event) => {
@@ -47,6 +47,7 @@ const SignupForm = () => {
       await setDoc(doc(db, "users", userFormData.email), {
         name: userFormData.name,
         password: userFormData.password,
+        firebaseId: Timestamp.now().toString(),
       });
 
       // AUTHENTICATE USER SIGN-UP IN FIREBASE
@@ -56,20 +57,23 @@ const SignupForm = () => {
           userFormData.email,
           userFormData.password
         );
+        //  updateDoc(
+        //   doc(db, "users", auth.currentUser.email, {
+        //     firebaseId: auth.currentUser.uid,
+        //   })
+        // );
         console.log(userCredential.user);
         window.location.assign("/dashboard");
       } catch (error) {
         console.log(error.code);
         if (error.code === "auth/email-already-in-use") {
-          alertDiv.innerHTML =
-            "Email already in use."
+          alertDiv.innerHTML = "Email already in use.";
         } else if (error.code === "auth/weak-password") {
-          alertDiv.innerHTML = "Password needs to be at least 6 characters"
+          alertDiv.innerHTML = "Password needs to be at least 6 characters";
         }
       }
     }
   };
-
 
   return (
     <>
@@ -128,6 +132,6 @@ const SignupForm = () => {
       <div id="alert"></div>
     </>
   );
-}
+};
 
 export default SignupForm;

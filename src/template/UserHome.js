@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 
@@ -14,11 +14,15 @@ import Nav from "react-bootstrap/Nav";
 //     MDBCollapse,
 // } from "mdb-react-ui-kit";
 
-export default function Home() {
+export default function Home({projects}) {
     const [showBasic, setShowBasic] = useState(false);
 
     const { userId: userParam } = useParams();
     console.log(userParam)
+
+    useEffect(() => {
+        console.log("projects: ", projects)
+    },[])
 
     // make a call to firebase to extract specific restaurant project data
     // based on URL parameter bar
