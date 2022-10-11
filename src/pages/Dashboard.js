@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { doc, getDoc, updateDoc, arrayRemove } from "firebase/firestore";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { db, auth } from "../services/firebaseConnection";
 
 // another level of security, make it so this is only viewed when a user is logged in--if user isn't logged in, then link to homepage, or custom page, whatever we want
@@ -13,15 +13,33 @@ export default function Dashboard() {
     auth.onAuthStateChanged(async (authUser) => {
       if (authUser) {
         const user = auth.currentUser.email;
-        const docRef = doc(db, "users", user);
-        const docSnap = await getDoc(docRef);
+        // if (user) {
+        //   console.log('here')
+        // }
+        // const docRef = doc(db, "restaurants", /*unique restaurant ID*/);
+        // const docSnap = await getDoc(docRef);
+        const restRef = collection(db, "restaurants");
+        const userRest = query(restRef, where("user", "==", user));
+        const querySnapshot = await getDocs(userRest);
+        // console.log(querySnapshot)
 
-        if (docSnap.exists) {
-          setProjects(docSnap.data());
-          console.log("projects: ", projects);
-        } else {
-          console.log("No such document!");
-        }
+        const projectsUpdate = [];
+
+        querySnapshot.forEach((doc) => {
+          const obj = doc.data();
+          obj.id = doc.id;
+          projectsUpdate.push(obj);
+        });
+
+        setProjects(projectsUpdate);
+        // if (projects) {
+        //   // setProjects(docSnap.data());
+        //   // console.log("projects: ", projects);
+        //   console.log(userRest)
+        //   c
+        // } else {
+        //   console.log("No such document!");
+        // }
       } else {
         window.location.assign("/login");
       }
@@ -32,18 +50,19 @@ export default function Dashboard() {
     getUserProjects();
   }, []);
 
-  const { restaurant } = projects;
+  const restaurant = projects;
+  console.log(restaurant);
   const user = auth.currentUser;
 
-  async function handleDeleteBtn(event) {
-    const docRef = doc(db, `users`, user.email);
-    const restaurantKey = event.target.getAttribute("data-key");
+  // async function handleDeleteBtn(event) {
+  //   const docRef = doc(db, `users`, user.email);
+  //   const restaurantKey = event.target.getAttribute("data-key");
 
-    await updateDoc(docRef, {
-      restaurant: arrayRemove(restaurant[restaurantKey]),
-    });
-    window.location.assign("/dashboard");
-  }
+  //   await updateDoc(docRef, {
+  //     restaurant: arrayRemove(restaurant[restaurantKey]),
+  //   });
+  //   window.location.assign("/dashboard");
+  // }
 
   return (
     <div className="page-height">
@@ -56,7 +75,7 @@ export default function Dashboard() {
 
       <h1>
         {" "}
-        <br></br> Welcome {projects.name}!
+        <br></br> Welcome !
       </h1>
 
       <h2>My Projects</h2>
@@ -71,7 +90,7 @@ export default function Dashboard() {
                 </Card.Text>
                 <Link
                   className="no-decor"
-                  to={`/restaurant/${user.uid}/${rest.name}`}
+                  to={`/restaurant/${rest.id}/${rest.name}`}
                   target="_blank"
                 >
                   <Button variant="dark" className="card-button">
@@ -82,7 +101,7 @@ export default function Dashboard() {
                   data-key={i}
                   variant="dark"
                   className="card-button"
-                  onClick={handleDeleteBtn}
+                  // onClick={handleDeleteBtn}
                 >
                   Delete
                 </Button>

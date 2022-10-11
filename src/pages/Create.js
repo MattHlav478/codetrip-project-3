@@ -4,6 +4,9 @@ import { db, auth } from "../services/firebaseConnection";
 import {
   doc,
   updateDoc,
+  addDoc,
+  setDoc,
+  collection,
   arrayUnion,
   Timestamp,
   FieldValue,
@@ -78,51 +81,16 @@ export default function Create() {
     auth.onAuthStateChanged(async (authUser) => {
       if (authUser) {
         const user = auth.currentUser.email;
-        const docRef = doc(db, "users", user);
-        await updateDoc(docRef, {
+        await addDoc(collection(db, "restaurants"), {
           // arrayUnion updates the array value for 'restaurant'
-          restaurant: arrayUnion({
+            user: user,
             name: basicInfoData.name,
             address: basicInfoData.address,
             phoneNumber: basicInfoData.phoneNumber,
-            hours: [
-              {
-                day: "Monday",
-                isOpen: true,
-                open: "12PM",
-                close: "9PM",
-              },
-              {
-                day: "Tuesday",
-                isOpen: true,
-                open: "12PM",
-                close: "9PM",
-              },
-              {
-                day: "Wednesday",
-                isOpen: true,
-                open: "12PM",
-                close: "9PM",
-              },
-              {
-                day: "Thursday",
-                isOpen: true,
-                open: "12PM",
-                close: "9PM",
-              },
-              {
-                day: "Friday",
-                isOpen: true,
-                open: "12PM",
-                close: "9PM",
-              },
-              { day: "Saturday", isOpen: false },
-              { day: "Sunday", isOpen: false },
-            ],
+            hours: "can't grab hours yet",
             menu: allMenuItems,
             createdAt: Timestamp.now().toDate().toDateString(),
-          }),
-        });
+          })
         // ISSUE: when trying to redirect, project doesn't save
         //   (window.location.assign("/dashboard"));
       }
