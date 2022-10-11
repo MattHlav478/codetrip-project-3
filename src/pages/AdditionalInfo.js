@@ -19,7 +19,6 @@ export default function AdditionalInfo({
     };
     const handleChange = (event)=>{
         const key=event.target.name
-        const value 
     }
 
     return (
