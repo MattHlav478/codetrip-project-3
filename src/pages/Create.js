@@ -2,11 +2,11 @@ import React, { useState, useEffect } from "react";
 // import storageAPI from "../services/storageAPI";
 import { db, auth } from "../services/firebaseConnection";
 import {
-  doc,
-  updateDoc,
-  arrayUnion,
-  Timestamp,
-  FieldValue,
+    doc,
+    updateDoc,
+    arrayUnion,
+    Timestamp,
+    FieldValue,
 } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
@@ -27,16 +27,16 @@ import { BasicInfo, MenuInfo, AdditionalInfo } from "./index";
 // import TableRow from "../components/TableRow";
 
 export default function Create() {
-  // implement onBlur functionality here, so if someone skips the * required bits, we let them know it's BAD
-  const days = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+    // implement onBlur functionality here, so if someone skips the * required bits, we let them know it's BAD
+    const days = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+    ];
 
     const categories = [
         { label: "Appetizer", value: 1 },
@@ -55,12 +55,12 @@ export default function Create() {
         { label: "Purple", value: "#580099" },
     ];
 
-  const [basicInfoData, setBasicInfoData] = useState({
-    name: "",
-    address: "",
-    phoneNumber: "",
-    imageURL: "",
-  });
+    const [basicInfoData, setBasicInfoData] = useState({
+        name: "",
+        address: "",
+        phoneNumber: "",
+        imageURL: "",
+    });
 
     const [formPage, setFormPage] = useState("basic");
     const [menuItem, setMenuItem] = useState({
@@ -142,73 +142,63 @@ export default function Create() {
         isAbout: false,
         about: "",
         linkOne: "",
-        linkTwo: "",
+        linkeTwo: "",
         linkThree: "",
         color: "",
     });
-  }
 
-  const [additionalInfoData, setAdditionalInfoData] = useState({
-    isAbout: false,
-    about: "",
-    linkOne: "",
-    linkeTwo: "",
-    linkThree: "",
-    color: "",
-  });
+    const returnPage = (formPage) => {
+        if (formPage === "basic") {
+            console.log("basic info");
+            return (
+                <BasicInfo
+                    days={days}
+                    setFormPage={setFormPage}
+                    basicInfoData={basicInfoData}
+                    setBasicInfoData={setBasicInfoData}
+                    file={file}
+                    setFile={setFile}
+                ></BasicInfo>
+            );
+        } else if (formPage === "menu") {
+            console.log("menu info");
+            return (
+                <MenuInfo
+                    categories={categories}
+                    menuItem={menuItem}
+                    setMenuItem={setMenuItem}
+                    allMenuItems={allMenuItems}
+                    setAllMenuItems={setAllMenuItems}
+                    userChoice={userChoice}
+                    setUserChoice={setUserChoice}
+                    file={file}
+                    setFile={setFile}
+                    setFormPage={setFormPage}
+                />
+            );
+        } else if (formPage === "additional") {
+            console.log("additional info");
+            return (
+                <AdditionalInfo
+                    colors={colors}
+                    additionalInfoData={additionalInfoData}
+                    setAdditionalInfoData={setAdditionalInfoData}
+                />
+            );
+        }
+    };
 
-  const returnPage = (formPage) => {
-    if (formPage === "basic") {
-      console.log("basic info");
-      return (
-        <BasicInfo
-          days={days}
-          setFormPage={setFormPage}
-          basicInfoData={basicInfoData}
-          setBasicInfoData={setBasicInfoData}
-          file={file}
-          setFile={setFile}
-        ></BasicInfo>
-      );
-    } else if (formPage === "menu") {
-      console.log("menu info");
-      return (
-        <MenuInfo
-          categories={categories}
-          menuItem={menuItem}
-          setMenuItem={setMenuItem}
-          allMenuItems={allMenuItems}
-          setAllMenuItems={setAllMenuItems}
-          userChoice={userChoice}
-          setUserChoice={setUserChoice}
-          file={file}
-          setFile={setFile}
-          setFormPage={setFormPage}
-        />
-      );
-    } else if (formPage === "additional") {
-      console.log("additional info");
-      return (
-        <AdditionalInfo
-          colors={colors}
-          additionalInfoData={additionalInfoData}
-          setAdditionalInfoData={setAdditionalInfoData}
-        />
-      );
-    }
-  };
+    return (
+        <div className="page-height">
+            {returnPage(formPage)}
 
-  return (
-    <div className="page-height">
-      {returnPage(formPage)}
+            <Link to={"/dashboard"}>
+                <Button variant="dark" type="submit" onClick={handleCreateBtn}>
+                    Create Restaurant
+                </Button>
+            </Link>
 
-      <Link to={"/dashboard"}>
-        <Button variant="dark" type="submit" onClick={handleCreateBtn}>
-          Create Restaurant
-        </Button>
-      </Link>
-
-      {/* <MenuInfo
+            {/* <MenuInfo
                 categories={categories}
                 menuItem={menuItem}
                 setMenuItem={setMenuItem}
@@ -216,6 +206,6 @@ export default function Create() {
                 setAllMenuItems={setAllMenuItems}
             />
             <AdditionalInfo /> */}
-    </div>
-  );
+        </div>
+    );
 }
