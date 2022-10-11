@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Select from "react-select";
@@ -11,7 +11,6 @@ export default function MenuInfo({
     setMenuItem,
     allMenuItems,
     setAllMenuItems,
-    file,
     setFile,
     setFormPage,
 }) {
@@ -22,19 +21,20 @@ export default function MenuInfo({
         setMenuItem({ ...menuItem, [key]: value });
     }
 
+    // WE ARE UPLOADING AN IMAGE FOR THAT MENU ITEM
+    const handleUploadImage = (event) => {
+        const key = event.target.name;
+        setFile(event.target.files[0]);
+        storageAPI
+            .upload(event.target.files[0])
+            .then((imageUrl) => setMenuItem({ ...menuItem, [key]: imageUrl }));
+    };
+
     // WE ARE ADDING THAT NEW MENU ITEM TO THE FULL MENU
     const handleNewMenuItem = (event) => {
         event.preventDefault();
         // validation happens here?
         setAllMenuItems([...allMenuItems, menuItem]);
-    };
-
-    const handleUploadImage = (event) => {
-        const key = event.target.name;
-        setFile(event.target.files[0]);
-        storageAPI
-          .upload(event.target.files[0])
-          .then((imageUrl) => setMenuItem({ ...menuItem, [key]: imageUrl }));
     };
 
     const handleMenuInfoFormSubmit = (event) => {
@@ -141,9 +141,8 @@ export default function MenuInfo({
                 {" "}
                 <Button
                     variant="dark"
-                    // type="submit"
+                    type="submit"
                     size="lg"
-                    // onClick={setFormPage("additional")} causing it to go immediatley to additional info.
                     onClick={handleMenuInfoFormSubmit}
                 >
                     Next
