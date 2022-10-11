@@ -69,23 +69,15 @@ export default function Dashboard() {
                 <Card.Text className="card-text">
                   Date Created: {rest.createdAt}
                 </Card.Text>
-
-                
-
-
-
-
-                <Link className='no-decor' to={`/restaurant/${user.uid}/${rest.name}`} target="_blank">
+                <Link
+                  className="no-decor"
+                  to={`/restaurant/${user.uid}/${rest.name}`}
+                  target="_blank"
+                >
                   <Button variant="dark" className="card-button">
                     View
                   </Button>{" "}
                 </Link>
-
-                
-
-
-
-                
                 <Button
                   data-key={i}
                   variant="dark"
