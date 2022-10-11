@@ -90,7 +90,7 @@ export default function AdditionalInfo({
                                     (choice) =>
                                         setAdditionalInfoData({
                                             ...additionalInfoData,
-                                            [`color`]: choice.label,
+                                            [`color`]: choice.value,
                                         })
                                     // get color value instead? # or decimal? ask Marlowe
                                 }

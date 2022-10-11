@@ -4,30 +4,48 @@ import Form from "react-bootstrap/Form";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import storageAPI from "../services/storageAPI";
+import { validatePhone } from "../utils/helpers";
 
 export default function BasicInfo({
     days,
     setFormPage,
     basicInfoData,
     setBasicInfoData,
-    file,
     setFile,
 }) {
-   
     const handleBasicInfoFormSubmit = (event) => {
-    
-        console.log("full hours", hours);
-        // state here indicating infoSubmitted=true, pass as a prop into TableRow,
-        // TableRow then has an if statement (if infoSubmitted) => sends all values hour, into hours
-        // then here, we can do validation for those hours - that they all exist
-        // and if that's all true, we can set the menu page.
-        // ELSE if, we will have to display errors on the page indicating they forgot to submit certain hours.
+        // validate that everything is correct inside the form. Every day needs an opening and closing time, OR else it isClosed is true
+        // const [basicInfoData, setBasicInfoData] = useState({
+        //     name: "",
+        //     address: "",
+        //     phoneNumber: "",
+        //     imageURL: "",
+        // });
+        if (
+            basicInfoData.name &&
+            basicInfoData.address &&
+            basicInfoData.phoneNumber
+        ) {
+        }
 
         setFormPage("menu");
     };
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
+        if (name === "phoneNumber") {
+            const isValid = validatePhone(value);
+            if (!isValid) {
+                setErrorMessage([
+                    {
+                        ...errorMessage,
+                        [name]: "You need to enter a proper phone number.",
+                    },
+                ]);
+            } else {
+                setErrorMessage([{ ...errorMessage, [name]: "" }]);
+            }
+        }
         setBasicInfoData({ ...basicInfoData, [name]: value });
         console.log(basicInfoData);
     };
@@ -38,49 +56,33 @@ export default function BasicInfo({
         storageAPI.upload(event.target.files[0]);
     };
 
-    const [openTime, setOpenTime] = useState("");
-    const [closeTime, setCloseTime] = useState("");
+    // const [openTime, setOpenTime] = useState("");
+    // const [closeTime, setCloseTime] = useState("");
     // const [isClosed, setIsClosed] = useState(false);
-    // const [hours, setHours] = useState([]);
+    const [hours, setHours] = useState({});
     // const arrayHours = [{}, {}, {}, {}, {}, {}, {}];
-    const [hours, setHours] = useState([
+    const [errorMessage, setErrorMessage] = useState([
         {
-            day: "Monday",
-            isOpen: true,
-            open: "",
-            close: "",
+            phone: "",
+            address: "",
+            name: "",
         },
-        {
-            day: "Tuesday",
-            isOpen: true,
-            open: "",
-            close: "",
-        },
-        {
-            day: "Wednesday",
-            isOpen: true,
-            open: "",
-            close: "",
-        },
-        {
-            day: "Thursday",
-            isOpen: true,
-            open: "",
-            close: "",
-        },
-        {
-            day: "Friday",
-            isOpen: true,
-            open: "",
-            close: "",
-        },
-        { day: "Saturday", isOpen: true, open: "", close: "" },
-        { day: "Sunday", isOpen: true, open: "", close: "" },
     ]);
+
+    const handleHours = (event) => {
+        event.preventDefault();
+        const flat = Object.keys(hours).map((weekday) => {
+            const { isOpen, close, open } = hours[weekday];
+            return { day: weekday, isOpen, close, open };
+        });
+        console.log(flat);
+        return flat;
+    };
 
     return (
         <div>
             <h1>Let's start with some basic info.</h1>
+
             <Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Restaurant Name*</Form.Label>
@@ -91,6 +93,11 @@ export default function BasicInfo({
                         onChange={handleInputChange}
                     />
                 </Form.Group>
+                {errorMessage.name && (
+                    <div>
+                        <p className="error-text">{errorMessage.name}</p>
+                    </div>
+                )}
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Phone Number</Form.Label>
                     <Form.Control
@@ -100,6 +107,11 @@ export default function BasicInfo({
                         placeholder="Enter phone number"
                     />
                 </Form.Group>
+                {errorMessage.phone && (
+                    <div>
+                        <p className="error-text">{errorMessage.phone}</p>
+                    </div>
+                )}
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Address</Form.Label>
                     <Form.Control
@@ -109,6 +121,11 @@ export default function BasicInfo({
                         onChange={handleInputChange}
                     />
                 </Form.Group>
+                {errorMessage.address && (
+                    <div>
+                        <p className="error-text">{errorMessage.address}</p>
+                    </div>
+                )}
 
                 <Table striped bordered hover>
                     <thead>
@@ -116,7 +133,7 @@ export default function BasicInfo({
                             <th>Day</th>
                             <th>Opening</th>
                             <th>Closing</th>
-                            <th>what to say here</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -124,14 +141,15 @@ export default function BasicInfo({
                             <TableRow
                                 day={day}
                                 i={i}
-                                setOpenTime={setOpenTime}
-                                setCloseTime={setCloseTime}
+                                key={i}
+                                // setOpenTime={setOpenTime}
+                                // setCloseTime={setCloseTime}
                                 // isClosed={isClosed}
                                 // setIsClosed={setIsClosed}
                                 hours={hours}
                                 setHours={setHours}
-                                openTime={openTime}
-                                closeTime={closeTime}
+                                // openTime={openTime}
+                                // closeTime={closeTime}
                                 // infoSubmit={infoSubmit}
                                 // arrayHours={arrayHours}
                             />
@@ -163,7 +181,8 @@ export default function BasicInfo({
                         variant="dark"
                         type="submit"
                         size="lg"
-                        onClick={handleBasicInfoFormSubmit}
+                        onClick={handleHours}
+                        // onClick={handleBasicInfoFormSubmit}
                     >
                         Next
                     </Button>

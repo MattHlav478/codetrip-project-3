@@ -47,12 +47,12 @@ export default function Create() {
         { label: "A la Carte", value: 6 },
     ];
     const colors = [
-        { label: "Yellow", value: 1 },
-        { label: "Blue", value: 2 },
-        { label: "Green", value: 3 },
-        { label: "Red", value: 4 },
-        { label: "Pink", value: 5 },
-        { label: "Purple", value: 6 },
+        { label: "Yellow", value: "#bea925" },
+        { label: "Blue", value: "#145369" },
+        { label: "Green", value: "#3bc553" },
+        { label: "Red", value: "#be4025" },
+        { label: "Pink", value: "#ffccf2" },
+        { label: "Purple", value: "#580099" },
     ];
 
     const [basicInfoData, setBasicInfoData] = useState({

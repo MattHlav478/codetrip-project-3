@@ -30,6 +30,12 @@ function App() {
                         <Route path="/dashboard" element={<Dashboard />} />
                         <Route path="/create" element={<Create />} />
                         <Route path="/signup" element={<SignupForm />} />
+
+
+                        <Route path="/restaurant">
+                            <Route path=":id" element={<Home></Home>}></Route>
+
+                        </Route>
                         {/* 
                         <Route path="/profile">
                                 check for /:username parameter first
@@ -42,6 +48,10 @@ function App() {
                                 path="/thought/:id"
                                 element={<SingleThought />}
                             /> */}
+
+                        {/* {to see if the stuff after the / is a valid userId by querying firebase} */}
+                        {/* if it is, then route to UserHome */}
+                        {/* else, NoMatch */}
 
                         <Route path="*" element={<NoMatch />} />
                     </Routes>

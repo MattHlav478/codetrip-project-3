@@ -5,10 +5,10 @@ import "rc-time-picker/assets/index.css";
 
 export default function TableRow({
     day,
-    openTime,
-    setCloseTime,
-    closeTime,
-    setOpenTime,
+    // openTime,
+    // setCloseTime,
+    // closeTime,
+    // setOpenTime,
     // isClosed,
     // setIsClosed,
     hours,
@@ -18,15 +18,12 @@ export default function TableRow({
     // arrayHours,
 }) {
     const [isOpen, setIsOpen] = useState(true); //because default is that the store is open
+    const [openTime, setOpenTime] = useState("");
+    const [closeTime, setCloseTime] = useState("");
 
     const handleCheckbox = (event) => {
-        // event.preventDefault();
         setIsOpen(!event.target.checked);
         setHour({ ...hour, [event.target.name]: isOpen });
-
-        // const key = e.target.name;
-        // const value = e.target.value;
-        // setMenuItem({ ...menuItem, [key]: value });
     };
 
     const [hour, setHour] = useState({
@@ -35,38 +32,38 @@ export default function TableRow({
         open: openTime,
         close: closeTime,
     });
+
     // bundle all info - isClosed, open, close hours - into setStoreHours prop passed from Create
     // and that would, at the end of all of this, have 7 objects inside its array
 
-    // const handleTime = async (event) => {
-    //     console.log(time);
-    //     await setTime(event.format("LT"));
-    //     console.log(time);
-    // };
-
-    // if (infoSubmit) {
-    //     setHours([...hours, hour]);
-    // }
-
-    // console.log(arrayHours);
-
     const handleChange = (event) => {
-        const newHours = hours.map((obj) => {
-            if (obj.day === day) {
-                return {
-                    ...obj,
-                    day: day,
-                    isOpen: isOpen,
-                    open: openTime,
-                    close: closeTime,
-                };
-            }
-            return obj;
-        });
-        setHours(newHours);
+        // const newHours = hours.map((obj) => {
+        //     if (obj.day === day) {
+        //         return {
+        //             ...obj,
+        //             day: day,
+        //             isOpen: isOpen,
+        //             open: openTime,
+        //             close: closeTime,
+        //         };
+        //     }
+        //     return obj;
+        // });
+        // setHours(newHours);
+        // if (event.target.name === "isOpen") {
+        //     setIsOpen(!event.target.checked);
+        //     setHour({ ...hour, [event.target.name]: isOpen });
+        // }
 
+        const updateHours = { ...hours };
+        updateHours[day] = { isOpen, open: openTime, close: closeTime };
+        setHours(updateHours);
+
+        console.log(hour);
         console.log(hours);
     };
+
+    console.log(hour);
 
     return (
         <>
@@ -80,7 +77,7 @@ export default function TableRow({
                         minuteStep={15}
                         showSecond={false}
                         focusOnOpen={true}
-                        format="hh:mm A"
+                        format="hh:mm"
                         disabled={!isOpen}
                         name="open"
                         onChange={(e) => {
@@ -104,7 +101,6 @@ export default function TableRow({
                             //     [`isOpen`]: isOpen,
                             // };
                         }}
-                        // { ...menuItem, [key]: value }
                     />
                 </td>
                 <td>
@@ -123,6 +119,7 @@ export default function TableRow({
                         onChange={(e) => {
                             setCloseTime(e.format("LT"));
                             setHour({ ...hour, [`close`]: closeTime });
+                            handleChange(e);
                             // setHours([...hours, hour]);
                             // setHours([
                             //     ...hours[key],
@@ -144,6 +141,7 @@ export default function TableRow({
                         type="checkbox"
                         name="isOpen"
                         onChange={handleCheckbox}
+                        // onChange={handleChange}
                     />
                     Closed All Day
                 </td>
