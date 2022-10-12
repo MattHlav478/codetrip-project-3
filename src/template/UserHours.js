@@ -6,7 +6,7 @@ function FlushExample() {
     return (
         <>
             <UserNav/>
-            <ListGroup variant="flush">
+            <ListGroup className="font-link2"variant="flush">
                 <ListGroup.Item variant="danger">Mondays Closed</ListGroup.Item>
                 <ListGroup.Item>Tuesdays 10am-6pm</ListGroup.Item>
                 <ListGroup.Item variant="danger">
@@ -20,7 +20,7 @@ function FlushExample() {
 
             <br></br>
 
-            <Card className="text-center">
+            <Card className="font-link2 text-center">
                 <Card.Text>123 Address St Roseburg OR, 97476</Card.Text>
             </Card>
         </>

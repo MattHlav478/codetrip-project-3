@@ -69,6 +69,25 @@ code {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.font-link {
+  font-family: 'Cantata One', serif;
+}
+
+.font-link2 {
+  font-family: 'Lustria', serif;
+}
+
+.link-style {
+  padding: 10px;
+
+}
+
+.nav-text {
+  color: #000000 !important;
+ text-decoration: none;
+ 
+}
+
 /* Restaurant Menu Items */
 .card-body-menu {
   display: flex;
