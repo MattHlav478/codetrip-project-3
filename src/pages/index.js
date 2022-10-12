@@ -5,6 +5,7 @@ import NoMatch from "./NoMatch";
 import BasicInfo from "./BasicInfo";
 import MenuInfo from "./MenuInfo";
 import AdditionalInfo from "./AdditionalInfo";
+import ThankYou from "./ThankYou";
 
 export {
     Create,
@@ -14,4 +15,5 @@ export {
     BasicInfo,
     MenuInfo,
     AdditionalInfo,
+    ThankYou,
 };

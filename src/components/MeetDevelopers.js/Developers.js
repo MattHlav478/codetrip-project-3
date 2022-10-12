@@ -1,8 +1,6 @@
 import React from "react";
 import Figure from "react-bootstrap/Figure";
 
-
-
 export default function Developers() {
     const bios = [
         {
