@@ -28,9 +28,8 @@ code {
 }
 
 .footer {
-  display:none;
   text-align: center;
-  position:absolute;
+  position:static;
   bottom: 0; 
   height: 4vh;
   margin-top: 5vh;
@@ -62,7 +61,8 @@ code {
 }
 
 .page-height {
-  height: auto;
+  height:210vh;
+
 }
 
 .divider {
