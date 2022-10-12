@@ -12,6 +12,14 @@ function UserMenuItems() {
 
   const [menu, setMenu] = useState();
 
+  // if menu state exist, change css to not display nav bar
+  if (menu) {
+    console.log('testing...')
+    const navbar = document.getElementById("navbar")
+    // navbar.remove()
+  }
+
+
   async function getData() {
     //     // FIRESTORE call
     const docRef = doc(db, "restaurants", userId);
@@ -28,6 +36,15 @@ function UserMenuItems() {
     getData();
   }, []);
 
+  // trying to remove navbar, but doesn't work...
+  useEffect(() => {
+      if (menu) {
+        console.log("testing...");
+        const navbar = document.getElementById("navbar");
+        navbar.remove()
+      }
+  }, [])
+
   return (
     <>
       <UserNav />
@@ -38,19 +55,23 @@ function UserMenuItems() {
             menuItem.type == "Appetizer" ? (
               // <div key={i}>{menuItem.name}</div>
               <Card.Body>
-                <Card.Title>{menuItem.name}</Card.Title>
-                <Card.Text>{menuItem.description}</Card.Text>
-                <Card.Text className="blockquote-footer">
-                  {menuItem.price}
-                </Card.Text>
-                {menuItem.imageUrl != "" ? (
-                  <Image
-                    src={menuItem.imageURL}
-                    thumbnail
-                    rounded
-                    className="menu-item-image"
-                  />
-                ) : null}
+                <div className="card-body-menu">
+                  <div className="menu-item-info">
+                    <Card.Title>{menuItem.name}</Card.Title>
+                    <Card.Text>{menuItem.price}</Card.Text>
+                    <Card.Text>{menuItem.description}</Card.Text>
+                  </div>
+                  <div className="menu-image-container">
+                    {menuItem.imageUrl != "" ? (
+                      <Image
+                        src={menuItem.imageURL}
+                        thumbnail
+                        rounded
+                        className="menu-item-image"
+                      />
+                    ) : null}
+                  </div>
+                </div>
               </Card.Body>
             ) : null
           )}
@@ -65,19 +86,23 @@ function UserMenuItems() {
             menuItem.type == "Salad" ? (
               // <div key={i}>{menuItem.name}</div>
               <Card.Body>
-                <Card.Title>{menuItem.name}</Card.Title>
-                <Card.Text>{menuItem.description}</Card.Text>
-                <Card.Text className="blockquote-footer">
-                  {menuItem.price}
-                </Card.Text>
-                {menuItem.imageUrl != "" ? (
-                  <Image
-                    src={menuItem.imageURL}
-                    thumbnail
-                    rounded
-                    className="menu-item-image"
-                  />
-                ) : null}
+                <div className="card-body-menu">
+                  <div className="menu-item-info">
+                    <Card.Title>{menuItem.name}</Card.Title>
+                    <Card.Text>{menuItem.price}</Card.Text>
+                    <Card.Text>{menuItem.description}</Card.Text>
+                  </div>
+                  <div className="menu-image-container">
+                    {menuItem.imageUrl != "" ? (
+                      <Image
+                        src={menuItem.imageURL}
+                        thumbnail
+                        rounded
+                        className="menu-item-image"
+                      />
+                    ) : null}
+                  </div>
+                </div>
               </Card.Body>
             ) : null
           )}
@@ -90,21 +115,24 @@ function UserMenuItems() {
         {menu &&
           menu.map((menuItem, i) =>
             menuItem.type == "Main" ? (
-              // <div key={i}>{menuItem.name}</div>
               <Card.Body>
-                <Card.Title>{menuItem.name}</Card.Title>
-                <Card.Text>{menuItem.description}</Card.Text>
-                <Card.Text className="blockquote-footer">
-                  {menuItem.price}
-                </Card.Text>
-                {menuItem.imageUrl != "" ? (
-                  <Image
-                    src={menuItem.imageURL}
-                    thumbnail
-                    rounded
-                    className="menu-item-image"
-                  />
-                ) : null}
+                <div className="card-body-menu">
+                  <div className="menu-item-info">
+                    <Card.Title>{menuItem.name}</Card.Title>
+                    <Card.Text>{menuItem.price}</Card.Text>
+                    <Card.Text>{menuItem.description}</Card.Text>
+                  </div>
+                  <div className="menu-image-container">
+                    {menuItem.imageUrl != "" ? (
+                      <Image
+                        src={menuItem.imageURL}
+                        thumbnail
+                        rounded
+                        className="menu-item-image"
+                      />
+                    ) : null}
+                  </div>
+                </div>
               </Card.Body>
             ) : null
           )}
@@ -119,19 +147,23 @@ function UserMenuItems() {
             menuItem.type == "A la Carte" ? (
               // <div key={i}>{menuItem.name}</div>
               <Card.Body>
-                <Card.Title>{menuItem.name}</Card.Title>
-                <Card.Text>{menuItem.description}</Card.Text>
-                <Card.Text className="blockquote-footer">
-                  {menuItem.price}
-                </Card.Text>
-                {menuItem.imageUrl != "" ? (
-                  <Image
-                    src={menuItem.imageURL}
-                    thumbnail
-                    rounded
-                    className="menu-item-image"
-                  />
-                ) : null}
+                <div className="card-body-menu">
+                  <div className="menu-item-info">
+                    <Card.Title>{menuItem.name}</Card.Title>
+                    <Card.Text>{menuItem.price}</Card.Text>
+                    <Card.Text>{menuItem.description}</Card.Text>
+                  </div>
+                  <div className="menu-image-container">
+                    {menuItem.imageUrl != "" ? (
+                      <Image
+                        src={menuItem.imageURL}
+                        thumbnail
+                        rounded
+                        className="menu-item-image"
+                      />
+                    ) : null}
+                  </div>
+                </div>
               </Card.Body>
             ) : null
           )}
@@ -146,19 +178,23 @@ function UserMenuItems() {
             menuItem.type == "Dessert" ? (
               // <div key={i}>{menuItem.name}</div>
               <Card.Body>
-                <Card.Title>{menuItem.name}</Card.Title>
-                <Card.Text>{menuItem.description}</Card.Text>
-                <Card.Text className="blockquote-footer">
-                  {menuItem.price}
-                </Card.Text>
-                {menuItem.imageUrl != "" ? (
-                  <Image
-                    src={menuItem.imageURL}
-                    thumbnail
-                    rounded
-                    className="menu-item-image"
-                  />
-                ) : null}
+                <div className="card-body-menu">
+                  <div className="menu-item-info">
+                    <Card.Title>{menuItem.name}</Card.Title>
+                    <Card.Text>{menuItem.price}</Card.Text>
+                    <Card.Text>{menuItem.description}</Card.Text>
+                  </div>
+                  <div className="menu-image-container">
+                    {menuItem.imageUrl != "" ? (
+                      <Image
+                        src={menuItem.imageURL}
+                        thumbnail
+                        rounded
+                        className="menu-item-image"
+                      />
+                    ) : null}
+                  </div>
+                </div>
               </Card.Body>
             ) : null
           )}
@@ -173,19 +209,23 @@ function UserMenuItems() {
             menuItem.type == "Drinks" ? (
               // <div key={i}>{menuItem.name}</div>
               <Card.Body>
-                <Card.Title>{menuItem.name}</Card.Title>
-                <Card.Text>{menuItem.description}</Card.Text>
-                <Card.Text className="blockquote-footer">
-                  {menuItem.price}
-                </Card.Text>
-                {menuItem.imageUrl != "" ? (
-                  <Image
-                    src={menuItem.imageURL}
-                    thumbnail
-                    rounded
-                    className="menu-item-image"
-                  />
-                ) : null}
+                <div className="card-body-menu">
+                  <div className="menu-item-info">
+                    <Card.Title>{menuItem.name}</Card.Title>
+                    <Card.Text>{menuItem.price}</Card.Text>
+                    <Card.Text>{menuItem.description}</Card.Text>
+                  </div>
+                  <div className="menu-image-container">
+                    {menuItem.imageUrl != "" ? (
+                      <Image
+                        src={menuItem.imageURL}
+                        thumbnail
+                        rounded
+                        className="menu-item-image"
+                      />
+                    ) : null}
+                  </div>
+                </div>
               </Card.Body>
             ) : null
           )}

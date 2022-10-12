@@ -19,16 +19,6 @@ const [restaurant, setRestaurant] = useState({})
 
   getData();
 
-  // console.log(docSnap.data())
-
-  // useEffect(() => {
-  //     console.log("projects: ", projects)
-  // },[])
-
-  // make a call to firebase to extract specific restaurant project data
-  // based on URL parameter bar
-  // genu/project/:user-id/:restaurant-id/:restaurant-name
-
   return (
     <header>
       <div className="p-5 text-center bg-light">
