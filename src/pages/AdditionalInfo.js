@@ -1,23 +1,23 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import Select from "react-select";
+import Button from "react-bootstrap/Button";
 
 export default function AdditionalInfo({
     colors,
     additionalInfoData,
     setAdditionalInfoData,
+    setFormPage,
 }) {
-    const handleCheckbox = (event) => {
-        const key = event.target.name;
-        const check = event.target.checked;
-        setAdditionalInfoData({ ...additionalInfoData, [key]: check });
-    };
-
     const handleChange = (event) => {
         const key = event.target.name;
         const value = event.target.value;
         setAdditionalInfoData({ ...additionalInfoData, [key]: value });
         // console.log(additionalInfoData);
+    };
+
+    const handleBack = () => {
+        setFormPage("menu");
     };
 
     return (
@@ -26,27 +26,17 @@ export default function AdditionalInfo({
             <Form>
                 <Form.Group className="mb-3">
                     <Form.Label>
-                        Do you want to include an About Us page? This can be a
-                        good place for a paragraph or two to let people know all
-                        about you!
+                        Let's write an About Us page! This is a good place for a
+                        paragraph or two to let people know all about you!
                     </Form.Label>
-                    <input
-                        id="isAboutCheck"
-                        type="checkbox"
-                        name="isAbout"
-                        onChange={handleCheckbox}
-                    />
                 </Form.Group>
-
-                {additionalInfoData.isAbout && (
-                    <textarea
-                        placeholder="Tell us your story."
-                        className="form-input col-12 col-md-9"
-                        name="about"
-                        onChange={handleChange}
-                        value={additionalInfoData.about}
-                    ></textarea>
-                )}
+                <textarea
+                    placeholder="Tell us your story."
+                    className="form-input col-12 col-md-9"
+                    name="about"
+                    onChange={handleChange}
+                    value={additionalInfoData.about}
+                ></textarea>
 
                 <Form.Group className="mb-3">
                     <Form.Label>
@@ -93,6 +83,16 @@ export default function AdditionalInfo({
                     </div>
                 </div>
             </Form>
+            <div className="d-grid gap-2">
+                <Button
+                    variant="dark"
+                    type="submit"
+                    size="lg"
+                    onClick={handleBack}
+                >
+                    Back
+                </Button>
+            </div>
         </div>
     );
 }

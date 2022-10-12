@@ -13,6 +13,8 @@ export default function BasicInfo({
     basicInfoData,
     setBasicInfoData,
     setFile,
+    hours,
+    setHours,
 }) {
     //STATES FOR SHOWING OR HIDING ALERT. DEFAULT IS FALSE.
     const [show, setShow] = useState(false);
@@ -64,7 +66,6 @@ export default function BasicInfo({
         storageAPI.upload(event.target.files[0]);
     };
 
-    const [hours, setHours] = useState({});
     const [errorMessage, setErrorMessage] = useState([
         {
             phone: "",
@@ -97,6 +98,7 @@ export default function BasicInfo({
                         type="name"
                         placeholder="Enter name"
                         onChange={handleInputChange}
+                        value={basicInfoData.name}
                     />
                 </Form.Group>
                 {errorMessage.name && (
@@ -111,6 +113,7 @@ export default function BasicInfo({
                         onChange={handleInputChange}
                         type="phone"
                         placeholder="Enter phone number"
+                        value={basicInfoData.phoneNumber}
                     />
                 </Form.Group>
                 {errorMessage.phone && (
@@ -125,6 +128,7 @@ export default function BasicInfo({
                         type="address"
                         placeholder="Enter address"
                         onChange={handleInputChange}
+                        value={basicInfoData.address}
                     />
                 </Form.Group>
                 {errorMessage.address && (
