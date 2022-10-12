@@ -1,8 +1,23 @@
-import UserNav from './UserNav'
-import Card from 'react-bootstrap/Card';
-
+import UserNav from "./UserNav";
+import Card from "react-bootstrap/Card";
+import { db } from "../services/firebaseConnection";
+import { doc, getDoc } from "firebase/firestore";
+import { useParams } from 'react-router-dom'
 
 function About() {
+
+  const { userId, name } = useParams();
+
+  async function getBanner() {
+    const docRef = doc(db, "restaurants", userId);
+    const docSnap = await getDoc(docRef);
+    const restData = docSnap.data();
+    console.log(restData)
+
+  }
+
+  getBanner();
+
   return (
     <>
       <UserNav />

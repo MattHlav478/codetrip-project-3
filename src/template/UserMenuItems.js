@@ -20,7 +20,7 @@ function UserMenuItems() {
   }
 
   async function getData() {
-    //     // FIRESTORE call
+    // FIRESTORE call
     const docRef = doc(db, "restaurants", userId);
     const docSnap = await getDoc(docRef);
     const restData = docSnap.data();

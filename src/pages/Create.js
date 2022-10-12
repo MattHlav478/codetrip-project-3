@@ -62,7 +62,7 @@ export default function Create() {
         name: "",
         address: "",
         phoneNumber: "",
-        imageURL: "",
+        bannerURL: "",
     });
 
     const [hours, setHours] = useState({});
@@ -88,6 +88,7 @@ export default function Create() {
           name: basicInfoData.name,
           address: basicInfoData.address,
           phoneNumber: basicInfoData.phoneNumber,
+          bannerURL: basicInfoData.bannerURL,
           hours: hours,
           menu: allMenuItems,
           createdAt: Timestamp.now().toDate().toDateString(),
@@ -154,8 +155,8 @@ export default function Create() {
                         setAdditionalInfoData={setAdditionalInfoData}
                         setFormPage={setFormPage}
                     />
-                    {/* // needs to be rendered here IN PRODUCTION but leaving it
-                    below for ease of creating projects. //{" "}
+                    {/* // needs to be rendered here IN PRODUCTION but leaving it */}
+                    {/* below for ease of creating projects. //{" "} */}
                     <Link to={"/dashboard"}>
                         //{" "}
                         <Button
@@ -166,7 +167,7 @@ export default function Create() {
                             // Create Restaurant //{" "}
                         </Button>
                         //{" "}
-                    </Link> */}
+                    </Link>
                 </>
             );
         }
@@ -176,11 +177,11 @@ export default function Create() {
         <div className="page-height">
             {returnPage(formPage)}
 
-            <Link to={"/dashboard"}>
+            {/* <Link to={"/dashboard"}>
                 <Button variant="dark" type="submit" onClick={handleCreateBtn}>
                     Create Restaurant
                 </Button>
-            </Link>
+            </Link> */}
         </div>
     );
 }
