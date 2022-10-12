@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TableRow from "../components/TableRow";
 import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert"
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import storageAPI from "../services/storageAPI";
@@ -15,6 +16,10 @@ export default function BasicInfo({
     hours,
     setHours,
 }) {
+    //STATES FOR SHOWING OR HIDING ALERT. DEFAULT IS FALSE.
+    const [show, setShow] = useState(false);
+
+
     const handleBasicInfoFormSubmit = (event) => {
         // validate that everything is correct inside the form. Every day needs an opening and closing time, OR else it isClosed is true
         // const [basicInfoData, setBasicInfoData] = useState({
@@ -29,6 +34,8 @@ export default function BasicInfo({
         //     basicInfoData.phoneNumber
         // ) {
         // }
+
+        //THIS IS WHERE WE SET THE SHOW(TRUE) STATE FOR THE ALERT, 
 
         setFormPage("menu");
     };
@@ -46,7 +53,7 @@ export default function BasicInfo({
                 ]);
             } else {
                 setErrorMessage([{ ...errorMessage, [name]: "" }]);
-                // setBasicInfoData({ ...basicInfoData, [name]: value });
+                
             }
         }
         setBasicInfoData({ ...basicInfoData, [name]: value });
@@ -76,6 +83,8 @@ export default function BasicInfo({
         // consider adding validation for hours here? do so by const flatHours = Object.keys..., then return flat at some point.
         // if it's NOT valid, then don't run the handleFormSubmit. But if it is, then do.
     };
+
+
 
     return (
         <div>
@@ -181,6 +190,9 @@ export default function BasicInfo({
                     >
                         Next
                     </Button>
+                    <Alert onClose={() => setShow(false)} show={show}  dismissible>
+          Please make sure to fill in each field!
+        </Alert>
                 </div>
             </Form>
             <br></br>

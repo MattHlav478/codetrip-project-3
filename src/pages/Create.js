@@ -2,11 +2,14 @@ import React, { useState, useEffect } from "react";
 // import storageAPI from "../services/storageAPI";
 import { db, auth } from "../services/firebaseConnection";
 import {
-    doc,
-    updateDoc,
-    arrayUnion,
-    Timestamp,
-    FieldValue,
+  doc,
+  updateDoc,
+  addDoc,
+  setDoc,
+  collection,
+  arrayUnion,
+  Timestamp,
+  FieldValue,
 } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
@@ -76,69 +79,30 @@ export default function Create() {
     const [userChoice, setUserChoice] = useState("");
     const [file, setFile] = useState("");
 
-    async function handleCreateBtn() {
-        auth.onAuthStateChanged(async (authUser) => {
-            if (authUser) {
-                const user = auth.currentUser.email;
-                const docRef = doc(db, "users", user);
-                await updateDoc(docRef, {
-                    // arrayUnion updates the array value for 'restaurant'
-                    restaurant: arrayUnion({
-                        name: basicInfoData.name,
-                        address: basicInfoData.address,
-                        phoneNumber: basicInfoData.phoneNumber,
-                        hours: hours,
-                        // hours: [
-                        //     {
-                        //         day: "Monday",
-                        //         isOpen: true,
-                        //         open: "12PM",
-                        //         close: "9PM",
-                        //     },
-                        //     {
-                        //         day: "Tuesday",
-                        //         isOpen: true,
-                        //         open: "12PM",
-                        //         close: "9PM",
-                        //     },
-                        //     {
-                        //         day: "Wednesday",
-                        //         isOpen: true,
-                        //         open: "12PM",
-                        //         close: "9PM",
-                        //     },
-                        //     {
-                        //         day: "Thursday",
-                        //         isOpen: true,
-                        //         open: "12PM",
-                        //         close: "9PM",
-                        //     },
-                        //     {
-                        //         day: "Friday",
-                        //         isOpen: true,
-                        //         open: "12PM",
-                        //         close: "9PM",
-                        //     },
-                        //     { day: "Saturday", isOpen: false },
-                        //     { day: "Sunday", isOpen: false },
-                        // ],
-                        menu: allMenuItems,
-                        createdAt: Timestamp.now().toDate().toDateString(),
-                        isAbout: additionalInfoData.isAbout,
-                        about: additionalInfoData.about,
-                        link: [
-                            additionalInfoData.linkOne,
-                            additionalInfoData.linkTwo,
-                            additionalInfoData.linkThree,
-                        ],
-                        color: additionalInfoData.color,
-                    }),
-                });
-                // ISSUE: when trying to redirect, project doesn't save
-                //   (window.location.assign("/dashboard"));
-            }
+  async function handleCreateBtn() {
+    auth.onAuthStateChanged(async (authUser) => {
+      if (authUser) {
+        const user = auth.currentUser.email;
+        await addDoc(collection(db, "restaurants"), {
+          user: user,
+          name: basicInfoData.name,
+          address: basicInfoData.address,
+          phoneNumber: basicInfoData.phoneNumber,
+          hours: hours,
+          menu: allMenuItems,
+          createdAt: Timestamp.now().toDate().toDateString(),
+          isAbout: additionalInfoData.isAbout,
+          about: additionalInfoData.about,
+          link: [
+            additionalInfoData.linkOne,
+            additionalInfoData.linkTwo,
+            additionalInfoData.linkThree,
+          ],
+          color: additionalInfoData.color,
         });
-    }
+      }
+    });
+  }
 
     const [additionalInfoData, setAdditionalInfoData] = useState({
         isAbout: false,

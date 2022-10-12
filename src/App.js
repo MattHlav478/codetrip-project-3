@@ -17,35 +17,31 @@ import { Create, Dashboard, Home, NoMatch } from "./pages/index";
 
 import { Footer, LoginForm, SignupForm, Header } from "./components/index";
 
-import { UserAbout, UserHome, UserHours, UserMenuItems } from "./template";
+import { UserAbout, UserNav, UserHours, UserMenuItems } from "./template";
 
 function App() {
     return (
-        <Router>
-            <div className="flex-column justify-flex-start min-100-vh">
-                <Header />
-                <div className="page-height container">
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/login" element={<LoginForm />} />
-                        <Route path="/signup" element={<SignupForm />} />
-                        <Route path="/dashboard" element={<Dashboard />} />
-                        <Route path="/create" element={<Create />} />
-                        <Route path="/signup" element={<SignupForm />} />
-                        <Route path="restaurant/:userId/:name">
-                            <Route path="" element={<UserHome />}></Route>
-                            <Route path="about" element={<UserAbout />}></Route>
-                            <Route path="hours" element={<UserHours />}></Route>
-                            <Route
-                                path="menu"
-                                element={<UserMenuItems />}
-                            ></Route>
-                        </Route>
+      <Router>
+        <div className="flex-column justify-flex-start min-100-vh">
+          <Header />
+          <div className="page-height container">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<LoginForm />} />
+              <Route path="/signup" element={<SignupForm />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/create" element={<Create />} />
+              <Route path="/signup" element={<SignupForm />} />
+              <Route path="restaurant/:userId/:name">
+                <Route path="" element={<UserAbout />}></Route>
+                <Route path="visit" element={<UserHours />}></Route>
+                <Route path="menu" element={<UserMenuItems />}></Route>
+              </Route>
 
-                        {/* <Route path="/restaurant">
+              {/* <Route path="/restaurant">
                             <Route path=":id" element={<Home></Home>}></Route>
                         </Route> */}
-                        {/* 
+              {/* 
                         <Route path="/profile">
                                 check for /:username parameter first
                                 <Route path=":username" element={<Profile />} />
@@ -58,15 +54,15 @@ function App() {
                                 element={<SingleThought />}
                             /> */}
 
-                        {/* {to see if the stuff after the / is a valid userId by querying firebase} */}
-                        {/* if it is, then route to UserHome */}
-                        {/* else, NoMatch */}
-                        <Route path="*" element={<NoMatch />} />
-                    </Routes>
-                </div>
-                <Footer />
-            </div>
-        </Router>
+              {/* {to see if the stuff after the / is a valid userId by querying firebase} */}
+              {/* if it is, then route to UserHome */}
+              {/* else, NoMatch */}
+              <Route path="*" element={<NoMatch />} />
+            </Routes>
+          </div>
+          <Footer />
+        </div>
+      </Router>
     );
 }
 

@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 import Select from "react-select";
 import Table from "react-bootstrap/Table";
 import storageAPI from "../services/storageAPI";
@@ -40,9 +41,14 @@ export default function MenuInfo({
     const handleBack = () => {
         setFormPage("basic");
     };
+    //STATES FOR SHOWING OR HIDING ALERT. DEFAULT IS FALSE.
+    const [show, setShow] = useState(false);
 
     const handleMenuInfoFormSubmit = (event) => {
         setFormPage("additional");
+        //if there are no menu items at the time of submit, show alert
+        //something like this...
+    // allMenuItems.length === 0 ? setShow(true) : setShow(false)
     };
 
     return (
@@ -96,6 +102,7 @@ export default function MenuInfo({
                         </div>
                         <div className="col-md-4"></div>
                     </div>
+                    <br></br>
                 </div>
 
                 {/* optional image uploading, waiting for firebase to happen before any coding */}
@@ -113,6 +120,7 @@ export default function MenuInfo({
                     <Button variant="dark" type="submit" size="lg">
                         Confirm Item
                     </Button>
+                    <br></br>
                 </div>
             </Form>
 
@@ -160,6 +168,10 @@ export default function MenuInfo({
                 >
                     Next
                 </Button>
+                <br></br>
+                <Alert onClose={() => setShow(false)} show={show} dismissible>
+                    Please make sure to add at least one menu item!
+                </Alert>
             </div>
         </div>
     );
