@@ -1,30 +1,34 @@
-@import 'bootstrap/dist/css/bootstrap.min.css';
+@import "bootstrap/dist/css/bootstrap.min.css";
 
 body {
-  position:relative;
+  position: relative;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  }
+}
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.banner {
+  width: 100%
 }
 
 #navbar {
   position: sticky;
-  top:0;
+  top: 0;
   width: 100%;
   z-index: 1000000;
-    margin-bottom: 3vh;
+  margin-bottom: 3vh;
 }
 
 .no-display {
-  display:hidden;
+  display: hidden;
 }
 
 .footer {
@@ -34,7 +38,7 @@ code {
   height: 4vh;
   margin-top: 5vh;
   width: 100%;
-  background-color:rgba(205, 193, 63, 0.445);
+  background-color: rgba(205, 193, 63, 0.445);
 }
 
 .no-decor {
@@ -47,7 +51,8 @@ code {
   max-height: 200px;
 }
 
-.developer-container, .project-container {
+.developer-container,
+.project-container {
   justify-content: center;
   text-align: center;
   display: flex;
@@ -96,12 +101,11 @@ code {
   margin-left: 5%;
   margin-right: 5%;
 }
-
 /* Restaurant Menu Items */
 .card-body-menu {
   display: flex;
   flex-direction: row;
-  justify-content:space-between;
+  justify-content: space-between;
 }
 
 .menu-item-info {
@@ -109,7 +113,7 @@ code {
   flex-direction: column;
 }
 
-.menu-item-image{
+.menu-item-image {
   max-height: 150px;
   /* height: 250px; */
 }

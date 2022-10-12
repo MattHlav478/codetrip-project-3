@@ -13,11 +13,7 @@ function UserMenuItems() {
   const [menu, setMenu] = useState([]);
 
   // if menu state exist, change css to not display nav bar
-  if (menu) {
-    console.log("testing...");
-    const navbar = document.getElementById("navbar");
-    // navbar.remove()
-  }
+
 
   async function getData() {
     //     // FIRESTORE call

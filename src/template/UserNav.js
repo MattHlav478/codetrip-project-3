@@ -4,24 +4,26 @@ import Nav from "react-bootstrap/Nav";
 import Button from 'react-bootstrap/Button';
 import { db } from "../services/firebaseConnection";
 import { getDoc, doc } from "firebase/firestore";
+import img from "./fake-banner.jpg";
 
 export default function Home() {
   const { userId, name } = useParams();
   // userParam is restaurant ID
 
-const [restaurant, setRestaurant] = useState({})
+  const [restaurant, setRestaurant] = useState({});
 
   async function getData() {
     //     // FIRESTORE call
     const docRef = doc(db, "restaurants", userId);
     const docSnap = await getDoc(docRef);
-   setRestaurant(docSnap.data());
+    setRestaurant(docSnap.data());
   }
 
   getData();
 
   return (
     <header>
+      <img className="banner" src={restaurant.banner} />
 
       <div className="p-5 text-center bg-light"
       //bg photo for this div can be their chosen photo
