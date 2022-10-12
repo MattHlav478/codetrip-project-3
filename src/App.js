@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { auth } from "./services/firebaseConnection";
 
-import { Create, Dashboard, Home, NoMatch } from "./pages/index";
+import { Create, Dashboard, Home, NoMatch, ThankYou } from "./pages/index";
 
 // import Create from "./pages/Create";
 // import Dashboard from "./pages/Dashboard";
@@ -24,27 +24,31 @@ function App() {
     window.scrollTo(0, 0)
   }, [])
     return (
-      <Router>
-        <div className=" flex-column justify-flex-start min-100-vh">
-          <Header />
-          <div className="page-height container">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<LoginForm />} />
-              <Route path="/signup" element={<SignupForm />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/create" element={<Create />} />
-              <Route path="/signup" element={<SignupForm />} />
-              <Route path="restaurant/:userId/:name">
-                <Route path="" element={<UserAbout />}></Route>
-                <Route path="visit" element={<UserHours />}></Route>
-                <Route path="menu" element={<UserMenuItems />}></Route>
-              </Route>
+        <Router>
+            <div className="flex-column justify-flex-start min-100-vh">
+                <Header />
+                <div className="page-height container">
+                    <Routes>
+                        <Route path="/" element={<Home />} />
+                        <Route path="/login" element={<LoginForm />} />
+                        <Route path="/signup" element={<SignupForm />} />
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/create" element={<Create />} />
+                        <Route path="/signup" element={<SignupForm />} />
+                        <Route path="/thankyou" element={<ThankYou />} />
+                        <Route path="restaurant/:userId/:name">
+                            <Route path="" element={<UserAbout />}></Route>
+                            <Route path="visit" element={<UserHours />}></Route>
+                            <Route
+                                path="menu"
+                                element={<UserMenuItems />}
+                            ></Route>
+                        </Route>
 
-              {/* <Route path="/restaurant">
+                        {/* <Route path="/restaurant">
                             <Route path=":id" element={<Home></Home>}></Route>
                         </Route> */}
-              {/* 
+                        {/* 
                         <Route path="/profile">
                                 check for /:username parameter first
                                 <Route path=":username" element={<Profile />} />
@@ -57,15 +61,15 @@ function App() {
                                 element={<SingleThought />}
                             /> */}
 
-              {/* {to see if the stuff after the / is a valid userId by querying firebase} */}
-              {/* if it is, then route to UserHome */}
-              {/* else, NoMatch */}
-              <Route path="*" element={<NoMatch />} />
-            </Routes>
-          </div>
-          <Footer />
-        </div>
-      </Router>
+                        {/* {to see if the stuff after the / is a valid userId by querying firebase} */}
+                        {/* if it is, then route to UserHome */}
+                        {/* else, NoMatch */}
+                        <Route path="*" element={<NoMatch />} />
+                    </Routes>
+                </div>
+                <Footer />
+            </div>
+        </Router>
     );
 }
 

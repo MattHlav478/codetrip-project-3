@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import TableRow from "../components/TableRow";
 import Form from "react-bootstrap/Form";
-import Alert from "react-bootstrap/Alert"
+import Alert from "react-bootstrap/Alert";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import storageAPI from "../services/storageAPI";
@@ -18,10 +18,22 @@ export default function BasicInfo({
 }) {
     //STATES FOR SHOWING OR HIDING ALERT. DEFAULT IS FALSE.
     const [show, setShow] = useState(false);
-
+    const [validHours, setValidHours] = useState(true);
 
     const handleBasicInfoFormSubmit = (event) => {
-        // validate that everything is correct inside the form. Every day needs an opening and closing time, OR else it isClosed is true
+        setFormPage("menu");
+        // event.preventDefault();
+        // validate that everything is correct inside the form.
+        // THIS ACTUALLY DOES NOTHING BUT IF YOU TAKE IT OUT THE FORM BREAKS SO PLZZZ PLZZZZ DON'T TAKE IT OUT
+        hours.map((el) => {
+            if (!el.isClosed) {
+                if (!el.open && !el.close) {
+                    setValidHours(false);
+                }
+            }
+        }); //makes the state of validHours false if any field fails
+
+        // Every day needs an opening and closing time, OR else it isClosed is true
         // const [basicInfoData, setBasicInfoData] = useState({
         //     name: "",
         //     address: "",
@@ -35,9 +47,17 @@ export default function BasicInfo({
         // ) {
         // }
 
-        //THIS IS WHERE WE SET THE SHOW(TRUE) STATE FOR THE ALERT, 
+        //THIS IS WHERE WE SET THE SHOW(TRUE) STATE FOR THE ALERT,
 
         setFormPage("menu");
+        return Object.keys(hours).map((weekday) => {
+            const { isOpen, close, open } = hours[weekday];
+            return { day: weekday, isOpen, close, open };
+        });
+        // return Object.keys(hours).map((weekday) => {
+        //     const { isOpen, close, open } = hours[weekday];
+        //     return { day: weekday, isOpen, close, open };
+        // });
     };
 
     const handleInputChange = (event) => {
@@ -53,7 +73,6 @@ export default function BasicInfo({
                 ]);
             } else {
                 setErrorMessage([{ ...errorMessage, [name]: "" }]);
-                
             }
         }
         setBasicInfoData({ ...basicInfoData, [name]: value });
@@ -78,17 +97,16 @@ export default function BasicInfo({
         },
     ]);
 
-    const handleHours = () => {
+    const handleHours = (event) => {
+        // setFormPage("menu");
+        // event.preventDefault();
         return Object.keys(hours).map((weekday) => {
             const { isOpen, close, open } = hours[weekday];
             return { day: weekday, isOpen, close, open };
         });
-
         // consider adding validation for hours here? do so by const flatHours = Object.keys..., then return flat at some point.
         // if it's NOT valid, then don't run the handleFormSubmit. But if it is, then do.
     };
-
-
 
     return (
         <div>
@@ -188,15 +206,19 @@ export default function BasicInfo({
                         type="submit"
                         size="lg"
                         onClick={(e) => {
-                            handleHours(e);
-                            handleBasicInfoFormSubmit();
+                            // handleHours(e);
+                            handleBasicInfoFormSubmit(e);
                         }}
                     >
                         Next
                     </Button>
-                    <Alert onClose={() => setShow(false)} show={show}  dismissible>
-          Please make sure to fill in each field!
-        </Alert>
+                    <Alert
+                        onClose={() => setShow(false)}
+                        show={show}
+                        dismissible
+                    >
+                        Please make sure to fill in each field!
+                    </Alert>
                 </div>
             </Form>
             <br></br>

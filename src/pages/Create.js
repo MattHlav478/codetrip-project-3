@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 // import storageAPI from "../services/storageAPI";
 import { db, auth } from "../services/firebaseConnection";
 import {
-  doc,
-  updateDoc,
-  addDoc,
-  setDoc,
-  collection,
-  arrayUnion,
-  Timestamp,
-  FieldValue,
+    doc,
+    updateDoc,
+    addDoc,
+    setDoc,
+    collection,
+    arrayUnion,
+    Timestamp,
+    FieldValue,
 } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
@@ -79,34 +79,32 @@ export default function Create() {
     const [userChoice, setUserChoice] = useState("");
     const [file, setFile] = useState("");
 
-  async function handleCreateBtn() {
-    auth.onAuthStateChanged(async (authUser) => {
-      if (authUser) {
-        const user = auth.currentUser.email;
-        await addDoc(collection(db, "restaurants"), {
-          user: user,
-          name: basicInfoData.name,
-          address: basicInfoData.address,
-          phoneNumber: basicInfoData.phoneNumber,
-          hours: hours,
-          banner: basicInfoData.imageUrl,
-          menu: allMenuItems,
-          createdAt: Timestamp.now().toDate().toDateString(),
-          isAbout: additionalInfoData.isAbout,
-          about: additionalInfoData.about,
-          link: [
-            additionalInfoData.linkOne,
-            additionalInfoData.linkTwo,
-            additionalInfoData.linkThree,
-          ],
-          color: additionalInfoData.color,
+    async function handleCreateBtn() {
+        auth.onAuthStateChanged(async (authUser) => {
+            if (authUser) {
+                const user = auth.currentUser.email;
+                await addDoc(collection(db, "restaurants"), {
+                    user: user,
+                    name: basicInfoData.name,
+                    address: basicInfoData.address,
+                    phoneNumber: basicInfoData.phoneNumber,
+                    hours: hours,
+                    banner:basicInfoData.imageUrl,
+                    menu: allMenuItems,
+                    createdAt: Timestamp.now().toDate().toDateString(),
+                    about: additionalInfoData.about,
+                    link: [
+                        additionalInfoData.linkOne,
+                        additionalInfoData.linkTwo,
+                        additionalInfoData.linkThree,
+                    ],
+                    color: additionalInfoData.color,
+                });
+            }
         });
-      }
-    });
-  }
+    }
 
     const [additionalInfoData, setAdditionalInfoData] = useState({
-        isAbout: false,
         about: "",
         linkOne: "",
         linkTwo: "",
@@ -177,11 +175,11 @@ export default function Create() {
         <div className="page-height">
             {returnPage(formPage)}
 
-            <Link to={"/dashboard"}>
-                <Button variant="dark" type="submit" onClick={handleCreateBtn}>
-                    Create Restaurant
-                </Button>
-            </Link>
+            {/* <Link to={"/dashboard"}> */}
+            <Button variant="dark" type="submit" onClick={handleCreateBtn}>
+                Create Restaurant
+            </Button>
+            {/* </Link> */}
         </div>
     );
 }
