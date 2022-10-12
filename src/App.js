@@ -3,14 +3,19 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { auth } from "./services/firebaseConnection";
 
-import Header from "./components/Header";
-import Create from "./pages/Create";
-import Dashboard from "./pages/Dashboard";
-import Home from "./pages/Home";
-import NoMatch from "./pages/NoMatch";
-import Footer from "./components/Footer";
-import LoginForm from "./components/LoginForm";
-import SignupForm from "./components/SignupForm";
+import { Create, Dashboard, Home, NoMatch } from "./pages/index";
+
+// import Create from "./pages/Create";
+// import Dashboard from "./pages/Dashboard";
+// import Home from "./pages/Home";
+// import NoMatch from "./pages/NoMatch";
+
+// import Footer from "./components/Footer";
+// import LoginForm from "./components/LoginForm";
+// import SignupForm from "./components/SignupForm";
+// import Header from "./components/Header";
+
+import { Footer, LoginForm, SignupForm, Header } from "./components/index";
 
 import { UserAbout, UserNav, UserHours, UserMenuItems } from "./template";
 

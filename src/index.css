@@ -20,6 +20,11 @@ code {
   top:0;
   width: 100%;
   z-index: 1000000;
+    margin-bottom: 3vh;
+}
+
+.no-display {
+  display:hidden;
 }
 
 .footer {
@@ -56,10 +61,6 @@ code {
   max-width: 200px;
 }
 
-#navbar {
-  margin-bottom: 3vh;
-}
-
 .page-height {
   height: auto;
 }
@@ -76,4 +77,20 @@ code {
 .centertext {
   margin-left: 5%;
   margin-right: 5%;
+
+/* Restaurant Menu Items */
+.card-body-menu {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+}
+
+.menu-item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-item-image{
+  max-height: 150px;
+  /* height: 250px; */
 }

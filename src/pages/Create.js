@@ -65,6 +65,7 @@ export default function Create() {
         imageURL: "",
     });
 
+    const [hours, setHours] = useState({});
     const [formPage, setFormPage] = useState("basic");
     const [menuItem, setMenuItem] = useState({
         name: "",
@@ -87,7 +88,7 @@ export default function Create() {
           name: basicInfoData.name,
           address: basicInfoData.address,
           phoneNumber: basicInfoData.phoneNumber,
-          hours: [/*What goes here??*/],
+          hours: hours,
           menu: allMenuItems,
           createdAt: Timestamp.now().toDate().toDateString(),
           isAbout: additionalInfoData.isAbout,
@@ -123,6 +124,8 @@ export default function Create() {
                     setBasicInfoData={setBasicInfoData}
                     file={file}
                     setFile={setFile}
+                    hours={hours}
+                    setHours={setHours}
                 ></BasicInfo>
             );
         } else if (formPage === "menu") {
@@ -149,6 +152,7 @@ export default function Create() {
                         colors={colors}
                         additionalInfoData={additionalInfoData}
                         setAdditionalInfoData={setAdditionalInfoData}
+                        setFormPage={setFormPage}
                     />
                     {/* // needs to be rendered here IN PRODUCTION but leaving it
                     below for ease of creating projects. //{" "}
