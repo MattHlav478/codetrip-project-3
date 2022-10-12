@@ -57,7 +57,7 @@ function UserHours() {
                 {hours &&
                     hours.map((everyDay) =>
                         everyDay.isClosed ? (
-                            <ListGroup.Item variant="success">
+                            <ListGroup.Item variant="danger">
                                 {everyDay.day} Closed
                             </ListGroup.Item>
                         ) : (

@@ -91,7 +91,6 @@ export default function Create() {
                     hours: hours,
                     menu: allMenuItems,
                     createdAt: Timestamp.now().toDate().toDateString(),
-                    isAbout: additionalInfoData.isAbout,
                     about: additionalInfoData.about,
                     link: [
                         additionalInfoData.linkOne,
@@ -175,11 +174,11 @@ export default function Create() {
         <div className="page-height">
             {returnPage(formPage)}
 
-            <Link to={"/dashboard"}>
-                <Button variant="dark" type="submit" onClick={handleCreateBtn}>
-                    Create Restaurant
-                </Button>
-            </Link>
+            {/* <Link to={"/dashboard"}> */}
+            <Button variant="dark" type="submit" onClick={handleCreateBtn}>
+                Create Restaurant
+            </Button>
+            {/* </Link> */}
         </div>
     );
 }
