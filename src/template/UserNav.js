@@ -22,7 +22,7 @@ export default function Home() {
 
   return (
     <header>
-      <img className="banner" src={restaurant.bannerURL} />
+      <img className="banner" src={restaurant.banner} />
 
       <div className="p-5 text-center bg-light">
         <h1 className="mb-3">{restaurant.name}</h1>

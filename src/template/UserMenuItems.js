@@ -12,6 +12,9 @@ function UserMenuItems() {
 
   const [menu, setMenu] = useState([]);
 
+  // if menu state exist, change css to not display nav bar
+
+
   async function getData() {
     //     // FIRESTORE call
     const docRef = doc(db, "restaurants", userId);
