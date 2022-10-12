@@ -43,8 +43,8 @@ function UserMenuItems() {
     <>
       <UserNav />
       {menu.filter((itemType) => itemType.type == "Appetizer").length > 0 ? (
-        <Card>
-          <Card.Header>Appetizers</Card.Header>
+        <Card className="font-link2" >
+          <Card.Header className="font-link2" >Appetizers</Card.Header>
           {menu &&
             menu.map((menuItem, i) =>
               menuItem.type == "Appetizer" ? (
@@ -77,7 +77,7 @@ function UserMenuItems() {
       <br></br>
 
       {menu.filter((itemType) => itemType.type == "Salad").length > 0 ? (
-        <Card>
+        <Card className="font-link2" >
           <Card.Header>Salads</Card.Header>
           {menu &&
             menu.map((menuItem, i) =>
@@ -110,7 +110,7 @@ function UserMenuItems() {
       <br></br>
 
       {menu.filter((itemType) => itemType.type == "Main").length > 0 ? (
-        <Card>
+        <Card className="font-link2" >
           <Card.Header>Main Dishes</Card.Header>
           {menu &&
             menu.map((menuItem, i) =>
@@ -143,7 +143,7 @@ function UserMenuItems() {
       <br></br>
 
       {menu.filter((itemType) => itemType.type == "A La Carte").length > 0 ? (
-        <Card>
+        <Card className="font-link2" >
           <Card.Header>A La Carte</Card.Header>
           {menu &&
             menu.map((menuItem, i) =>
@@ -176,7 +176,7 @@ function UserMenuItems() {
       <br></br>
 
       {menu.filter((itemType) => itemType.type == "Dessert").length > 0 ? (
-        <Card>
+        <Card className="font-link2" >
           <Card.Header>Desserts</Card.Header>
           {menu &&
             menu.map((menuItem, i) =>
@@ -209,7 +209,7 @@ function UserMenuItems() {
       <br></br>
 
       {menu.filter((itemType) => itemType.type == "Drinks").length > 0 ? (
-        <Card>
+        <Card className="font-link2" >
           <Card.Header>Drinks</Card.Header>
           {menu &&
             menu.map((menuItem, i) =>

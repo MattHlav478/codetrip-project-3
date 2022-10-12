@@ -28,14 +28,14 @@ export default function Home() {
       <div className="p-5 text-center bg-light"
       //bg photo for this div can be their chosen photo
       >
-        <h1 className="mb-3 text-background">{restaurant.name}</h1>
-        <h4 className="mb-3 text-background">{restaurant.phoneNumber}</h4>
+        <h1 className="mb-3 font-link text-background">{restaurant.name}</h1>
+        <h4 className="mb-3 font-link text-background">{restaurant.phoneNumber}</h4>
         <Button variant="primary"tag="a" outline size="lg">
                     Our Menu
                 </Button>
       </div>
 
-      <Nav variant="tabs" defaultActiveKey="/home">
+      <Nav className = "font-link nav-text" variant="tabs" defaultActiveKey="/home">
         <Nav.Item>
           <Nav.Link className="no-decor" style={{color: "black"}} href={`/restaurant/${userId}/${name}`}>About Us</Nav.Link>
         </Nav.Item>
