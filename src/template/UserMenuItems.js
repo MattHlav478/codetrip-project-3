@@ -10,15 +10,14 @@ import { getDoc, doc } from "firebase/firestore";
 function UserMenuItems() {
   const { userId, name } = useParams();
 
-  const [menu, setMenu] = useState();
+  const [menu, setMenu] = useState([]);
 
   // if menu state exist, change css to not display nav bar
   if (menu) {
-    console.log('testing...')
-    const navbar = document.getElementById("navbar")
+    console.log("testing...");
+    const navbar = document.getElementById("navbar");
     // navbar.remove()
   }
-
 
   async function getData() {
     //     // FIRESTORE call
@@ -36,201 +35,214 @@ function UserMenuItems() {
     getData();
   }, []);
 
-  // trying to remove navbar, but doesn't work...
+// remove navbar from view
   useEffect(() => {
-      if (menu) {
-        console.log("testing...");
-        const navbar = document.getElementById("navbar");
-        navbar.remove()
-      }
-  }, [])
+    if (menu) {
+      const navbar = document.getElementById("navbar");
+      navbar.remove();
+    }
+  }, []);
 
   return (
     <>
       <UserNav />
-      <Card>
-        <Card.Header>Appetizers</Card.Header>
-        {menu &&
-          menu.map((menuItem, i) =>
-            menuItem.type == "Appetizer" ? (
-              // <div key={i}>{menuItem.name}</div>
-              <Card.Body>
-                <div className="card-body-menu">
-                  <div className="menu-item-info">
-                    <Card.Title>{menuItem.name}</Card.Title>
-                    <Card.Text>{menuItem.price}</Card.Text>
-                    <Card.Text>{menuItem.description}</Card.Text>
+      {menu.filter((itemType) => itemType.type == "Appetizer").length > 0 ? (
+        <Card>
+          <Card.Header>Appetizers</Card.Header>
+          {menu &&
+            menu.map((menuItem, i) =>
+              menuItem.type == "Appetizer" ? (
+                <Card.Body>
+                  <div className="card-body-menu">
+                    <div className="menu-item-info">
+                      <Card.Title key={i}>{menuItem.name}</Card.Title>
+                      <Card.Text key={i + 1}>{menuItem.price}</Card.Text>
+                      <Card.Text key={i + 2}>{menuItem.description}</Card.Text>
+                    </div>
+                    <div key={i} className="menu-image-container">
+                      {menuItem.imageUrl != "" ? (
+                        <Image
+                          key={i}
+                          src={menuItem.imageURL}
+                          thumbnail
+                          rounded
+                          className="menu-item-image"
+                        />
+                      ) : null}
+                    </div>
                   </div>
-                  <div className="menu-image-container">
-                    {menuItem.imageUrl != "" ? (
-                      <Image
-                        src={menuItem.imageURL}
-                        thumbnail
-                        rounded
-                        className="menu-item-image"
-                      />
-                    ) : null}
-                  </div>
-                </div>
-              </Card.Body>
-            ) : null
-          )}
-        <Card.Footer className="text-muted"></Card.Footer>
-      </Card>
+                </Card.Body>
+              ) : null
+            )}
+          <Card.Footer className="text-muted"></Card.Footer>
+        </Card>
+      ) : null}
+
       <br></br>
 
-      <Card>
-        <Card.Header>Salads</Card.Header>
-        {menu &&
-          menu.map((menuItem, i) =>
-            menuItem.type == "Salad" ? (
-              // <div key={i}>{menuItem.name}</div>
-              <Card.Body>
-                <div className="card-body-menu">
-                  <div className="menu-item-info">
-                    <Card.Title>{menuItem.name}</Card.Title>
-                    <Card.Text>{menuItem.price}</Card.Text>
-                    <Card.Text>{menuItem.description}</Card.Text>
+      {menu.filter((itemType) => itemType.type == "Salad").length > 0 ? (
+        <Card>
+          <Card.Header>Salads</Card.Header>
+          {menu &&
+            menu.map((menuItem, i) =>
+              menuItem.type == "Salad" ? (
+                <Card.Body>
+                  <div className="card-body-menu">
+                    <div className="menu-item-info">
+                      <Card.Title key={i}>{menuItem.name}</Card.Title>
+                      <Card.Text key={i + 1}>{menuItem.price}</Card.Text>
+                      <Card.Text key={i + 2}>{menuItem.description}</Card.Text>
+                    </div>
+                    <div key={i} className="menu-image-container">
+                      {menuItem.imageUrl != "" ? (
+                        <Image
+                          key={i}
+                          src={menuItem.imageURL}
+                          thumbnail
+                          rounded
+                          className="menu-item-image"
+                        />
+                      ) : null}
+                    </div>
                   </div>
-                  <div className="menu-image-container">
-                    {menuItem.imageUrl != "" ? (
-                      <Image
-                        src={menuItem.imageURL}
-                        thumbnail
-                        rounded
-                        className="menu-item-image"
-                      />
-                    ) : null}
-                  </div>
-                </div>
-              </Card.Body>
-            ) : null
-          )}
-        <Card.Footer className="text-muted"></Card.Footer>
-      </Card>
+                </Card.Body>
+              ) : null
+            )}
+          <Card.Footer className="text-muted"></Card.Footer>
+        </Card>
+      ) : null}
       <br></br>
 
-      <Card>
-        <Card.Header>Main Dishes</Card.Header>
-        {menu &&
-          menu.map((menuItem, i) =>
-            menuItem.type == "Main" ? (
-              <Card.Body>
-                <div className="card-body-menu">
-                  <div className="menu-item-info">
-                    <Card.Title>{menuItem.name}</Card.Title>
-                    <Card.Text>{menuItem.price}</Card.Text>
-                    <Card.Text>{menuItem.description}</Card.Text>
+      {menu.filter((itemType) => itemType.type == "Main").length > 0 ? (
+        <Card>
+          <Card.Header>Main Dishes</Card.Header>
+          {menu &&
+            menu.map((menuItem, i) =>
+              menuItem.type == "Main" ? (
+                <Card.Body>
+                  <div className="card-body-menu">
+                    <div className="menu-item-info">
+                      <Card.Title key={i}>{menuItem.name}</Card.Title>
+                      <Card.Text key={i + 1}>{menuItem.price}</Card.Text>
+                      <Card.Text key={i + 2}>{menuItem.description}</Card.Text>
+                    </div>
+                    <div key={i} className="menu-image-container">
+                      {menuItem.imageUrl != "" ? (
+                        <Image
+                          key={i}
+                          src={menuItem.imageURL}
+                          thumbnail
+                          rounded
+                          className="menu-item-image"
+                        />
+                      ) : null}
+                    </div>
                   </div>
-                  <div className="menu-image-container">
-                    {menuItem.imageUrl != "" ? (
-                      <Image
-                        src={menuItem.imageURL}
-                        thumbnail
-                        rounded
-                        className="menu-item-image"
-                      />
-                    ) : null}
-                  </div>
-                </div>
-              </Card.Body>
-            ) : null
-          )}
-        <Card.Footer className="text-muted"></Card.Footer>
-      </Card>
+                </Card.Body>
+              ) : null
+            )}
+          <Card.Footer className="text-muted"></Card.Footer>
+        </Card>
+      ) : null}
       <br></br>
 
-      <Card>
-        <Card.Header>A la Carte</Card.Header>
-        {menu &&
-          menu.map((menuItem, i) =>
-            menuItem.type == "A la Carte" ? (
-              // <div key={i}>{menuItem.name}</div>
-              <Card.Body>
-                <div className="card-body-menu">
-                  <div className="menu-item-info">
-                    <Card.Title>{menuItem.name}</Card.Title>
-                    <Card.Text>{menuItem.price}</Card.Text>
-                    <Card.Text>{menuItem.description}</Card.Text>
+      {menu.filter((itemType) => itemType.type == "A La Carte").length > 0 ? (
+        <Card>
+          <Card.Header>A La Carte</Card.Header>
+          {menu &&
+            menu.map((menuItem, i) =>
+              menuItem.type == "A La Carte" ? (
+                <Card.Body>
+                  <div className="card-body-menu">
+                    <div className="menu-item-info">
+                      <Card.Title key={i}>{menuItem.name}</Card.Title>
+                      <Card.Text key={i + 1}>{menuItem.price}</Card.Text>
+                      <Card.Text key={i + 2}>{menuItem.description}</Card.Text>
+                    </div>
+                    <div key={i} className="menu-image-container">
+                      {menuItem.imageUrl != "" ? (
+                        <Image
+                          key={i}
+                          src={menuItem.imageURL}
+                          thumbnail
+                          rounded
+                          className="menu-item-image"
+                        />
+                      ) : null}
+                    </div>
                   </div>
-                  <div className="menu-image-container">
-                    {menuItem.imageUrl != "" ? (
-                      <Image
-                        src={menuItem.imageURL}
-                        thumbnail
-                        rounded
-                        className="menu-item-image"
-                      />
-                    ) : null}
-                  </div>
-                </div>
-              </Card.Body>
-            ) : null
-          )}
-        <Card.Footer className="text-muted"></Card.Footer>
-      </Card>
+                </Card.Body>
+              ) : null
+            )}
+          <Card.Footer className="text-muted"></Card.Footer>
+        </Card>
+      ) : null}
       <br></br>
 
-      <Card>
-        <Card.Header>Desserts</Card.Header>
-        {menu &&
-          menu.map((menuItem, i) =>
-            menuItem.type == "Dessert" ? (
-              // <div key={i}>{menuItem.name}</div>
-              <Card.Body>
-                <div className="card-body-menu">
-                  <div className="menu-item-info">
-                    <Card.Title>{menuItem.name}</Card.Title>
-                    <Card.Text>{menuItem.price}</Card.Text>
-                    <Card.Text>{menuItem.description}</Card.Text>
+      {menu.filter((itemType) => itemType.type == "Dessert").length > 0 ? (
+        <Card>
+          <Card.Header>Desserts</Card.Header>
+          {menu &&
+            menu.map((menuItem, i) =>
+              menuItem.type == "Dessert" ? (
+                <Card.Body>
+                  <div className="card-body-menu">
+                    <div className="menu-item-info">
+                      <Card.Title key={i}>{menuItem.name}</Card.Title>
+                      <Card.Text key={i + 1}>{menuItem.price}</Card.Text>
+                      <Card.Text key={i + 2}>{menuItem.description}</Card.Text>
+                    </div>
+                    <div key={i} className="menu-image-container">
+                      {menuItem.imageUrl != "" ? (
+                        <Image
+                          key={i}
+                          src={menuItem.imageURL}
+                          thumbnail
+                          rounded
+                          className="menu-item-image"
+                        />
+                      ) : null}
+                    </div>
                   </div>
-                  <div className="menu-image-container">
-                    {menuItem.imageUrl != "" ? (
-                      <Image
-                        src={menuItem.imageURL}
-                        thumbnail
-                        rounded
-                        className="menu-item-image"
-                      />
-                    ) : null}
-                  </div>
-                </div>
-              </Card.Body>
-            ) : null
-          )}
-        <Card.Footer className="text-muted"></Card.Footer>
-      </Card>
+                </Card.Body>
+              ) : null
+            )}
+          <Card.Footer className="text-muted"></Card.Footer>
+        </Card>
+      ) : null}
       <br></br>
 
-      <Card>
-        <Card.Header>Drinks</Card.Header>
-        {menu &&
-          menu.map((menuItem, i) =>
-            menuItem.type == "Drinks" ? (
-              // <div key={i}>{menuItem.name}</div>
-              <Card.Body>
-                <div className="card-body-menu">
-                  <div className="menu-item-info">
-                    <Card.Title>{menuItem.name}</Card.Title>
-                    <Card.Text>{menuItem.price}</Card.Text>
-                    <Card.Text>{menuItem.description}</Card.Text>
+      {menu.filter((itemType) => itemType.type == "Drinks").length > 0 ? (
+        <Card>
+          <Card.Header>Drinks</Card.Header>
+          {menu &&
+            menu.map((menuItem, i) =>
+              menuItem.type == "Drinks" ? (
+                <Card.Body>
+                  <div className="card-body-menu">
+                    <div className="menu-item-info">
+                      <Card.Title key={i}>{menuItem.name}</Card.Title>
+                      <Card.Text key={i + 1}>{menuItem.price}</Card.Text>
+                      <Card.Text key={i + 2}>{menuItem.description}</Card.Text>
+                    </div>
+                    <div key={i} className="menu-image-container">
+                      {menuItem.imageUrl != "" ? (
+                        <Image
+                          key={i}
+                          src={menuItem.imageURL}
+                          thumbnail
+                          rounded
+                          className="menu-item-image"
+                        />
+                      ) : null}
+                    </div>
                   </div>
-                  <div className="menu-image-container">
-                    {menuItem.imageUrl != "" ? (
-                      <Image
-                        src={menuItem.imageURL}
-                        thumbnail
-                        rounded
-                        className="menu-item-image"
-                      />
-                    ) : null}
-                  </div>
-                </div>
-              </Card.Body>
-            ) : null
-          )}
-        <Card.Footer className="text-muted"></Card.Footer>
-      </Card>
+                </Card.Body>
+              ) : null
+            )}
+          <Card.Footer className="text-muted"></Card.Footer>
+        </Card>
+      ) : null}
       <br></br>
     </>
   );
