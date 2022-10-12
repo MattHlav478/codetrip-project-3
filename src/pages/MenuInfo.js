@@ -37,6 +37,10 @@ export default function MenuInfo({
         setAllMenuItems([...allMenuItems, menuItem]);
     };
 
+    const handleBack = () => {
+        setFormPage("basic");
+    };
+
     const handleMenuInfoFormSubmit = (event) => {
         setFormPage("additional");
     };
@@ -106,7 +110,6 @@ export default function MenuInfo({
                 <br></br>
                 <br></br>
                 <div className="d-grid gap-2">
-                    {" "}
                     <Button variant="dark" type="submit" size="lg">
                         Confirm Item
                     </Button>
@@ -138,7 +141,17 @@ export default function MenuInfo({
             <br></br>
 
             <div className="d-grid gap-2">
-                {" "}
+                <Button
+                    variant="dark"
+                    type="submit"
+                    size="lg"
+                    onClick={handleBack}
+                >
+                    Back
+                </Button>
+            </div>
+
+            <div className="d-grid gap-2">
                 <Button
                     variant="dark"
                     type="submit"
