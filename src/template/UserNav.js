@@ -4,7 +4,6 @@ import Nav from "react-bootstrap/Nav";
 import Button from 'react-bootstrap/Button';
 import { db } from "../services/firebaseConnection";
 import { getDoc, doc } from "firebase/firestore";
-import img from "./fake-banner.jpg";
 
 export default function Home() {
   const { userId, name } = useParams();
