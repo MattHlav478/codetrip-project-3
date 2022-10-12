@@ -28,9 +28,8 @@ code {
 }
 
 .footer {
-  display:none;
   text-align: center;
-  position:absolute;
+  position:static;
   bottom: 0; 
   height: 4vh;
   margin-top: 5vh;
@@ -62,12 +61,41 @@ code {
 }
 
 .page-height {
-  height:200vh;
+  height:210vh;
+
 }
 
 .divider {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+.font-link {
+  font-family: 'Cantata One', serif;
+}
+
+.font-link2 {
+  font-family: 'Lustria', serif;
+}
+
+.link-style {
+  padding: 10px;
+
+}
+
+.nav-text {
+  color: #000000 !important;
+ text-decoration: none;
+ 
+}
+.text-background {
+ background-color: rgba(255, 255, 255, 0.314);
+ border-radius: 5px;
+}
+
+.centertext {
+  margin-left: 5%;
+  margin-right: 5%;
+
 
 /* Restaurant Menu Items */
 .card-body-menu {

@@ -91,8 +91,7 @@ const LoginForm = () => {
             Password is required!
           </Form.Control.Feedback>
         </Form.Group>
-        <div id="alert"></div>
-
+      <br></br>
         <Button
           type="submit"
           variant="dark"

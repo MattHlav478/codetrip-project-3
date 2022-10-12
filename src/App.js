@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { auth } from "./services/firebaseConnection";
 
@@ -20,6 +20,9 @@ import { Footer, LoginForm, SignupForm, Header } from "./components/index";
 import { UserAbout, UserNav, UserHours, UserMenuItems } from "./template";
 
 function App() {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
     return (
         <Router>
             <div className="flex-column justify-flex-start min-100-vh">
