@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import { db } from "../services/firebaseConnection";
-import { collection, query, where, getDoc, doc } from "firebase/firestore";
-import { UserAbout, UserFooter, UserHours, UserMenuItems } from "./index";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { getDoc, doc } from "firebase/firestore";
 
 export default function Home() {
   const { userId, name } = useParams();

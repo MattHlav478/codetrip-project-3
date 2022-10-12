@@ -67,3 +67,10 @@ code {
 .divider {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+
+/* Restaurant Menu Items */
+.menu-item-image{
+  width: 300px;
+  height: 300px;
+}
