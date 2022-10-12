@@ -8,16 +8,15 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 export default function Home() {
   const { userId, name } = useParams();
-  console.log(userId, name);
   // userParam is restaurant ID
+
+const [restaurant, setRestaurant] = useState({})
 
   async function getData() {
     //     // FIRESTORE call
     const docRef = doc(db, "restaurants", userId);
     const docSnap = await getDoc(docRef);
-    console.log(docSnap.data());
-    const x = docSnap.data();
-    console.log(x.name);
+   setRestaurant(docSnap.data());
   }
 
   getData();
@@ -35,24 +34,28 @@ export default function Home() {
   return (
     <header>
       <div className="p-5 text-center bg-light">
-        <h1 className="mb-3">Restaurant Name</h1>
-        <h4 className="mb-3">323-499-5070</h4>
+        <h1 className="mb-3">{restaurant.name}</h1>
+        <h4 className="mb-3">{restaurant.phoneNumber}</h4>
       </div>
 
       <Nav variant="tabs" defaultActiveKey="/home">
         <Nav.Item>
-          <Nav.Link href="/">About Us</Nav.Link>
+          <Nav.Link href={`/restaurant/${userId}/${name}`}>About Us</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link href={`/restaurant/${userId}/${name}/menu`} eventKey="link-1">
+          <Nav.Link
+            href={`/restaurant/${userId}/${name}/menu`}
+            eventKey="link-1"
+          >
             Menu
           </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link >Visit Us</Nav.Link>
+          <Nav.Link href={`/restaurant/${userId}/${name}/visit`}>
+            Visit Us
+          </Nav.Link>
         </Nav.Item>
       </Nav>
-
       <br></br>
     </header>
   );

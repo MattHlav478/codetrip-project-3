@@ -1,9 +1,11 @@
+import UserNav from './UserNav'
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 
 function FlushExample() {
     return (
         <>
+            <UserNav/>
             <ListGroup variant="flush">
                 <ListGroup.Item variant="danger">Mondays Closed</ListGroup.Item>
                 <ListGroup.Item>Tuesdays 10am-6pm</ListGroup.Item>
