@@ -23,6 +23,7 @@ function FlushExample() {
             <Card className="text-center">
                 <Card.Text>123 Address St Roseburg OR, 97476</Card.Text>
             </Card>
+            <br></br>
         </>
     );
 }
