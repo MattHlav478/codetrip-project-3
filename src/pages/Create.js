@@ -175,11 +175,11 @@ export default function Create() {
         <div className="page-height">
             {returnPage(formPage)}
 
-            {/* <Link to={"/dashboard"}> */}
+            <Link to={"/dashboard"}>
             <Button variant="dark" type="submit" onClick={handleCreateBtn}>
                 Create Restaurant
             </Button>
-            {/* </Link> */}
+            </Link>
         </div>
     );
 }
