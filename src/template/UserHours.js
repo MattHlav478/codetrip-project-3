@@ -8,11 +8,6 @@ import React, { useState, useEffect } from "react";
 import { isCompositeType } from "graphql";
 
 function UserHours() {
-  useEffect(() => {
-    const navbar = document.getElementById("navbar");
-    navbar.remove();
-  });
-
   const { userId, name } = useParams();
   const [hours, setHours] = useState();
   const days = [
@@ -55,14 +50,22 @@ function UserHours() {
     getData();
   }, []);
 
+  // NOT WORKING
+  // useEffect(() => {
+  //   if (hours) {
+  //     const navbar = document.getElementById("navbar");
+  //     navbar.remove();
+  //   }
+  // }, []);
+
   return (
     <>
       <UserNav />
       <ListGroup variant="flush">
         {hours &&
-          hours.map((everyDay) =>
+          hours.map((everyDay, i) =>
             everyDay.isClosed ? (
-              <ListGroup.Item variant="danger">
+              <ListGroup.Item key={i} variant="danger">
                 {everyDay.day} Closed
               </ListGroup.Item>
             ) : (
