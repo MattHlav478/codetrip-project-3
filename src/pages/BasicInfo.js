@@ -61,9 +61,13 @@ export default function BasicInfo({
     };
 
     const handleUploadImage = (event) => {
-        console.log(event.target);
+        const key = event.target.name;
+        console.log(key);
         setFile(event.target.files[0]);
-        storageAPI.upload(event.target.files[0]);
+        storageAPI
+            .upload(event.target.files[0])
+            .then((imageUrl) => setBasicInfoData({ ...basicInfoData, [key]: imageUrl }));
+
     };
 
     const [errorMessage, setErrorMessage] = useState([
@@ -165,10 +169,10 @@ export default function BasicInfo({
                     have a logo, now's the time to show it off! Consider using
                     the following dimensions:{" "}
                 </p>
-
                 <input
                     type="file"
                     accept="image/*"
+                    name="imageUrl"
                     onChange={handleUploadImage}
                 />
                 <Button variant="dark">Upload image</Button>

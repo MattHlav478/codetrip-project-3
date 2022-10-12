@@ -62,7 +62,7 @@ export default function Create() {
         name: "",
         address: "",
         phoneNumber: "",
-        imageURL: "",
+        imageUrl: "",
     });
 
     const [hours, setHours] = useState({});
@@ -89,6 +89,7 @@ export default function Create() {
           address: basicInfoData.address,
           phoneNumber: basicInfoData.phoneNumber,
           hours: hours,
+          banner: basicInfoData.imageUrl,
           menu: allMenuItems,
           createdAt: Timestamp.now().toDate().toDateString(),
           isAbout: additionalInfoData.isAbout,
