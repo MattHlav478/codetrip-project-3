@@ -31,6 +31,7 @@ export default function Header() {
                 <a href="/" className="nav-link" onClick={logout}>
                   Logout
                 </a>
+                <p className="nav-link">You are logged in as {auth.currentUser.email}</p>
               </>
             ) : (
               <>

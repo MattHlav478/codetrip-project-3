@@ -91,8 +91,9 @@ export default function AdditionalInfo({
                     onClick={handleBack}
                 >
                     Back
-                </Button>
+                </Button>{" "}
             </div>
+            <br></br>
         </div>
     );
 }
