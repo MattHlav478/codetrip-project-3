@@ -50,24 +50,30 @@ function UserHours() {
         getData();
     }, []);
 
-    return (
-        <>
-            <UserNav />
-            <ListGroup variant="flush">
-                {hours &&
-                    hours.map((everyDay) =>
-                        everyDay.isClosed ? (
-                            <ListGroup.Item variant="danger">
-                                {everyDay.day} Closed
-                            </ListGroup.Item>
-                        ) : (
-                            <ListGroup.Item variant="success">
-                                {everyDay.day} {everyDay.open} -{" "}
-                                {everyDay.close}
-                            </ListGroup.Item>
-                        )
-                    )}
-            </ListGroup>
+    useEffect(() => {
+      if (hours) {
+        const navbar = document.getElementById('navbar');
+        navbar.remove();
+      }
+    })
+
+  return (
+    <>
+      <UserNav />
+      <ListGroup variant="flush">
+        {hours &&
+          hours.map((everyDay) =>
+            everyDay.isClosed ? (
+              <ListGroup.Item variant="danger">
+                {everyDay.day} Closed
+              </ListGroup.Item>
+            ) : (
+              <ListGroup.Item variant="success">
+                {everyDay.day} {everyDay.open} - {everyDay.close}
+              </ListGroup.Item>
+            )
+          )}
+      </ListGroup>
 
             <br></br>
 

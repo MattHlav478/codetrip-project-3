@@ -36,6 +36,9 @@ export default function MenuInfo({
         event.preventDefault();
         // validation happens here?
         setAllMenuItems([...allMenuItems, menuItem]);
+        const form = document.getElementById('new-item')
+        form.reset();
+
     };
 
     const handleBack = () => {
@@ -54,7 +57,7 @@ export default function MenuInfo({
     return (
         <div>
             <h1>What's on the menu?</h1>
-            <Form onSubmit={handleNewMenuItem}>
+            <Form onSubmit={handleNewMenuItem} id="new-item">
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Item Name*</Form.Label>
                     <Form.Control
