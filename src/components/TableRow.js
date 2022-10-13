@@ -1,6 +1,7 @@
 import React from "react";
 import "rc-time-picker/assets/index.css";
 
+// handles user input of hours, using functions onChange and state that is set in Create.js and passed down as a prop.
 export default function TableRow({ day, hours, setHours }) {
     const handleChangeOpen = (value) => {
         const updateHours = { ...hours };

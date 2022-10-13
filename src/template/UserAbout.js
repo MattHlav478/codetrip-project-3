@@ -8,19 +8,16 @@ import { getDoc, doc } from "firebase/firestore";
 
 function About() {
     const { userId, name } = useParams();
-    const [about, setAbout] = useState([]);
+    const [about, setAbout] = useState();
+    const [data, setData] = useState();
 
     async function getData() {
         //     // FIRESTORE call
         const docRef = doc(db, "restaurants", userId);
         const docSnap = await getDoc(docRef);
         const data = docSnap.data();
+        setData(data);
         setAbout(data.about);
-        // const menuData = [];
-        // restData.menu.map((menuItem) => {
-        //     menuData.push(menuItem);
-        // });
-        // setMenu(menuData);
     }
 
     useEffect(() => {
@@ -43,14 +40,6 @@ function About() {
                     <Card.Body>{about}</Card.Body>
                 </Card>
                 <br></br>
-                <div style={{ width: "90% " }}>
-                    <Card.Title>Connect with us on Social Media!</Card.Title>
-                    <div>
-                        {" "}
-                        <a href="#">Card Link</a> <br></br>
-                        <a href="#">Card Link</a>
-                    </div>
-                </div>
             </div>
         </>
     );

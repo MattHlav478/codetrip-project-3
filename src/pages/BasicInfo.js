@@ -5,7 +5,6 @@ import Alert from "react-bootstrap/Alert";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import storageAPI from "../services/storageAPI";
-import { validatePhone, validateExists } from "../utils/helpers";
 
 export default function BasicInfo({
     days,
@@ -18,7 +17,6 @@ export default function BasicInfo({
 }) {
     //STATES FOR SHOWING OR HIDING ALERT. DEFAULT IS FALSE.
     const [show, setShow] = useState(false);
-    const [validHours, setValidHours] = useState(true);
 
     const handleBasicInfoFormSubmit = (event) => {
         event.preventDefault();
@@ -28,7 +26,6 @@ export default function BasicInfo({
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setBasicInfoData({ ...basicInfoData, [name]: value });
-        // console.log(basicInfoData);
     };
 
     const handleUploadImage = (event) => {
@@ -42,8 +39,7 @@ export default function BasicInfo({
             );
     };
 
-    const handleHours = (event) => {
-        // console.log(hours);
+    const handleHours = () => {
         return Object.keys(hours).map((weekday) => {
             const { isOpen, close, open } = hours[weekday];
             return { day: weekday, isOpen, close, open };
@@ -109,7 +105,7 @@ export default function BasicInfo({
                 <p>
                     Choose a photo that will appear on your homepage. If you
                     have a logo, now's the time to show it off! Consider using
-                    the following dimensions:{" "}
+                    the following dimensions: 400px X 600px.
                 </p>
                 <input
                     type="file"
@@ -117,7 +113,6 @@ export default function BasicInfo({
                     name="imageUrl"
                     onChange={handleUploadImage}
                 />
-                <Button variant="dark">Upload image</Button>
 
                 <br></br>
                 <br></br>

@@ -11,8 +11,6 @@ import {
 } from "firebase/firestore";
 import { db, auth } from "../services/firebaseConnection";
 
-// another level of security, make it so this is only viewed when a user is logged in--if user isn't logged in, then link to homepage, or custom page, whatever we want
-
 export default function Dashboard() {
     const [projects, setProjects] = useState([]);
 
@@ -20,39 +18,23 @@ export default function Dashboard() {
         auth.onAuthStateChanged(async (authUser) => {
             if (authUser) {
                 const user = auth.currentUser.email;
-                // if (user) {
-                //   console.log('here')
-                // }
-                // const docRef = doc(db, "restaurants", /*unique restaurant ID*/);
-                // const docSnap = await getDoc(docRef);
                 const restRef = collection(db, "restaurants");
                 const userRest = query(restRef, where("user", "==", user));
                 const querySnapshot = await getDocs(userRest);
-                // console.log(querySnapshot)
-
                 const projectsUpdate = [];
-
                 querySnapshot.forEach((doc) => {
                     const obj = doc.data();
                     obj.id = doc.id;
                     projectsUpdate.push(obj);
                 });
-
                 setProjects(projectsUpdate);
-                // if (projects) {
-                //   // setProjects(docSnap.data());
-                //   // console.log("projects: ", projects);
-                //   console.log(userRest)
-                //   c
-                // } else {
-                //   console.log("No such document!");
-                // }
             } else {
                 window.location.assign("/login");
             }
         });
     }
 
+    // getting user Projects, using useEffect means this executes only once when the page loads
     useEffect(() => {
         getUserProjects();
     }, []);
@@ -74,7 +56,6 @@ export default function Dashboard() {
             </Link>
 
             <h1>
-                {" "}
                 <br></br> Welcome!
             </h1>
 
@@ -105,8 +86,8 @@ export default function Dashboard() {
                                         className="card-button"
                                     >
                                         View
-                                    </Button>{" "}
-                                </Link>
+                                    </Button>
+                                </Link>{" "}
                                 <Button
                                     data-key={rest.id}
                                     variant="dark"
@@ -124,11 +105,6 @@ export default function Dashboard() {
                             It's pretty empty here... Start by creating a Genu
                             project!
                         </div>
-                        <p>
-                            {/* add an href here with sample page */}
-                            Check out this sample page for an example of a
-                            finished product!
-                        </p>
                     </>
                 )}
             </div>

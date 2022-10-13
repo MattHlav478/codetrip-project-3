@@ -29,17 +29,16 @@ export default function Developers() {
         },
     ];
 
-
     return (
         <>
-        <br></br>
+            <br></br>
             <h1>Meet the codeTrip() Team</h1>
             <div className="developer-container">
                 {bios.map((person) => (
                     <Figure key={person.name} className="developer-container">
                         <h4>{person.name}</h4>
                         <Figure.Image
-                        className="sizing"
+                            className="sizing"
                             width={200}
                             height={200}
                             alt={person.name}

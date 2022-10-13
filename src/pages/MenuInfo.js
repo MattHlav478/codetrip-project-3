@@ -34,24 +34,21 @@ export default function MenuInfo({
     // WE ARE ADDING THAT NEW MENU ITEM TO THE FULL MENU
     const handleNewMenuItem = (event) => {
         event.preventDefault();
-        // validation happens here?
         setAllMenuItems([...allMenuItems, menuItem]);
-        const form = document.getElementById('new-item')
+        // clears out form once you've submitted one item, resets form
+        const form = document.getElementById("new-item");
         form.reset();
-
     };
 
     const handleBack = () => {
         setFormPage("basic");
     };
+
     //STATES FOR SHOWING OR HIDING ALERT. DEFAULT IS FALSE.
     const [show, setShow] = useState(false);
 
-    const handleMenuInfoFormSubmit = (event) => {
+    const handleMenuInfoFormSubmit = () => {
         setFormPage("additional");
-        //if there are no menu items at the time of submit, show alert
-        //something like this...
-        // allMenuItems.length === 0 ? setShow(true) : setShow(false)
     };
 
     return (
@@ -108,14 +105,12 @@ export default function MenuInfo({
                     <br></br>
                 </div>
 
-                {/* optional image uploading, waiting for firebase to happen before any coding */}
                 <input
                     type="file"
                     accept="image/*"
                     name="imageURL"
                     onChange={handleUploadImage}
                 />
-                <Button variant="dark">Upload image</Button>
 
                 <br></br>
                 <br></br>

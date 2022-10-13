@@ -1,21 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import Alert from "react-bootstrap/Alert";
 import { db } from "../services/firebaseConnection";
-import {
-    addDoc,
-    doc,
-    setDoc,
-    updateDoc,
-    arrayUnion,
-    Timestamp,
-} from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { auth } from "../services/firebaseConnection";
-import {
-    connectAuthEmulator,
-    createUserWithEmailAndPassword,
-    onAuthStateChanged,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const SignupForm = () => {
     //set initial form state
@@ -34,6 +23,7 @@ const SignupForm = () => {
         },
     });
 
+    // adds user input to state
     const handleInputChange = (event) => {
         const { name, value } = event.target;
         setUserFormData({ ...userFormData, [name]: value });
@@ -41,7 +31,6 @@ const SignupForm = () => {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        console.log("submit clicked!");
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             setShow(true);
@@ -63,10 +52,9 @@ const SignupForm = () => {
                     userFormData.email,
                     userFormData.password
                 );
-                console.log(userCredential.user);
                 window.location.assign("/dashboard");
             } catch (error) {
-                console.log(error.code);
+                // displays alert depending on error code type (email already in DB, weak pw)
                 if (error.code === "auth/email-already-in-use") {
                     setShow2(true);
                 } else if (error.code === "auth/weak-password") {

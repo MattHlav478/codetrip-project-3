@@ -27,6 +27,12 @@ code {
   margin-bottom: 3vh;
 }
 
+/* .nav-flex {
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+} */
+
 .no-display {
   display: hidden;
 }

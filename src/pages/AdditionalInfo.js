@@ -13,7 +13,6 @@ export default function AdditionalInfo({
         const key = event.target.name;
         const value = event.target.value;
         setAdditionalInfoData({ ...additionalInfoData, [key]: value });
-        // console.log(additionalInfoData);
     };
 
     const handleBack = () => {
@@ -83,6 +82,7 @@ export default function AdditionalInfo({
                     </div>
                 </div>
             </Form>
+            <br></br>
             <div className="d-grid gap-2">
                 <Button
                     variant="dark"
@@ -93,6 +93,7 @@ export default function AdditionalInfo({
                     Back
                 </Button>
             </div>
+            <br></br>
         </div>
     );
 }

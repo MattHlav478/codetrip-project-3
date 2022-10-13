@@ -1,40 +1,22 @@
 import React, { useState, useEffect } from "react";
-// import storageAPI from "../services/storageAPI";
 import { db, auth } from "../services/firebaseConnection";
-import {
-    addDoc,
-    collection,
-    Timestamp,
-} from "firebase/firestore";
+import { addDoc, collection, Timestamp } from "firebase/firestore";
 import { Link } from "react-router-dom";
-
-// import TimePicker from "rc-time-picker";
 import "rc-time-picker/assets/index.css";
 import Button from "react-bootstrap/Button";
-// import Form from "react-bootstrap/Form";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BasicInfo, MenuInfo, AdditionalInfo } from "./index";
-// import { FirebaseError } from "firebase/app";
-
-// import TimePicker from "rc-time-picker";
-// import "rc-time-picker/assets/index.css";
-// import Button from "react-bootstrap/Button";
-// import Form from "react-bootstrap/Form";
-// import Table from "react-bootstrap/Table";
-// import Select from "react-select";
-// import TableRow from "../components/TableRow";
-
 
 export default function Create() {
+    // if user is NOT signed in, redirects to homepage.
     useEffect(() => {
-      auth.onAuthStateChanged(async (authUser) => {
-        if (!authUser) {
-          window.location.assign("/");
-        }
-      }, []);
+        auth.onAuthStateChanged(async (authUser) => {
+            if (!authUser) {
+                window.location.assign("/");
+            }
+        }, []);
     });
-    
-    // implement onBlur functionality here, so if someone skips the * required bits, we let them know it's BAD
+
     const days = [
         "Monday",
         "Tuesday",
@@ -93,7 +75,7 @@ export default function Create() {
                     address: basicInfoData.address,
                     phoneNumber: basicInfoData.phoneNumber,
                     hours: hours,
-                    banner:basicInfoData.imageUrl,
+                    banner: basicInfoData.imageUrl,
                     menu: allMenuItems,
                     createdAt: Timestamp.now().toDate().toDateString(),
                     about: additionalInfoData.about,
@@ -118,7 +100,6 @@ export default function Create() {
 
     const returnPage = (formPage) => {
         if (formPage === "basic") {
-            console.log("basic info");
             return (
                 <BasicInfo
                     days={days}
@@ -132,7 +113,6 @@ export default function Create() {
                 ></BasicInfo>
             );
         } else if (formPage === "menu") {
-            console.log("menu info");
             return (
                 <MenuInfo
                     categories={categories}
@@ -148,7 +128,6 @@ export default function Create() {
                 />
             );
         } else if (formPage === "additional") {
-            console.log("additional info");
             return (
                 <>
                     <AdditionalInfo
@@ -157,33 +136,19 @@ export default function Create() {
                         setAdditionalInfoData={setAdditionalInfoData}
                         setFormPage={setFormPage}
                     />
-                    {/* // needs to be rendered here IN PRODUCTION but leaving it
-                    below for ease of creating projects. //{" "}
                     <Link to={"/dashboard"}>
-                        //{" "}
                         <Button
                             variant="dark"
                             type="submit"
                             onClick={handleCreateBtn}
                         >
-                            // Create Restaurant //{" "}
+                            Create Restaurant
                         </Button>
-                        //{" "}
-                    </Link> */}
+                    </Link>
                 </>
             );
         }
     };
 
-    return (
-        <div className="page-height">
-            {returnPage(formPage)}
-
-            <Link to={"/dashboard"}>
-            <Button variant="dark" type="submit" onClick={handleCreateBtn}>
-                Create Restaurant
-            </Button>
-            </Link>
-        </div>
-    );
+    return <div className="page-height">{returnPage(formPage)}</div>;
 }
