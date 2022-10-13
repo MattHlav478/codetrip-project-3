@@ -8,64 +8,63 @@ import React, { useState, useEffect } from "react";
 import { isCompositeType } from "graphql";
 
 function UserHours() {
-  const { userId, name } = useParams();
-  const [hours, setHours] = useState();
-  const days = [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-  ];
+    const { userId, name } = useParams();
+    const [hours, setHours] = useState();
+    const days = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+    ];
 
-  function formatTimeShow(h_24) {
-    let amPm = "AM";
-    if (Number(h_24.substring(0, 2)) % 12 >= 0) {
-      amPm = "PM";
+    function formatTimeShow(h_24) {
+        let amPm = "AM";
+        if (Number(h_24.substring(0, 2)) % 12 >= 0) {
+            amPm = "PM";
+        }
+        var h = Number(h_24.substring(0, 2)) % 12;
+        if (h === 0) h = 12;
+        return (h < 10 ? "0" : "") + h + ":00" + amPm;
     }
-    var h = Number(h_24.substring(0, 2)) % 12;
-    if (h === 0) h = 12;
-    return (h < 10 ? "0" : "") + h + ":00" + amPm;
-  }
 
-  async function getData() {
-    //     // FIRESTORE call
-    const docRef = doc(db, "restaurants", userId);
-    const docSnap = await getDoc(docRef);
-    const allHours = docSnap.data().hours;
-    const correctHours = days.map((day) => {
-      if (allHours[day].open || allHours[day].close) {
-        allHours[day].open = formatTimeShow(allHours[day].open);
-        allHours[day].close = formatTimeShow(allHours[day].close);
+    async function getData() {
+        //     // FIRESTORE call
+        const docRef = doc(db, "restaurants", userId);
+        const docSnap = await getDoc(docRef);
+        const allHours = docSnap.data().hours;
+        const correctHours = days.map((day) => {
+            if (allHours[day].open || allHours[day].close) {
+                allHours[day].open = formatTimeShow(allHours[day].open);
+                allHours[day].close = formatTimeShow(allHours[day].close);
+            }
+            allHours[day].day = day; // adds the day as a property, alongside isClosed and open, close
+            return allHours[day];
+        });
+        setHours(correctHours);
+    }
+
+    useEffect(() => {
+        getData();
+    }, []);
+
+    useEffect(() => {
+      if (hours) {
+        const navbar = document.getElementById('navbar');
+        navbar.remove();
       }
-      allHours[day].day = day; // adds the day as a property, alongside isClosed and open, close
-      return allHours[day];
-    });
-    setHours(correctHours);
-  }
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  // NOT WORKING
-  // useEffect(() => {
-  //   if (hours) {
-  //     const navbar = document.getElementById("navbar");
-  //     navbar.remove();
-  //   }
-  // }, []);
+    })
 
   return (
     <>
       <UserNav />
       <ListGroup variant="flush">
         {hours &&
-          hours.map((everyDay, i) =>
+          hours.map((everyDay) =>
             everyDay.isClosed ? (
-              <ListGroup.Item key={i} variant="danger">
+              <ListGroup.Item variant="danger">
                 {everyDay.day} Closed
               </ListGroup.Item>
             ) : (
@@ -76,14 +75,14 @@ function UserHours() {
           )}
       </ListGroup>
 
-      <br></br>
+            <br></br>
 
-      <Card className="font-link2 text-center">
-        <Card.Text>123 Address St Roseburg OR, 97476</Card.Text>
-      </Card>
-      <br></br>
-    </>
-  );
+            <Card className="font-link2 text-center">
+                <Card.Text>123 Address St Roseburg OR, 97476</Card.Text>
+            </Card>
+            <br></br>
+        </>
+    );
 }
 
 export default UserHours;

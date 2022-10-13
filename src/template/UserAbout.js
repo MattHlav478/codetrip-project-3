@@ -6,7 +6,7 @@ function About() {
   useEffect(() => {
     const navbar = document.getElementById("navbar");
     navbar.remove();
-  });
+  }, []);
   return (
     <>
       <UserNav />
