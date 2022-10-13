@@ -9,14 +9,14 @@ import { getDoc, doc } from "firebase/firestore";
 function About() {
     const { userId, name } = useParams();
     const [about, setAbout] = useState();
-    const [data, setData] = useState();
+    // const [data, setData] = useState();
 
     async function getData() {
         //     // FIRESTORE call
         const docRef = doc(db, "restaurants", userId);
         const docSnap = await getDoc(docRef);
         const data = docSnap.data();
-        setData(data);
+        // setData(data);
         setAbout(data.about);
     }
 
