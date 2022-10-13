@@ -51,7 +51,7 @@ export default function MenuInfo({
         setFormPage("additional");
         //if there are no menu items at the time of submit, show alert
         //something like this...
-    // allMenuItems.length === 0 ? setShow(true) : setShow(false)
+        // allMenuItems.length === 0 ? setShow(true) : setShow(false)
     };
 
     return (
@@ -156,22 +156,21 @@ export default function MenuInfo({
                     variant="dark"
                     type="submit"
                     size="lg"
-                    onClick={handleBack}
-                >
-                    Back
-                </Button>
-            </div>
-
-            <div className="d-grid gap-2">
-                <Button
-                    variant="dark"
-                    type="submit"
-                    size="lg"
                     onClick={handleMenuInfoFormSubmit}
                 >
                     Next
                 </Button>
                 <br></br>
+                <div className="d-grid gap-2">
+                    <Button
+                        variant="dark"
+                        type="submit"
+                        size="lg"
+                        onClick={handleBack}
+                    >
+                        Back
+                    </Button>
+                </div>
                 <Alert onClose={() => setShow(false)} show={show} dismissible>
                     Please make sure to add at least one menu item!
                 </Alert>

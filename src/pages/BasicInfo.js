@@ -5,7 +5,7 @@ import Alert from "react-bootstrap/Alert";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import storageAPI from "../services/storageAPI";
-import { validatePhone } from "../utils/helpers";
+import { validatePhone, validateExists } from "../utils/helpers";
 
 export default function BasicInfo({
     days,
@@ -21,62 +21,14 @@ export default function BasicInfo({
     const [validHours, setValidHours] = useState(true);
 
     const handleBasicInfoFormSubmit = (event) => {
+        event.preventDefault();
         setFormPage("menu");
-        // event.preventDefault();
-        // validate that everything is correct inside the form.
-        // THIS ACTUALLY DOES NOTHING BUT IF YOU TAKE IT OUT THE FORM BREAKS SO PLZZZ PLZZZZ DON'T TAKE IT OUT
-        hours.map((el) => {
-            if (!el.isClosed) {
-                if (!el.open && !el.close) {
-                    setValidHours(false);
-                }
-            }
-        }); //makes the state of validHours false if any field fails
-
-        // Every day needs an opening and closing time, OR else it isClosed is true
-        // const [basicInfoData, setBasicInfoData] = useState({
-        //     name: "",
-        //     address: "",
-        //     phoneNumber: "",
-        //     imageURL: "",
-        // });
-        // if (
-        //     basicInfoData.name &&
-        //     basicInfoData.address &&
-        //     basicInfoData.phoneNumber
-        // ) {
-        // }
-
-        //THIS IS WHERE WE SET THE SHOW(TRUE) STATE FOR THE ALERT,
-
-        setFormPage("menu");
-        return Object.keys(hours).map((weekday) => {
-            const { isOpen, close, open } = hours[weekday];
-            return { day: weekday, isOpen, close, open };
-        });
-        // return Object.keys(hours).map((weekday) => {
-        //     const { isOpen, close, open } = hours[weekday];
-        //     return { day: weekday, isOpen, close, open };
-        // });
     };
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        if (name === "phoneNumber") {
-            const isValid = validatePhone(value);
-            if (!isValid) {
-                setErrorMessage([
-                    {
-                        ...errorMessage,
-                        [name]: "You need to enter a proper phone number.",
-                    },
-                ]);
-            } else {
-                setErrorMessage([{ ...errorMessage, [name]: "" }]);
-            }
-        }
         setBasicInfoData({ ...basicInfoData, [name]: value });
-        console.log(basicInfoData);
+        // console.log(basicInfoData);
     };
 
     const handleUploadImage = (event) => {
@@ -85,33 +37,22 @@ export default function BasicInfo({
         setFile(event.target.files[0]);
         storageAPI
             .upload(event.target.files[0])
-            .then((imageUrl) => setBasicInfoData({ ...basicInfoData, [key]: imageUrl }));
-
+            .then((imageUrl) =>
+                setBasicInfoData({ ...basicInfoData, [key]: imageUrl })
+            );
     };
 
-    const [errorMessage, setErrorMessage] = useState([
-        {
-            phone: "",
-            address: "",
-            name: "",
-        },
-    ]);
-
     const handleHours = (event) => {
-        // setFormPage("menu");
-        // event.preventDefault();
+        // console.log(hours);
         return Object.keys(hours).map((weekday) => {
             const { isOpen, close, open } = hours[weekday];
             return { day: weekday, isOpen, close, open };
         });
-        // consider adding validation for hours here? do so by const flatHours = Object.keys..., then return flat at some point.
-        // if it's NOT valid, then don't run the handleFormSubmit. But if it is, then do.
     };
 
     return (
         <div>
             <h1>Let's start with some basic info.</h1>
-
             <Form>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Restaurant Name*</Form.Label>
@@ -123,11 +64,6 @@ export default function BasicInfo({
                         value={basicInfoData.name}
                     />
                 </Form.Group>
-                {errorMessage.name && (
-                    <div>
-                        <p className="error-text">{errorMessage.name}</p>
-                    </div>
-                )}
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Phone Number</Form.Label>
                     <Form.Control
@@ -138,11 +74,6 @@ export default function BasicInfo({
                         value={basicInfoData.phoneNumber}
                     />
                 </Form.Group>
-                {errorMessage.phone && (
-                    <div>
-                        <p className="error-text">{errorMessage.phone}</p>
-                    </div>
-                )}
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Address</Form.Label>
                     <Form.Control
@@ -153,12 +84,6 @@ export default function BasicInfo({
                         value={basicInfoData.address}
                     />
                 </Form.Group>
-                {errorMessage.address && (
-                    <div>
-                        <p className="error-text">{errorMessage.address}</p>
-                    </div>
-                )}
-
                 <Table striped bordered hover>
                     <thead>
                         <tr>
@@ -180,7 +105,6 @@ export default function BasicInfo({
                         ))}
                     </tbody>
                 </Table>
-
                 <h3>Include a photo!</h3>
                 <p>
                     Choose a photo that will appear on your homepage. If you
@@ -206,7 +130,7 @@ export default function BasicInfo({
                         type="submit"
                         size="lg"
                         onClick={(e) => {
-                            // handleHours(e);
+                            handleHours(e);
                             handleBasicInfoFormSubmit(e);
                         }}
                     >
