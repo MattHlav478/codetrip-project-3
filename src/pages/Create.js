@@ -2,14 +2,9 @@ import React, { useState, useEffect } from "react";
 // import storageAPI from "../services/storageAPI";
 import { db, auth } from "../services/firebaseConnection";
 import {
-    doc,
-    updateDoc,
     addDoc,
-    setDoc,
     collection,
-    arrayUnion,
     Timestamp,
-    FieldValue,
 } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
@@ -29,7 +24,16 @@ import { BasicInfo, MenuInfo, AdditionalInfo } from "./index";
 // import Select from "react-select";
 // import TableRow from "../components/TableRow";
 
+
 export default function Create() {
+    useEffect(() => {
+      auth.onAuthStateChanged(async (authUser) => {
+        if (!authUser) {
+          window.location.assign("/");
+        }
+      }, []);
+    });
+    
     // implement onBlur functionality here, so if someone skips the * required bits, we let them know it's BAD
     const days = [
         "Monday",
@@ -175,11 +179,11 @@ export default function Create() {
         <div className="page-height">
             {returnPage(formPage)}
 
-            {/* <Link to={"/dashboard"}> */}
+            <Link to={"/dashboard"}>
             <Button variant="dark" type="submit" onClick={handleCreateBtn}>
                 Create Restaurant
             </Button>
-            {/* </Link> */}
+            </Link>
         </div>
     );
 }
