@@ -157,19 +157,19 @@ export default function Create() {
                         setAdditionalInfoData={setAdditionalInfoData}
                         setFormPage={setFormPage}
                     />
-                    {/* // needs to be rendered here IN PRODUCTION but leaving it
-                    below for ease of creating projects. //{" "}
+                 {" "}
+                 
                     <Link to={"/dashboard"}>
-                        //{" "}
+                        {" "}
                         <Button
                             variant="dark"
                             type="submit"
                             onClick={handleCreateBtn}
                         >
-                            // Create Restaurant //{" "}
+                            Create Restaurant{" "}
                         </Button>
-                        //{" "}
-                    </Link> */}
+                        {" "}
+                    </Link>
                 </>
             );
         }
@@ -178,12 +178,6 @@ export default function Create() {
     return (
         <div className="page-height">
             {returnPage(formPage)}
-
-            <Link to={"/dashboard"}>
-            <Button variant="dark" type="submit" onClick={handleCreateBtn}>
-                Create Restaurant
-            </Button>
-            </Link>
         </div>
     );
 }

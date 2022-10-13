@@ -43,14 +43,14 @@ function About() {
                     <Card.Body>{about}</Card.Body>
                 </Card>
                 <br></br>
-                <div style={{ width: "90% " }}>
+                {/* <div style={{ width: "90% " }}>
                     <Card.Title>Connect with us on Social Media!</Card.Title>
                     <div>
                         {" "}
                         <a href="#">Card Link</a> <br></br>
                         <a href="#">Card Link</a>
                     </div>
-                </div>
+                </div> */}
             </div>
         </>
     );
