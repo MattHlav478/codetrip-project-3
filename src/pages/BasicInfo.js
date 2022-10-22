@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import TableRow from "../components/TableRow";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
@@ -16,6 +16,13 @@ export default function BasicInfo({
     hours,
     setHours,
 }) {
+      useEffect(() => {
+        document.documentElement.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "instant", // Optional if you want to skip the scrolling animation
+        });
+      }, []);
     //STATES FOR SHOWING OR HIDING ALERT. DEFAULT IS FALSE.
     const [show, setShow] = useState(false);
     const [validHours, setValidHours] = useState(true);

@@ -7,6 +7,14 @@ import { db, auth } from "../services/firebaseConnection";
 // another level of security, make it so this is only viewed when a user is logged in--if user isn't logged in, then link to homepage, or custom page, whatever we want
 
 export default function Dashboard() {
+    useEffect(() => {
+      document.documentElement.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "instant", // Optional if you want to skip the scrolling animation
+      });
+    }, []);
+  
   const [projects, setProjects] = useState([]);
 
   function getUserProjects() {
