@@ -12,6 +12,8 @@ function UserMenuItems() {
 
   const [menu, setMenu] = useState([]);
 
+  const [color, setColor] = useState("")
+
   // if menu state exist, change css to not display nav bar
 
 
@@ -24,6 +26,7 @@ function UserMenuItems() {
     restData.menu.map((menuItem) => {
       menuData.push(menuItem);
     });
+    setColor(restData.color);
     setMenu(menuData);
   }
 
@@ -39,12 +42,16 @@ function UserMenuItems() {
     }
   }, []);
 
+  console.log(color);
+
   return (
     <>
       <UserNav />
       {menu.filter((itemType) => itemType.type == "Appetizer").length > 0 ? (
-        <Card className="font-link2" >
-          <Card.Header className="font-link2" >Appetizers</Card.Header>
+        <Card className="font-link2">
+          <Card.Header style={{ backgroundColor: `${color}`, color: "white" }}>
+            Appetizers
+          </Card.Header>
           {menu &&
             menu.map((menuItem, i) =>
               menuItem.type == "Appetizer" ? (
@@ -77,8 +84,10 @@ function UserMenuItems() {
       <br></br>
 
       {menu.filter((itemType) => itemType.type == "Salad").length > 0 ? (
-        <Card className="font-link2" >
-          <Card.Header>Salads</Card.Header>
+        <Card className="font-link2">
+          <Card.Header style={{ backgroundColor: `${color}`, color: "white" }}>
+            Salads
+          </Card.Header>
           {menu &&
             menu.map((menuItem, i) =>
               menuItem.type == "Salad" ? (
@@ -110,8 +119,10 @@ function UserMenuItems() {
       <br></br>
 
       {menu.filter((itemType) => itemType.type == "Main").length > 0 ? (
-        <Card className="font-link2" >
-          <Card.Header>Main Dishes</Card.Header>
+        <Card className="font-link2">
+          <Card.Header style={{ backgroundColor: `${color}`, color: "white" }}>
+            Main Dishes
+          </Card.Header>
           {menu &&
             menu.map((menuItem, i) =>
               menuItem.type == "Main" ? (
@@ -143,8 +154,10 @@ function UserMenuItems() {
       <br></br>
 
       {menu.filter((itemType) => itemType.type == "A La Carte").length > 0 ? (
-        <Card className="font-link2" >
-          <Card.Header>A La Carte</Card.Header>
+        <Card className="font-link2">
+          <Card.Header style={{ backgroundColor: `${color}`, color: "white" }}>
+            A La Carte
+          </Card.Header>
           {menu &&
             menu.map((menuItem, i) =>
               menuItem.type == "A La Carte" ? (
@@ -176,8 +189,10 @@ function UserMenuItems() {
       <br></br>
 
       {menu.filter((itemType) => itemType.type == "Dessert").length > 0 ? (
-        <Card className="font-link2" >
-          <Card.Header>Desserts</Card.Header>
+        <Card className="font-link2">
+          <Card.Header style={{ backgroundColor: `${color}`, color: "white" }}>
+            Desserts
+          </Card.Header>
           {menu &&
             menu.map((menuItem, i) =>
               menuItem.type == "Dessert" ? (
@@ -209,8 +224,10 @@ function UserMenuItems() {
       <br></br>
 
       {menu.filter((itemType) => itemType.type == "Drinks").length > 0 ? (
-        <Card className="font-link2" >
-          <Card.Header>Drinks</Card.Header>
+        <Card className="font-link2">
+          <Card.Header style={{ backgroundColor: `${color}`, color: "white" }}>
+            Drinks
+          </Card.Header>
           {menu &&
             menu.map((menuItem, i) =>
               menuItem.type == "Drinks" ? (
