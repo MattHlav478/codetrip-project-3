@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Form from "react-bootstrap/Form";
 import Select from "react-select";
 import Button from "react-bootstrap/Button";
@@ -9,6 +9,14 @@ export default function AdditionalInfo({
     setAdditionalInfoData,
     setFormPage,
 }) {
+      useEffect(() => {
+        document.documentElement.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "instant", // Optional if you want to skip the scrolling animation
+        });
+      }, []);
+    
     const handleChange = (event) => {
         const key = event.target.name;
         const value = event.target.value;

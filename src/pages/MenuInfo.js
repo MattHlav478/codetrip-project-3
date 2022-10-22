@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
@@ -15,6 +15,15 @@ export default function MenuInfo({
     setFile,
     setFormPage,
 }) {
+      useEffect(() => {
+        // "document.documentElement.scrollTo" is the magic for React Router Dom v6
+        document.documentElement.scrollTo({
+          top: 0,
+          left: 0,
+          behavior: "instant", // Optional if you want to skip the scrolling animation
+        });
+      }, []);
+    
     // WE ARE CREATING A NEW MENU ITEM
     function handleChange(e) {
         const key = e.target.name;
