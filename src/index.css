@@ -36,15 +36,6 @@ code {
   min-height: 100vh;
 }
 
-.footer {
-  display: flex;
-  margin-top: auto;
-  justify-content: center;
-  align-items: center;
-  height: 10vh;;
-  background-color: rgba(205, 193, 63, 0.445);
-}
-
 .no-decor {
   text-decoration: none;
   color: white;
@@ -115,4 +106,13 @@ code {
 .menu-item-image {
   max-height: 150px;
   /* height: 250px; */
+}
+
+.footer {
+  display: flex;
+  margin-top: auto;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;;
+  background-color: rgba(205, 193, 63, 0.445);
 }

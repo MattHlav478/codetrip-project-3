@@ -113,6 +113,7 @@ export default function BasicInfo({
                 </p>
                 <input
                     type="file"
+                    id="imageUrl"
                     accept="image/*"
                     name="imageUrl"
                     onChange={handleUploadImage}
