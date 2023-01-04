@@ -1,13 +1,118 @@
+@import "bootstrap/dist/css/bootstrap.min.css";
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+margin: 0;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.banner {
+  width: 100%
+}
+
+#navbar {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 1000000;
+  margin-bottom: 3vh;
+}
+
+.no-display {
+  display: hidden;
+}
+
+.page-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.no-decor {
+  text-decoration: none;
+  color: white;
+}
+
+.developer-cards {
+  max-width: 200px;
+  max-height: 200px;
+}
+
+.developer-container,
+.project-container {
+  justify-content: center;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  margin: 3vw;
+}
+
+.sizing {
+  max-width: 200px;
+}
+
+.divider {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.font-link {
+  font-family: 'Cantata One', serif;
+}
+
+.font-link2 {
+  font-family: 'Lustria', serif;
+}
+
+.link-style {
+  padding: 10px;
+
+}
+
+.nav-text {
+  color: #000000 !important;
+ text-decoration: none;
+ 
+}
+.text-background {
+ background-color: rgba(255, 255, 255, 0.314);
+ border-radius: 5px;
+}
+
+.centertext {
+  margin-left: 5%;
+  margin-right: 5%;
+}
+/* Restaurant Menu Items */
+.card-body-menu {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.menu-item-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-item-image {
+  max-height: 150px;
+  /* height: 250px; */
+}
+
+.footer {
+  display: flex;
+  margin-top: auto;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;;
+  background-color: rgba(205, 193, 63, 0.445);
 }
